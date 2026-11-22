@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<!--
+  Latinum · Latín 4º ESO
+  © 2026 Adela Moreno Vega y Carlos Moreno Otto. Todos los derechos reservados.
+  Prohibida la copia, modificación o distribución total o parcial sin autorización de los autores.
+  https://indalo-apps.github.io/latin/
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="app-version" content="1.0">
+<meta name="theme-color" content="#6e1f1b">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Latinum">
+<title>Latinum · Latín 4º ESO</title>
+<meta name="author" content="Adela Moreno Vega y Carlos Moreno Otto">
+<meta name="description" content="App para aprender, repasar y jugar con el latín de 4º ESO. Autores: Adela Moreno Vega y Carlos Moreno Otto.">
+<meta name="copyright" content="© 2026 Adela Moreno Vega y Carlos Moreno Otto. Todos los derechos reservados.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Latinum · Latín 4º ESO">
+<meta property="og:title" content="Latinum · Latín 4º ESO">
+<meta property="og:description" content="Aprende, repasa y juega con el latín: declinaciones, verbos, vocabulario, traducción, etimología, latinismos y cultura romana. Gratis y sin registrarse.">
+<meta property="og:url" content="https://indalo-apps.github.io/latin/">
+<meta property="og:image" content="https://indalo-apps.github.io/latin/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Latinum: icono de la app con una columna romana y el lema SPQR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --ink:#2a1f1a; --ink2:#6b5a4e; --paper:#f8f2e7; --card:#fffdf8; --line:#e7dccb; --soft:#f2e9da; --th:#f1e6d3; --key:#f6ecd9;
+  --head:#6e1f1b; --btn:#6e1f1b; --btn-ink:#fff;
+  --acc:#b5482b; --gold:#a8790a; --ok:#2f8a5f; --bad:#c23b32;
+  --acc-l:#f9e3da; --gold-l:#f8ecc9; --ok-l:#dcf1e5; --bad-l:#fbe1df;
+  --lv0:#e6ddcf; --lv1:#f3c0b8; --lv2:#f5dc8a; --lv3:#94d6b0;
+  --r:16px; color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --ink:#efe6da; --ink2:#b9a99a; --paper:#16110e; --card:#211a16; --line:#3a2e27; --soft:#2a211c; --th:#30251f; --key:#2c231b;
+  --head:#3a0f0d; --btn:#efe6da; --btn-ink:#1b1410;
+  --acc:#e0714f; --gold:#e0b44a; --ok:#4cbf88; --bad:#ef6b62;
+  --acc-l:#46251b; --gold-l:#3e3215; --ok-l:#173a29; --bad-l:#4a2220;
+  --lv0:#3a2e27; --lv1:#6b2c28; --lv2:#6b5714; --lv3:#1f6a40;
+  color-scheme:dark;
+}
+html[data-fs="s"]{font-size:15px} html,html[data-fs="m"]{font-size:17px} html[data-fs="l"]{font-size:19px} html[data-fs="xl"]{font-size:21px}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:var(--paper);overscroll-behavior-y:none;-webkit-text-size-adjust:100%}
+body{font-family:Nunito,system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:1rem;line-height:1.55;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
+h2{font-size:1.7rem} h3{font-size:1.2rem} h4{font-size:1.02rem}
+p{margin:.4em 0 .9em}
+button,select{font:inherit;cursor:pointer;touch-action:manipulation;color:inherit}
+.muted{color:var(--ink2)}
+[hidden]{display:none!important}
+.la{font-style:italic}
+.des{color:var(--acc);font-weight:800}
+
+/* cabecera */
+header{position:sticky;top:0;z-index:10;background:var(--head);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:calc(env(safe-area-inset-top,0px) + 10px) max(18px,env(safe-area-inset-right,0px)) 10px max(18px,env(safe-area-inset-left,0px));flex-wrap:wrap;
+  background-image:linear-gradient(90deg,rgb(255 255 255 / .05) 1px,transparent 1px);background-size:6px 100%}
+.brand{font-family:Cinzel,Fraunces,serif;font-weight:800;font-size:1.35rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.04em}
+.brand svg{width:30px;height:30px}
+.brand small{font-family:Nunito;font-weight:700;font-size:.72rem;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:99px;letter-spacing:0}
+nav.main{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;order:1}
+.brand{order:0}
+nav.main a{color:#fff;text-decoration:none;font-weight:700;padding:8px 14px;border-radius:99px;opacity:.8;display:flex;align-items:center;gap:6px}
+nav.main a:hover{opacity:1;background:rgba(255,255,255,.1)}
+nav.main a.on{opacity:1;background:#fff;color:#6e1f1b}
+nav.main a .i{font-size:1.05em}
+.gear{order:2;background:none;border:0;color:#fff;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;opacity:.85;flex:none}
+.gear:hover{opacity:1;background:rgba(255,255,255,.1)}
+.gear svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+main{max-width:1060px;margin:0 auto;padding:24px max(18px,env(safe-area-inset-right,0px)) 40px max(18px,env(safe-area-inset-left,0px))}
+.view{display:none} .view.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 2px 0 var(--line)}
+
+/* inicio */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;align-items:center;margin:10px 0 26px}
+.hero h1{font-family:Cinzel,Fraunces,serif;font-size:2.5rem;letter-spacing:.02em}
+.hero p{font-size:1.1rem;color:var(--ink2)}
+.rank{display:flex;flex-direction:column;gap:10px}
+.rank .top{display:flex;align-items:center;gap:12px}
+.rank .ico{font-size:2.2rem;line-height:1}
+.rank b.name{font-family:Fraunces,serif;font-size:1.35rem;display:block}
+.xpbar{height:12px;background:var(--soft);border-radius:99px;overflow:hidden}
+.xpbar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--acc));border-radius:99px}
+.dia{border-left:5px solid var(--gold);background:var(--gold-l);border-radius:12px;padding:10px 14px}
+.dia .eyebrow{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2)}
+.dia b{font-family:Fraunces,serif;font-size:1.25rem;font-style:italic}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mode{display:block;text-decoration:none;color:inherit;transition:transform .15s}
+.mode:hover{transform:translateY(-3px)}
+.mode .ico{font-size:2rem}
+.mode h3{margin:.3em 0}
+.mode p{color:var(--ink2);margin:0}
+.quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.install-banner{display:flex;align-items:center;gap:10px;background:#ffe066;color:#2b2100;border:1.5px solid #e6bf2e;border-radius:14px;padding:10px 6px 10px 12px;margin-bottom:18px;box-shadow:0 6px 18px -10px rgb(0 0 0 / .4)}
+:root[data-theme="dark"] .install-banner{background:#5a4706;color:#fff3c4;border-color:#8a6e12}
+.install-banner img{flex:none;width:38px;height:38px;border-radius:9px}
+.install-banner div{flex:1;min-width:0;font-size:.9rem;line-height:1.3}
+.install-banner b{display:block;font-size:.98rem}
+.install-banner .btn{background:#2b2100;color:#ffe066;padding:10px 14px;font-size:.9rem}
+:root[data-theme="dark"] .install-banner .btn{background:#ffe066;color:#2b2100}
+.x{flex:none;width:44px;height:44px;border:0;background:none;color:inherit;font-size:1.3rem;opacity:.7}
+
+/* aprender */
+.learn{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start}
+.learn>*{min-width:0}
+.subnav{position:sticky;top:80px;display:flex;flex-direction:column;gap:3px}
+.subnav button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:10px;font-weight:700;color:var(--ink2)}
+.subnav button:hover{background:var(--card)}
+.subnav button.on{background:var(--btn);color:var(--btn-ink)}
+.subnav button span{opacity:.6;margin-right:6px}
+.subnav button.seen::after{content:" ✓";color:var(--ok);font-weight:800}
+.subnav button.on.seen::after{color:inherit}
+.box{border-radius:12px;padding:12px 16px;margin:12px 0}
+.box.key{background:var(--key);border-left:5px solid var(--head)}
+.box.tip{background:var(--gold-l);border-left:5px solid var(--gold)}
+.box.warn{background:var(--acc-l);border-left:5px solid var(--acc)}
+.box ul,.card ul{margin:.3em 0;padding-left:1.2em}
+.lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{background:var(--btn);color:var(--btn-ink);border:0;border-radius:99px;padding:11px 20px;font-weight:800;min-height:44px}
+.btn:hover{filter:brightness(1.12)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn.acc{background:var(--acc);color:#fff}
+.btn.block{width:100%}
+.btn:disabled{opacity:.35;cursor:default}
+.tablewrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:center}
+th{background:var(--th);font-family:Fraunces,serif;font-weight:600}
+td.l,th.l{text-align:left}
+table.par td{font-size:1.06rem}
+table.par td.mk{background:var(--gold-l);outline:2px solid var(--gold);outline-offset:-2px;font-weight:800}
+.pick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.pick label{font-weight:700}
+.pick select{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:7px 10px;font-weight:700;min-height:42px;max-width:100%}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin:10px 0}
+.vt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.vt h4{margin:0 0 6px;font-size:.95rem}
+.vt ol{list-style:none;margin:0;padding:0}
+.vt li{display:flex;gap:8px;padding:2px 0;font-weight:700}
+.vt li span{flex:none;width:46px;color:var(--ink2);font-weight:600;font-size:.85rem}
+.vt li.mk{background:var(--gold-l);border-radius:6px;outline:2px solid var(--gold)}
+.timeline{list-style:none;margin:10px 0;padding:0 0 0 18px;border-left:3px solid var(--gold)}
+.timeline li{position:relative;margin:0 0 12px;padding-left:6px}
+.timeline li::before{content:"";position:absolute;left:-27px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:3px solid var(--paper)}
+.timeline b{font-family:Fraunces,serif;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--card);border:2px solid var(--line);border-radius:99px;padding:7px 13px;font-weight:700;font-size:.92rem;color:var(--ink);min-height:40px}
+.chip:hover{border-color:var(--ink2)}
+.chip.on,.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+
+/* practicar: test (como la tabla periódica) */
+.toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stats{display:flex;gap:8px;align-items:stretch}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 14px;text-align:center;min-width:76px}
+.stat b{display:block;font-size:1.3rem;font-family:Fraunces,serif}
+.stat small{color:var(--ink2);font-weight:700}
+button.stat{font:inherit;color:var(--ink)}
+.quiz{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.qgroup{margin:10px 0}
+.ctl-l{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);font-weight:800;margin-bottom:2px}
+.counter{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;color:var(--ink2);font-size:.92rem}
+.exitbtn{background:none;border:0;color:var(--ink2);font-weight:800;padding:6px 0;min-height:40px}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .25s}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.qtype{display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);background:var(--soft);padding:3px 10px;border-radius:99px}
+.lat-big{font-family:Fraunces,serif;font-size:1.9rem;font-weight:800;font-style:italic;line-height:1.2}
+.lat-mid{font-family:Fraunces,serif;font-size:1.35rem;font-weight:600;font-style:italic;line-height:1.3}
+.qprompt{font-size:1.12rem;font-weight:700}
+.opts{display:grid;grid-template-columns:1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-size:1.06rem;font-weight:700;color:var(--ink);min-height:56px}
+.opt .k{flex:none;width:30px;height:30px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:.85rem;font-weight:800;color:var(--ink2)}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.ok{background:var(--ok-l);border-color:var(--ok)} .opt.ok .k{background:var(--ok);color:#fff}
+.opt.ko{background:var(--bad-l);border-color:var(--bad)} .opt.ko .k{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default;color:var(--ink)}
+.quiz.answered .opt:not(.ok):not(.ko){opacity:.55}
+.feedback{border-radius:14px;padding:12px 16px;line-height:1.5}
+.feedback strong{display:block;font-size:1.08rem;margin-bottom:2px}
+.feedback.ok{background:var(--ok-l);border-left:5px solid var(--ok)}
+.feedback.ko{background:var(--bad-l);border-left:5px solid var(--bad)}
+.feedback table{margin-top:8px;font-size:.92rem}
+.next-bar{display:flex;gap:10px;position:sticky;bottom:0;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--paper) 30%)}
+.score{font-family:Fraunces,serif;font-size:3.2rem;font-weight:800;line-height:1.1}
+.miss{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.miss span{background:var(--bad-l);border-radius:99px;padding:4px 12px;font-weight:700;font-style:italic}
+
+/* tarjetas */
+.card3d{perspective:1200px;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.card3d .inner{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
+.card3d.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;text-align:center;overflow:hidden}
+.face .stripe{position:absolute;top:0;left:0;right:0;height:8px;background:repeating-linear-gradient(90deg,var(--acc) 0 18px,var(--gold) 18px 36px)}
+.face.back{transform:rotateY(180deg)}
+.face .hint{position:absolute;bottom:12px;font-size:.8rem;color:var(--ink2)}
+.flash-actions{display:flex;gap:10px}
+.flash-actions .btn{flex:1}
+.btn.no{background:var(--bad);color:#fff} .btn.yes{background:var(--ok);color:#fff}
+.lvstack{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--lv0)}
+.lvstack i{display:block;height:100%}
+.lvleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.82rem;color:var(--ink2);margin-top:6px}
+.lvleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+
+/* juegos */
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.game-card h3{margin-top:6px}
+.rec{font-weight:800;color:var(--ink2);font-size:.95rem}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hud .stat b{font-size:1.5rem}
+.timebar{height:10px;background:var(--soft);border-radius:99px;overflow:hidden}
+.timebar>div{height:100%;background:var(--acc);transition:width .1s linear}
+.flash{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);font-family:Fraunces,serif;font-size:3rem;font-weight:800;pointer-events:none;opacity:0;transition:opacity .2s, transform .5s;z-index:30}
+.flash.show{opacity:1;transform:translate(-50%,-90%)}
+.end{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.memo{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mcard{aspect-ratio:1/1;border:0;border-radius:12px;background:var(--head);color:#fff;font-weight:800;font-size:.95rem;padding:6px;display:grid;place-items:center;line-height:1.2;text-align:center;
+  background-image:radial-gradient(circle at 50% 50%,rgb(255 255 255 / .12) 0 22%,transparent 23%);transition:transform .2s}
+.mcard.open{background:var(--card);color:var(--ink);border:2px solid var(--gold);background-image:none}
+.mcard.open.la{font-family:Fraunces,serif;font-style:italic}
+.mcard.done{background:var(--ok-l);color:var(--ink);border:2px solid var(--ok);background-image:none}
+.mcard.done.la{font-family:Fraunces,serif;font-style:italic}
+.mcard.small{font-size:.78rem}
+.lives{font-size:1.5rem;letter-spacing:2px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),105vh) rotate(720deg)}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* pie, aviso y autoría */
+footer{text-align:center;color:var(--ink2);font-size:.82rem;padding:10px max(18px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px));max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+footer p{margin:0} footer b{color:var(--ink)}
+.disclaimer{background:#fff4d1;color:#4a3800;border:1px solid #f0d27a;border-radius:12px;padding:10px 12px;font-size:.85rem;line-height:1.45}
+:root[data-theme="dark"] .disclaimer{background:#3d3208;color:#fff0bf;border-color:#6b5713}
+.ver{background:none;border:0;color:var(--ink2);font-size:.8rem;text-decoration:underline;text-underline-offset:2px;padding:8px}
+
+/* hojas (ajustes, novedades, instalar, progreso, tablas) */
+.sheet-bg{position:fixed;inset:0;background:rgb(15 8 5 / .5);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);color:var(--ink);width:100%;max-width:560px;max-height:88%;overflow-y:auto;border-radius:20px 20px 0 0;
+  padding:10px max(18px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out;outline:none}
+.sheet.drag{transition:none}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sheet-nav{display:flex;gap:8px;margin-top:16px}
+.sheet-nav .btn{flex:1}
+.set-group{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.set-group h3{margin:0;font-size:1rem}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:8px 10px;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--ink2);min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .15)}
+.about{display:flex;align-items:center;gap:12px}.about img{border-radius:11px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nov h4{font-family:Fraunces,serif;margin:14px 0 4px}
+.nov ul{margin:0;padding-left:20px} .nov li{margin:3px 0}
+.steps{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:st}
+.steps li{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:12px;padding:10px 12px;counter-increment:st}
+.steps li::before{content:counter(st);flex:none;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.steps svg{width:20px;height:20px;vertical-align:-4px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kbd{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:6px;padding:0 6px;font-weight:700}
+.hintbox{background:var(--gold-l);border-radius:12px;padding:10px 12px;font-size:.9rem}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bad-l);border-radius:12px;padding:10px 12px;margin-top:10px}
+.progrow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;margin:10px 0}
+.progrow .bar{grid-column:1/-1;height:10px}
+.progrow .bar>i{background:var(--ok)}
+#barra-act{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:60;background:var(--acc);color:#fff;font-weight:800;font-size:.9rem;padding:9px 16px;border-radius:999px;box-shadow:0 6px 20px -8px rgb(0 0 0 / .5)}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .modes,.games{grid-template-columns:1fr}
+  .learn{grid-template-columns:1fr}
+  .subnav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px;margin-inline:-4px;scrollbar-width:none}
+  .subnav button{white-space:nowrap;flex:none}
+  .hero h1{font-size:2rem}
+  header{gap:4px 8px;padding-bottom:6px}
+  .gear{margin-left:auto}
+  nav.main{order:3;width:100%;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+  nav.main a{flex-direction:column;gap:0;padding:6px 2px;border-radius:12px;font-size:.78rem;justify-content:center}
+  nav.main a .i{font-size:1.3rem;line-height:1.2}
+  main{padding-top:16px}
+  .card,.qcard{padding:16px}
+  h2{font-size:1.45rem}
+  .lat-big{font-size:1.6rem}
+  .stats .stat{min-width:64px;padding:6px 10px}
+}
+@media (max-width:420px){ .install-banner div span{display:none} .install-banner .btn{padding:8px 12px} .opt{font-size:1rem;padding:8px 10px} .memo{gap:6px} .mcard{font-size:.82rem} .mcard.small{font-size:.68rem} }
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="#inicio">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="7" width="26" height="4" rx="1" fill="#e8c35a"/><rect x="9" y="11" width="22" height="2" fill="#e8c35a"/><rect x="11" y="13" width="4" height="18" fill="#fff"/><rect x="18" y="13" width="4" height="18" fill="#fff"/><rect x="25" y="13" width="4" height="18" fill="#fff"/><rect x="8" y="31" width="24" height="3" fill="#e8c35a"/><rect x="6" y="34" width="28" height="2.5" rx="1" fill="#e8c35a"/></svg>
+    Latinum <small>4º ESO</small>
+  </a>
+  <button class="gear" id="gear" aria-label="Ajustes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+  <nav class="main">
+    <a href="#inicio" data-v="inicio"><span class="i">🏛️</span>Inicio</a>
+    <a href="#aprender" data-v="aprender"><span class="i">📜</span>Aprender</a>
+    <a href="#practicar" data-v="practicar"><span class="i">✏️</span>Practicar</a>
+    <a href="#jugar" data-v="jugar"><span class="i">🎮</span>Jugar</a>
+  </nav>
+</header>
+
+<main>
+<section class="view" id="v-inicio">
+  <div id="install-slot"></div>
+  <div class="hero">
+    <div>
+      <h1>Salve! 👋</h1>
+      <p>Aprende, repasa y juega con el latín de 4º de la ESO: declinaciones, verbos, vocabulario, traducción, etimología, latinismos y cultura romana.</p>
+      <div class="dia" id="dia"></div>
+    </div>
+    <div class="card rank" id="rank"></div>
+  </div>
+  <div class="modes">
+    <a class="card mode" href="#aprender"><div class="ico">📜</div><h3>Aprender</h3><p>13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos y cultura.</p></a>
+    <a class="card mode" href="#practicar"><div class="ico">✏️</div><h3>Practicar</h3><p>Test de 13 tipos y tarjetas de vocabulario. Lo que fallas vuelve a salir más a menudo.</p></a>
+    <a class="card mode" href="#jugar"><div class="ico">🎮</div><h3>Jugar</h3><p>Contrarreloj, Supervivencia con 3 vidas y Parejas. ¡Bate tus récords!</p></a>
+  </div>
+  <div class="quick" id="quick"></div>
+</section>
+
+<section class="view" id="v-aprender">
+  <div class="learn">
+    <nav class="subnav" id="subnav" aria-label="Lecciones"></nav>
+    <article class="card" id="lesson"></article>
+  </div>
+</section>
+
+<section class="view" id="v-practicar">
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Modo de práctica" style="min-width:240px"><button data-pmode="test">📝 Test</button><button data-pmode="cards">🃏 Tarjetas</button></div>
+    <div class="stats"><div class="stat"><b id="st-ok">0</b><small>aciertos</small></div><div class="stat"><b id="st-streak">0</b><small>racha</small></div><button class="stat" id="b-prog"><b>📊</b><small>progreso</small></button></div>
+  </div>
+  <div id="prac"></div>
+</section>
+
+<section class="view" id="v-jugar">
+  <div id="game"></div>
+</section>
+</main>
+
+<footer id="foot"></footer>
+<div id="sheet" hidden></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<div id="barra-act" hidden>🔄 Actualizando a la versión nueva…</div>
+
+<script>
+/* ===== MOTOR DE MORFOLOGÍA LATINA ===== */
+const CASOS = ['nom','voc','ac','gen','dat','abl'];
+const CASO_NOMBRE = {nom:'Nominativo',voc:'Vocativo',ac:'Acusativo',gen:'Genitivo',dat:'Dativo',abl:'Ablativo'};
+const CASO_ABR = {nom:'nom.',voc:'voc.',ac:'ac.',gen:'gen.',dat:'dat.',abl:'abl.'};
+const NUM_NOMBRE = {sg:'singular', pl:'plural'};
+const GEN_NOMBRE = {m:'masculino', f:'femenino', n:'neutro'};
+
+function cut(s, end){ if(!s.endsWith(end)) throw new Error('cut '+s+' '+end); return s.slice(0, s.length-end.length); }
+
+/* --- Sustantivos --- */
+function nounStem(n){
+  switch(n.d){
+    case 1: return cut(n.gen,'ae');
+    case 2: return cut(n.gen,'i');
+    case 3: return cut(n.gen,'is');
+    case 4: return cut(n.gen,'us');
+    case 5: return cut(n.gen,'ei');
+  }
+}
+function declineNoun(n){
+  const s = nounStem(n), N = n.la, neu = n.g==='n', I = !!n.i;
+  let sg, pl;
+  if(n.d===1){ sg=[N,N,s+'am',s+'ae',s+'ae',s+'a']; pl=[s+'ae',s+'ae',s+'as',s+'arum',s+'is',s+'is']; }
+  else if(n.d===2){
+    if(neu){ sg=[N,N,N,s+'i',s+'o',s+'o']; pl=[s+'a',s+'a',s+'a',s+'orum',s+'is',s+'is']; }
+    else { const voc = N.endsWith('us') ? cut(N,'us')+'e' : N;
+      sg=[N,voc,s+'um',s+'i',s+'o',s+'o']; pl=[s+'i',s+'i',s+'os',s+'orum',s+'is',s+'is']; }
+  }
+  else if(n.d===3){
+    if(neu){ sg=[N,N,N,s+'is',s+'i',s+(I?'i':'e')]; const a=I?'ia':'a'; pl=[s+a,s+a,s+a,s+(I?'ium':'um'),s+'ibus',s+'ibus']; }
+    else { sg=[N,N,s+'em',s+'is',s+'i',s+'e']; pl=[s+'es',s+'es',s+'es',s+(I?'ium':'um'),s+'ibus',s+'ibus']; }
+  }
+  else if(n.d===4){
+    if(neu){ sg=[N,N,N,s+'us',s+'u',s+'u']; pl=[s+'ua',s+'ua',s+'ua',s+'uum',s+'ibus',s+'ibus']; }
+    else { sg=[N,N,s+'um',s+'us',s+'ui',s+'u']; pl=[s+'us',s+'us',s+'us',s+'uum',s+'ibus',s+'ibus']; }
+  }
+  else { sg=[N,N,s+'em',s+'ei',s+'ei',s+'e']; pl=[s+'es',s+'es',s+'es',s+'erum',s+'ebus',s+'ebus']; }
+  const r={sg:{},pl:{}}; CASOS.forEach((c,i)=>{r.sg[c]=sg[i]; r.pl[c]=pl[i];}); return r;
+}
+function nounAnalyses(n, form){
+  const t=declineNoun(n), out=[];
+  ['sg','pl'].forEach(nu=>CASOS.forEach(c=>{ if(t[nu][c]===form) out.push(c+'|'+nu); }));
+  return out;
+}
+function enunciadoNoun(n){ return `${n.la}, ${n.gen}`; }
+
+/* --- Adjetivos --- */
+function declineAdj(a){
+  // devuelve {m:{sg,pl}, f:{sg,pl}, n:{sg,pl}}
+  if(a.cl===1){
+    const s=cut(a.f,'a');
+    const m = declineNoun({d:2,la:a.m,gen:s+'i',g:'m'});
+    const f = declineNoun({d:1,la:a.f,gen:s+'ae',g:'f'});
+    const n = declineNoun({d:2,la:a.n,gen:s+'i',g:'n'});
+    return {m,f,n};
+  }
+  const s=cut(a.gen,'is');
+  const mk=(N,neu)=>{ const sg=neu?[N,N,N,s+'is',s+'i',s+'i']:[N,N,s+'em',s+'is',s+'i',s+'i'];
+    const pl=neu?[s+'ia',s+'ia',s+'ia',s+'ium',s+'ibus',s+'ibus']:[s+'es',s+'es',s+'es',s+'ium',s+'ibus',s+'ibus'];
+    const r={sg:{},pl:{}}; CASOS.forEach((c,i)=>{r.sg[c]=sg[i]; r.pl[c]=pl[i];}); return r; };
+  return {m:mk(a.m,false), f:mk(a.f,false), n:mk(a.n,true)};
+}
+function enunciadoAdj(a){
+  if(a.cl===1) return `${a.m}, ${a.f}, ${a.n}`;
+  if(a.m===a.n) return `${a.m}, ${a.gen}`;            // felix, felicis
+  if(a.m===a.f) return `${a.m}, ${a.n}`;               // fortis, forte
+  return `${a.m}, ${a.f}, ${a.n}`;                     // acer, acris, acre
+}
+
+/* --- Verbos --- */
+const PERS = ['1ª sg.','2ª sg.','3ª sg.','1ª pl.','2ª pl.','3ª pl.'];
+const TIEMPOS = {
+  pres:'Presente', impf:'Pretérito imperfecto', fut:'Futuro imperfecto',
+  perf:'Pretérito perfecto', plq:'Pretérito pluscuamperfecto', futp:'Futuro perfecto'
+};
+const VOZ = {act:'activa', pas:'pasiva'};
+const SUM = {
+  pres:['sum','es','est','sumus','estis','sunt'],
+  impf:['eram','eras','erat','eramus','eratis','erant'],
+  fut:['ero','eris','erit','erimus','eritis','erunt']
+};
+function conjName(c){ return {1:'1ª',2:'2ª',3:'3ª','3m':'3ª (mixta)',4:'4ª',irr:'irregular'}[c]; }
+
+function conjugate(v){
+  // devuelve {act:{pres:[6],...}, pas:{...} | null}
+  const r={act:{},pas:null};
+  const perfStem = cut(v.pp[2],'i');
+  const perfEnd = {
+    perf:['i','isti','it','imus','istis','erunt'],
+    plq:['eram','eras','erat','eramus','eratis','erant'],
+    futp:['ero','eris','erit','erimus','eritis','erint']
+  };
+  for(const t in perfEnd) r.act[t]=perfEnd[t].map(e=>perfStem+e);
+  if(v.c==='irr'){
+    if(v.pp[0]==='sum'){ r.act.pres=SUM.pres.slice(); r.act.impf=SUM.impf.slice(); r.act.fut=SUM.fut.slice(); }
+    else { // possum
+      r.act.pres=['possum','potes','potest','possumus','potestis','possunt'];
+      r.act.impf=SUM.impf.map(x=>'pot'+x); r.act.fut=SUM.fut.map(x=>'pot'+x);
+    }
+    return r;
+  }
+  const inf=v.pp[1], c=v.c;
+  let st, impfB, A=[], futA, P=[], futP, impfP;
+  const bam=['bam','bas','bat','bamus','batis','bant'], bar=['bar','baris','batur','bamur','bamini','bantur'];
+  if(c===1||c===2){
+    st=cut(inf,'re'); // ama / mone
+    A=[ (c===1?st.slice(0,-1):st)+'o', st+'s', st+'t', st+'mus', st+'tis', st+'nt'];
+    impfB=st;
+    futA=['bo','bis','bit','bimus','bitis','bunt'].map(e=>st+e);
+    P=[ (c===1?st.slice(0,-1):st)+'or', st+'ris', st+'tur', st+'mur', st+'mini', st+'ntur'];
+    futP=['bor','beris','bitur','bimur','bimini','buntur'].map(e=>st+e);
+  } else if(c===3){
+    st=cut(inf,'ere');
+    A=['o','is','it','imus','itis','unt'].map(e=>st+e);
+    impfB=st+'e';
+    futA=['am','es','et','emus','etis','ent'].map(e=>st+e);
+    P=['or','eris','itur','imur','imini','untur'].map(e=>st+e);
+    futP=['ar','eris','etur','emur','emini','entur'].map(e=>st+e);
+  } else { // '3m' y 4
+    st=cut(v.pp[0],'o'); // capi / audi
+    A=[st+'o',st+'s',st+'t',st+'mus',st+'tis',st+'unt'];
+    impfB=st+'e';
+    futA=['am','es','et','emus','etis','ent'].map(e=>st+e);
+    P=[st+'or', (c==='3m'? st.slice(0,-1)+'eris' : st+'ris'), st+'tur', st+'mur', st+'mini', st+'untur'];
+    futP=['ar','eris','etur','emur','emini','entur'].map(e=>st+e);
+  }
+  r.act.pres=A; r.act.impf=bam.map(e=>impfB+e); r.act.fut=futA;
+  if(!v.noPas){
+    r.pas={pres:P, impf:bar.map(e=>impfB+e), fut:futP};
+    if(v.pp[3]){
+      const part=cut(v.pp[3],'um');
+      const sg=part+'us', pl=part+'i';
+      r.pas.perf = ['sum','es','est','sumus','estis','sunt'].map((x,i)=>(i<3?sg:pl)+' '+x);
+      r.pas.plq  = SUM.impf.map((x,i)=>(i<3?sg:pl)+' '+x);
+      r.pas.futp = SUM.fut.map((x,i)=>(i<3?sg:pl)+' '+x);
+    }
+  }
+  return r;
+}
+function infinitives(v){
+  const perfStem=cut(v.pp[2],'i');
+  const o={presAct:v.pp[1], perfAct:perfStem+'isse'};
+  if(v.c!=='irr' && !v.noPas){
+    const inf=v.pp[1];
+    o.presPas = v.c===3||v.c==='3m' ? cut(inf,'ere')+'i' : cut(inf,'e')+'i';
+  }
+  return o;
+}
+function verbAnalyses(v, form){
+  const t=conjugate(v), out=[];
+  for(const voz of ['act','pas']){ if(!t[voz]) continue;
+    for(const tm in t[voz]) t[voz][tm].forEach((f,i)=>{ if(f===form) out.push(voz+'|'+tm+'|'+i); }); }
+  return out;
+}
+function enunciadoVerb(v){ return v.pp.filter(Boolean).join(', ') + (v.pp[3]===null && v.c!=='irr' ? ', —' : ''); }
+
+if(typeof module!=='undefined') module.exports={CASOS,declineNoun,nounAnalyses,declineAdj,conjugate,infinitives,verbAnalyses,enunciadoAdj,enunciadoVerb};
+
+/* ===== CONTENIDOS ===== */
+const NOUNS = [
+  // 1ª
+  {la:'rosa',gen:'rosae',g:'f',d:1,es:'rosa'},
+  {la:'puella',gen:'puellae',g:'f',d:1,es:'niña'},
+  {la:'agricola',gen:'agricolae',g:'m',d:1,es:'agricultor'},
+  {la:'nauta',gen:'nautae',g:'m',d:1,es:'marinero'},
+  {la:'poeta',gen:'poetae',g:'m',d:1,es:'poeta'},
+  {la:'aqua',gen:'aquae',g:'f',d:1,es:'agua'},
+  {la:'terra',gen:'terrae',g:'f',d:1,es:'tierra'},
+  {la:'silva',gen:'silvae',g:'f',d:1,es:'bosque'},
+  {la:'insula',gen:'insulae',g:'f',d:1,es:'isla'},
+  {la:'via',gen:'viae',g:'f',d:1,es:'camino, vía'},
+  {la:'vita',gen:'vitae',g:'f',d:1,es:'vida'},
+  {la:'patria',gen:'patriae',g:'f',d:1,es:'patria'},
+  {la:'pecunia',gen:'pecuniae',g:'f',d:1,es:'dinero'},
+  {la:'femina',gen:'feminae',g:'f',d:1,es:'mujer'},
+  {la:'stella',gen:'stellae',g:'f',d:1,es:'estrella'},
+  {la:'luna',gen:'lunae',g:'f',d:1,es:'luna'},
+  {la:'gloria',gen:'gloriae',g:'f',d:1,es:'gloria'},
+  {la:'victoria',gen:'victoriae',g:'f',d:1,es:'victoria'},
+  {la:'fabula',gen:'fabulae',g:'f',d:1,es:'cuento, fábula'},
+  {la:'villa',gen:'villae',g:'f',d:1,es:'casa de campo'},
+  // 2ª
+  {la:'dominus',gen:'domini',g:'m',d:2,es:'señor, amo'},
+  {la:'servus',gen:'servi',g:'m',d:2,es:'esclavo'},
+  {la:'amicus',gen:'amici',g:'m',d:2,es:'amigo'},
+  {la:'equus',gen:'equi',g:'m',d:2,es:'caballo'},
+  {la:'populus',gen:'populi',g:'m',d:2,es:'pueblo'},
+  {la:'murus',gen:'muri',g:'m',d:2,es:'muro'},
+  {la:'ludus',gen:'ludi',g:'m',d:2,es:'juego; escuela'},
+  {la:'oculus',gen:'oculi',g:'m',d:2,es:'ojo'},
+  {la:'animus',gen:'animi',g:'m',d:2,es:'ánimo, espíritu'},
+  {la:'discipulus',gen:'discipuli',g:'m',d:2,es:'alumno'},
+  {la:'puer',gen:'pueri',g:'m',d:2,es:'niño'},
+  {la:'ager',gen:'agri',g:'m',d:2,es:'campo'},
+  {la:'magister',gen:'magistri',g:'m',d:2,es:'maestro'},
+  {la:'liber',gen:'libri',g:'m',d:2,es:'libro'},
+  {la:'vir',gen:'viri',g:'m',d:2,es:'hombre, varón'},
+  {la:'templum',gen:'templi',g:'n',d:2,es:'templo'},
+  {la:'bellum',gen:'belli',g:'n',d:2,es:'guerra'},
+  {la:'donum',gen:'doni',g:'n',d:2,es:'regalo'},
+  {la:'oppidum',gen:'oppidi',g:'n',d:2,es:'ciudad fortificada'},
+  {la:'verbum',gen:'verbi',g:'n',d:2,es:'palabra'},
+  {la:'periculum',gen:'periculi',g:'n',d:2,es:'peligro'},
+  {la:'regnum',gen:'regni',g:'n',d:2,es:'reino'},
+  {la:'caelum',gen:'caeli',g:'n',d:2,es:'cielo'},
+  {la:'forum',gen:'fori',g:'n',d:2,es:'foro, plaza'},
+  // 3ª
+  {la:'rex',gen:'regis',g:'m',d:3,es:'rey'},
+  {la:'consul',gen:'consulis',g:'m',d:3,es:'cónsul'},
+  {la:'miles',gen:'militis',g:'m',d:3,es:'soldado'},
+  {la:'dux',gen:'ducis',g:'m',d:3,es:'jefe, general'},
+  {la:'lex',gen:'legis',g:'f',d:3,es:'ley'},
+  {la:'pax',gen:'pacis',g:'f',d:3,es:'paz'},
+  {la:'homo',gen:'hominis',g:'m',d:3,es:'ser humano'},
+  {la:'pater',gen:'patris',g:'m',d:3,es:'padre'},
+  {la:'mater',gen:'matris',g:'f',d:3,es:'madre'},
+  {la:'frater',gen:'fratris',g:'m',d:3,es:'hermano'},
+  {la:'soror',gen:'sororis',g:'f',d:3,es:'hermana'},
+  {la:'virtus',gen:'virtutis',g:'f',d:3,es:'valor, virtud'},
+  {la:'labor',gen:'laboris',g:'m',d:3,es:'trabajo'},
+  {la:'amor',gen:'amoris',g:'m',d:3,es:'amor'},
+  {la:'mulier',gen:'mulieris',g:'f',d:3,es:'mujer'},
+  {la:'iudex',gen:'iudicis',g:'m',d:3,es:'juez'},
+  {la:'urbs',gen:'urbis',g:'f',d:3,i:1,es:'ciudad'},
+  {la:'mons',gen:'montis',g:'m',d:3,i:1,es:'monte'},
+  {la:'nox',gen:'noctis',g:'f',d:3,i:1,es:'noche'},
+  {la:'civis',gen:'civis',g:'m',d:3,i:1,es:'ciudadano'},
+  {la:'navis',gen:'navis',g:'f',d:3,i:1,es:'nave'},
+  {la:'hostis',gen:'hostis',g:'m',d:3,i:1,es:'enemigo'},
+  {la:'ars',gen:'artis',g:'f',d:3,i:1,es:'arte'},
+  {la:'corpus',gen:'corporis',g:'n',d:3,es:'cuerpo'},
+  {la:'nomen',gen:'nominis',g:'n',d:3,es:'nombre'},
+  {la:'flumen',gen:'fluminis',g:'n',d:3,es:'río'},
+  {la:'tempus',gen:'temporis',g:'n',d:3,es:'tiempo'},
+  {la:'iter',gen:'itineris',g:'n',d:3,es:'camino, viaje'},
+  {la:'caput',gen:'capitis',g:'n',d:3,es:'cabeza'},
+  {la:'opus',gen:'operis',g:'n',d:3,es:'obra'},
+  {la:'ius',gen:'iuris',g:'n',d:3,es:'derecho'},
+  {la:'mare',gen:'maris',g:'n',d:3,i:1,es:'mar'},
+  {la:'animal',gen:'animalis',g:'n',d:3,i:1,es:'animal'},
+  // 4ª
+  {la:'manus',gen:'manus',g:'f',d:4,es:'mano'},
+  {la:'exercitus',gen:'exercitus',g:'m',d:4,es:'ejército'},
+  {la:'senatus',gen:'senatus',g:'m',d:4,es:'senado'},
+  {la:'fructus',gen:'fructus',g:'m',d:4,es:'fruto'},
+  {la:'portus',gen:'portus',g:'m',d:4,es:'puerto'},
+  {la:'metus',gen:'metus',g:'m',d:4,es:'miedo'},
+  {la:'cornu',gen:'cornus',g:'n',d:4,es:'cuerno'},
+  // 5ª
+  {la:'res',gen:'rei',g:'f',d:5,es:'cosa, asunto'},
+  {la:'dies',gen:'diei',g:'m',d:5,es:'día'},
+  {la:'spes',gen:'spei',g:'f',d:5,es:'esperanza'},
+  {la:'fides',gen:'fidei',g:'f',d:5,es:'fe, lealtad'},
+  {la:'facies',gen:'faciei',g:'f',d:5,es:'cara, aspecto'}
+];
+// Sustantivos con plural habitual (para no preguntar plurales raros)
+const SOLO_SG = new Set(['spes','fides','pax','gloria','pecunia','senatus','metus','caelum','ius','vita','patria','luna','facies','aqua']);
+
+const ADJS = [
+  {m:'bonus',f:'bona',n:'bonum',cl:1,es:'bueno'},
+  {m:'malus',f:'mala',n:'malum',cl:1,es:'malo'},
+  {m:'magnus',f:'magna',n:'magnum',cl:1,es:'grande'},
+  {m:'parvus',f:'parva',n:'parvum',cl:1,es:'pequeño'},
+  {m:'multus',f:'multa',n:'multum',cl:1,es:'mucho'},
+  {m:'longus',f:'longa',n:'longum',cl:1,es:'largo'},
+  {m:'altus',f:'alta',n:'altum',cl:1,es:'alto, profundo'},
+  {m:'novus',f:'nova',n:'novum',cl:1,es:'nuevo'},
+  {m:'clarus',f:'clara',n:'clarum',cl:1,es:'famoso, claro'},
+  {m:'liber',f:'libera',n:'liberum',cl:1,es:'libre'},
+  {m:'pulcher',f:'pulchra',n:'pulchrum',cl:1,es:'hermoso'},
+  {m:'miser',f:'misera',n:'miserum',cl:1,es:'desgraciado'},
+  {m:'fortis',f:'fortis',n:'forte',gen:'fortis',cl:3,es:'fuerte, valiente'},
+  {m:'omnis',f:'omnis',n:'omne',gen:'omnis',cl:3,es:'todo'},
+  {m:'brevis',f:'brevis',n:'breve',gen:'brevis',cl:3,es:'breve'},
+  {m:'facilis',f:'facilis',n:'facile',gen:'facilis',cl:3,es:'fácil'},
+  {m:'tristis',f:'tristis',n:'triste',gen:'tristis',cl:3,es:'triste'},
+  {m:'felix',f:'felix',n:'felix',gen:'felicis',cl:3,es:'feliz'},
+  {m:'ingens',f:'ingens',n:'ingens',gen:'ingentis',cl:3,es:'enorme'},
+  {m:'acer',f:'acris',n:'acre',gen:'acris',cl:3,es:'agudo, fiero'}
+];
+
+const VERBS = [
+  {pp:['amo','amare','amavi','amatum'],c:1,es:'amar'},
+  {pp:['laudo','laudare','laudavi','laudatum'],c:1,es:'alabar'},
+  {pp:['voco','vocare','vocavi','vocatum'],c:1,es:'llamar'},
+  {pp:['porto','portare','portavi','portatum'],c:1,es:'llevar'},
+  {pp:['pugno','pugnare','pugnavi','pugnatum'],c:1,es:'luchar',noPas:1},
+  {pp:['habito','habitare','habitavi','habitatum'],c:1,es:'habitar'},
+  {pp:['navigo','navigare','navigavi','navigatum'],c:1,es:'navegar',noPas:1},
+  {pp:['laboro','laborare','laboravi','laboratum'],c:1,es:'trabajar',noPas:1},
+  {pp:['specto','spectare','spectavi','spectatum'],c:1,es:'mirar'},
+  {pp:['paro','parare','paravi','paratum'],c:1,es:'preparar'},
+  {pp:['servo','servare','servavi','servatum'],c:1,es:'salvar, guardar'},
+  {pp:['do','dare','dedi','datum'],c:1,es:'dar'},
+  {pp:['moneo','monere','monui','monitum'],c:2,es:'advertir'},
+  {pp:['habeo','habere','habui','habitum'],c:2,es:'tener'},
+  {pp:['video','videre','vidi','visum'],c:2,es:'ver'},
+  {pp:['timeo','timere','timui',null],c:2,es:'temer'},
+  {pp:['doceo','docere','docui','doctum'],c:2,es:'enseñar'},
+  {pp:['deleo','delere','delevi','deletum'],c:2,es:'destruir'},
+  {pp:['moveo','movere','movi','motum'],c:2,es:'mover'},
+  {pp:['iubeo','iubere','iussi','iussum'],c:2,es:'ordenar'},
+  {pp:['maneo','manere','mansi','mansum'],c:2,es:'permanecer',noPas:1},
+  {pp:['rego','regere','rexi','rectum'],c:3,es:'gobernar'},
+  {pp:['duco','ducere','duxi','ductum'],c:3,es:'conducir, guiar'},
+  {pp:['mitto','mittere','misi','missum'],c:3,es:'enviar'},
+  {pp:['scribo','scribere','scripsi','scriptum'],c:3,es:'escribir'},
+  {pp:['dico','dicere','dixi','dictum'],c:3,es:'decir'},
+  {pp:['vinco','vincere','vici','victum'],c:3,es:'vencer'},
+  {pp:['peto','petere','petivi','petitum'],c:3,es:'pedir; dirigirse a'},
+  {pp:['curro','currere','cucurri','cursum'],c:3,es:'correr',noPas:1},
+  {pp:['defendo','defendere','defendi','defensum'],c:3,es:'defender'},
+  {pp:['capio','capere','cepi','captum'],c:'3m',es:'coger, capturar'},
+  {pp:['facio','facere','feci','factum'],c:'3m',es:'hacer'},
+  {pp:['accipio','accipere','accepi','acceptum'],c:'3m',es:'recibir'},
+  {pp:['fugio','fugere','fugi',null],c:'3m',es:'huir',noPas:1},
+  {pp:['audio','audire','audivi','auditum'],c:4,es:'oír'},
+  {pp:['venio','venire','veni','ventum'],c:4,es:'venir, llegar',noPas:1},
+  {pp:['dormio','dormire','dormivi','dormitum'],c:4,es:'dormir',noPas:1},
+  {pp:['scio','scire','scivi','scitum'],c:4,es:'saber'},
+  {pp:['munio','munire','munivi','munitum'],c:4,es:'fortificar'},
+  {pp:['invenio','invenire','inveni','inventum'],c:4,es:'encontrar'},
+  {pp:['sum','esse','fui',null],c:'irr',es:'ser, estar',noPas:1},
+  {pp:['possum','posse','potui',null],c:'irr',es:'poder',noPas:1}
+];
+
+const INVAR = [
+  {la:'et',es:'y'},{la:'sed',es:'pero'},{la:'non',es:'no'},{la:'semper',es:'siempre'},
+  {la:'nunc',es:'ahora'},{la:'hodie',es:'hoy'},{la:'cras',es:'mañana'},{la:'saepe',es:'a menudo'},
+  {la:'quoque',es:'también'},{la:'itaque',es:'así pues'},{la:'nam',es:'pues, en efecto'},
+  {la:'ubi',es:'donde; cuando'},{la:'numquam',es:'nunca'},{la:'iam',es:'ya'},{la:'mox',es:'pronto'},{la:'tum',es:'entonces'}
+];
+
+const PREPS = [
+  {la:'ad',c:'ac',es:'a, hacia'},{la:'ante',c:'ac',es:'delante de, antes de'},{la:'post',c:'ac',es:'detrás de, después de'},
+  {la:'per',c:'ac',es:'a través de, por'},{la:'contra',c:'ac',es:'contra'},{la:'inter',c:'ac',es:'entre'},
+  {la:'trans',c:'ac',es:'al otro lado de'},{la:'propter',c:'ac',es:'a causa de'},{la:'circum',c:'ac',es:'alrededor de'},
+  {la:'apud',c:'ac',es:'junto a, en casa de'},
+  {la:'a / ab',c:'abl',es:'de, desde; por (agente)'},{la:'cum',c:'abl',es:'con'},{la:'de',c:'abl',es:'de, acerca de; desde'},
+  {la:'e / ex',c:'abl',es:'de, desde (el interior)'},{la:'sine',c:'abl',es:'sin'},{la:'pro',c:'abl',es:'en favor de, delante de'},
+  {la:'in',c:'ambos',es:'+ ac.: a, hacia, contra (movimiento) · + abl.: en (lugar)'},
+  {la:'sub',c:'ambos',es:'+ ac.: hacia abajo · + abl.: bajo, debajo de'}
+];
+
+const CASE_FUNC = [
+  {c:'nom',f:'Sujeto y atributo',ej:'<i>Puella</i> cantat → <b>La niña</b> canta'},
+  {c:'voc',f:'Apelación (llamar a alguien)',ej:'<i>Marce</i>, veni! → ¡<b>Marco</b>, ven!'},
+  {c:'ac',f:'Complemento directo; dirección (con prep.)',ej:'Rosam porto → Llevo <b>una rosa</b>'},
+  {c:'gen',f:'Complemento del nombre',ej:'Liber <i>pueri</i> → El libro <b>del niño</b>'},
+  {c:'dat',f:'Complemento indirecto',ej:'Donum <i>matri</i> do → Doy un regalo <b>a mi madre</b>'},
+  {c:'abl',f:'Complemento circunstancial; agente (con a/ab)',ej:'<i>Gladio</i> pugnat → Lucha <b>con la espada</b>'}
+];
+
+const SENTENCES = [
+  {la:'Puella rosam portat.',ok:'La niña lleva una rosa.',no:['Las niñas llevan rosas.','La rosa lleva a la niña.','La niña llevaba una rosa.']},
+  {la:'Agricola in agro laborat.',ok:'El agricultor trabaja en el campo.',no:['Los agricultores trabajan en el campo.','El agricultor trabajaba en el campo.','El agricultor va hacia el campo.']},
+  {la:'Nautae insulam vident.',ok:'Los marineros ven la isla.',no:['El marinero ve la isla.','La isla ve a los marineros.','Los marineros vieron las islas.']},
+  {la:'Dominus servum vocat.',ok:'El amo llama al esclavo.',no:['El esclavo llama al amo.','El amo llamó al esclavo.','Los amos llaman a los esclavos.']},
+  {la:'Magister pueris fabulam narrat.',ok:'El maestro cuenta un cuento a los niños.',no:['Los niños cuentan un cuento al maestro.','El maestro contaba un cuento a los niños.','El maestro cuenta el cuento de los niños.']},
+  {la:'Milites cum hostibus pugnant.',ok:'Los soldados luchan con los enemigos.',no:['El soldado lucha con el enemigo.','Los soldados lucharon con los enemigos.','Los enemigos luchan sin los soldados.']},
+  {la:'Rex urbem magnam regit.',ok:'El rey gobierna una gran ciudad.',no:['Los reyes gobiernan grandes ciudades.','La gran ciudad gobierna al rey.','El rey gobernaba una gran ciudad.']},
+  {la:'Consul legem scribit.',ok:'El cónsul escribe la ley.',no:['Los cónsules escriben las leyes.','El cónsul escribirá la ley.','La ley del cónsul está escrita.']},
+  {la:'Romani templa deorum aedificabant.',ok:'Los romanos construían los templos de los dioses.',no:['Los romanos construyen templos para los dioses.','Los dioses construían los templos de los romanos.','Los romanos construirán los templos de los dioses.']},
+  {la:'Puer librum magistri habet.',ok:'El niño tiene el libro del maestro.',no:['El maestro tiene el libro del niño.','Los niños tienen los libros del maestro.','El niño tenía el libro del maestro.']},
+  {la:'Exercitus Romanus hostes vicit.',ok:'El ejército romano venció a los enemigos.',no:['El ejército romano vence a los enemigos.','Los enemigos vencieron al ejército romano.','El ejército romano había vencido a los enemigos.']},
+  {la:'In silva multa animalia sunt.',ok:'En el bosque hay muchos animales.',no:['En los bosques hay pocos animales.','Muchos animales van al bosque.','En el bosque había muchos animales.']},
+  {la:'Caesar milites in Galliam mittit.',ok:'César envía a los soldados a la Galia.',no:['César envió a los soldados a la Galia.','Los soldados envían a César a la Galia.','César envía a los soldados de la Galia.']},
+  {la:'Poeta gloriam patriae laudat.',ok:'El poeta alaba la gloria de la patria.',no:['La patria alaba la gloria del poeta.','Los poetas alaban la gloria de la patria.','El poeta alabará la gloria de la patria.']},
+  {la:'Amici mei in urbe habitant.',ok:'Mis amigos viven en la ciudad.',no:['Mi amigo vive en la ciudad.','Mis amigos van a la ciudad.','Mis amigos vivían en la ciudad.']},
+  {la:'Mater filiae donum dat.',ok:'La madre da un regalo a su hija.',no:['La hija da un regalo a su madre.','La madre da los regalos de su hija.','La madre dio un regalo a su hija.']},
+  {la:'Senatus populusque Romanus.',ok:'El senado y el pueblo romano.',no:['El senado del pueblo romano.','Los senadores y los pueblos romanos.','El pueblo romano sin el senado.']},
+  {la:'Servi a domino liberabuntur.',ok:'Los esclavos serán liberados por el amo.',no:['Los esclavos liberarán al amo.','Los esclavos son liberados por el amo.','El esclavo será liberado por los amos.']},
+  {la:'Urbs a militibus defenditur.',ok:'La ciudad es defendida por los soldados.',no:['La ciudad defiende a los soldados.','La ciudad era defendida por los soldados.','Los soldados son defendidos por la ciudad.']},
+  {la:'Equi in prato currebant.',ok:'Los caballos corrían en el prado.',no:['El caballo corre en el prado.','Los caballos corren en el prado.','Los caballos correrán en el prado.']},
+  {la:'Discipuli verba magistri audiunt.',ok:'Los alumnos oyen las palabras del maestro.',no:['El maestro oye las palabras de los alumnos.','Los alumnos oían las palabras del maestro.','El alumno oye la palabra del maestro.']},
+  {la:'Nox longa erat.',ok:'La noche era larga.',no:['Las noches son largas.','La noche será larga.','La noche es larga.']},
+  {la:'Hannibal Alpes cum elephantis transiit.',ok:'Aníbal cruzó los Alpes con elefantes.',no:['Aníbal cruza los Alpes con elefantes.','Los elefantes cruzaron los Alpes sin Aníbal.','Aníbal cruzará los Alpes con elefantes.']},
+  {la:'Dux militibus pecuniam dedit.',ok:'El general dio dinero a los soldados.',no:['Los soldados dieron dinero al general.','El general da dinero a los soldados.','El general dio el dinero de los soldados.']},
+  {la:'Feminae aquam ex flumine portant.',ok:'Las mujeres llevan agua desde el río.',no:['La mujer lleva agua al río.','Las mujeres llevaban agua desde el río.','El río lleva agua a las mujeres.']},
+  {la:'Pater et mater in villa dormiunt.',ok:'El padre y la madre duermen en la casa de campo.',no:['El padre y la madre dormían en la casa de campo.','El padre duerme y la madre trabaja en la casa de campo.','El padre y la madre van a la casa de campo.']},
+  {la:'Iudex leges servat.',ok:'El juez respeta las leyes.',no:['Las leyes salvan al juez.','Los jueces respetan la ley.','El juez respetaba las leyes.']},
+  {la:'Carthago a Romanis deleta est.',ok:'Cartago fue destruida por los romanos.',no:['Cartago destruyó a los romanos.','Cartago es destruida por los romanos.','Los romanos fueron destruidos por Cartago.']},
+  {la:'Pueri in ludo multas res discunt.',ok:'Los niños aprenden muchas cosas en la escuela.',no:['El niño aprende muchas cosas en la escuela.','Los niños aprendían muchas cosas en la escuela.','Los niños enseñan muchas cosas en la escuela.']},
+  {la:'Veni, vidi, vici.',ok:'Llegué, vi, vencí.',no:['Llego, veo, venzo.','Llegaré, veré, venceré.','Llegamos, vimos, vencimos.']},
+  {la:'Magistra discipulas laudat.',ok:'La maestra alaba a las alumnas.',no:['Las alumnas alaban a la maestra.','La maestra alababa a las alumnas.','La maestra alaba a la alumna.']},
+  {la:'Viri fortes patriam defendunt.',ok:'Los hombres valientes defienden la patria.',no:['El hombre valiente defiende la patria.','La patria defiende a los hombres valientes.','Los hombres valientes defendieron la patria.']}
+];
+
+const RULES = {
+  f:'f- inicial → h-',
+  lj:'-li- / -c\'l- → j',
+  ct:'-ct- → ch',
+  ll:'cl-, pl-, fl- iniciales → ll-',
+  ie:'ĕ breve tónica → ie',
+  ue:'ŏ breve tónica → ue',
+  au:'au → o',
+  son:'p, t, c entre vocales → b, d, g',
+  es:'s- + consonante → es-'
+};
+const ETYM = [
+  {la:'filium',pat:'hijo',cult:'filial',r:['f','lj']},
+  {la:'ferrum',pat:'hierro',cult:'férreo',r:['f','ie']},
+  {la:'farinam',pat:'harina',cult:'farináceo',r:['f']},
+  {la:'fabulari',pat:'hablar',cult:'fábula',r:['f']},
+  {la:'folia',pat:'hoja',cult:'folio',r:['f','lj']},
+  {la:'oculum',pat:'ojo',cult:'ocular',r:['lj']},
+  {la:'noctem',pat:'noche',cult:'nocturno',r:['ct']},
+  {la:'lactem',pat:'leche',cult:'lácteo',r:['ct']},
+  {la:'factum',pat:'hecho',cult:'fáctico',r:['ct','f']},
+  {la:'directum',pat:'derecho',cult:'directo',r:['ct']},
+  {la:'strictum',pat:'estrecho',cult:'estricto',r:['ct','es']},
+  {la:'clamare',pat:'llamar',cult:'clamor',r:['ll']},
+  {la:'clavem',pat:'llave',cult:'clave',r:['ll']},
+  {la:'plorare',pat:'llorar',cult:'implorar',r:['ll']},
+  {la:'pluviam',pat:'lluvia',cult:'pluvial',r:['ll']},
+  {la:'flammam',pat:'llama',cult:'flamígero',r:['ll']},
+  {la:'petram',pat:'piedra',cult:'pétreo',r:['ie','son']},
+  {la:'terram',pat:'tierra',cult:'terráqueo',r:['ie']},
+  {la:'focum',pat:'fuego',cult:'foco',r:['ue','son']},
+  {la:'ovum',pat:'huevo',cult:'óvulo',r:['ue']},
+  {la:'aurum',pat:'oro',cult:'áureo',r:['au']},
+  {la:'taurum',pat:'toro',cult:'taurino',r:['au']},
+  {la:'causam',pat:'cosa',cult:'causa',r:['au']},
+  {la:'lupum',pat:'lobo',cult:'lupino',r:['son']},
+  {la:'vitam',pat:'vida',cult:'vital',r:['son']},
+  {la:'lacum',pat:'lago',cult:'lacustre',r:['son']},
+  {la:'capillum',pat:'cabello',cult:'capilar',r:['son']},
+  {la:'operam',pat:'obra',cult:'ópera',r:['son']},
+  {la:'scholam',pat:'escuela',cult:'escolar',r:['es','ue']},
+  {la:'delicatum',pat:'delgado',cult:'delicado',r:['son']}
+];
+
+const LATINISMOS = [
+  ['ad hoc','hecho a propósito para un fin concreto'],
+  ['a priori','antes de examinar el asunto, de antemano'],
+  ['a posteriori','después de examinar el asunto'],
+  ['alter ego','otro yo; persona de total confianza'],
+  ['carpe diem','aprovecha el momento presente'],
+  ['curriculum vitae','historial de estudios y trabajos'],
+  ['de facto','de hecho, aunque no sea legal'],
+  ['de iure','de derecho, según la ley'],
+  ['grosso modo','a grandes rasgos'],
+  ['in extremis','en el último momento'],
+  ['in situ','en el mismo lugar'],
+  ['ipso facto','inmediatamente, en el acto'],
+  ['lapsus','error involuntario al hablar o escribir'],
+  ['motu proprio','por propia iniciativa'],
+  ['per capita','por cabeza, por persona'],
+  ['post mortem','después de la muerte'],
+  ['quorum','número mínimo de asistentes para votar'],
+  ['sine qua non','condición imprescindible'],
+  ['statu quo','situación actual de las cosas'],
+  ['superávit','exceso de ingresos sobre gastos'],
+  ['déficit','falta o escasez de algo'],
+  ['ultimátum','última advertencia antes de actuar'],
+  ['vox populi','lo que dice todo el mundo'],
+  ['habeas corpus','derecho del detenido a ser llevado ante un juez'],
+  ['in memoriam','en recuerdo de alguien'],
+  ['mea culpa','por mi culpa; reconocimiento de un error'],
+  ['modus operandi','manera de actuar'],
+  ['peccata minuta','error leve, cosa sin importancia'],
+  ['tempus fugit','el tiempo pasa rápido'],
+  ['errare humanum est','equivocarse es propio del ser humano'],
+  ['ex aequo','en igualdad, empatados'],
+  ['in albis','sin enterarse de nada'],
+  ['non plus ultra','lo máximo, lo insuperable'],
+  ['alea iacta est','la suerte está echada'],
+  ['in vino veritas','en el vino está la verdad'],
+  ['mens sana in corpore sano','mente sana en cuerpo sano']
+];
+
+const DIOSES = [
+  {gr:'Zeus',ro:'Júpiter',at:'rey de los dioses; el rayo y el águila'},
+  {gr:'Hera',ro:'Juno',at:'esposa de Júpiter; matrimonio; el pavo real'},
+  {gr:'Poseidón',ro:'Neptuno',at:'el mar; el tridente'},
+  {gr:'Atenea',ro:'Minerva',at:'la sabiduría; la lechuza y el olivo'},
+  {gr:'Ares',ro:'Marte',at:'la guerra'},
+  {gr:'Afrodita',ro:'Venus',at:'el amor y la belleza'},
+  {gr:'Hermes',ro:'Mercurio',at:'mensajero de los dioses; sandalias aladas'},
+  {gr:'Hefesto',ro:'Vulcano',at:'el fuego y la fragua'},
+  {gr:'Artemisa',ro:'Diana',at:'la caza y la luna'},
+  {gr:'Apolo',ro:'Apolo',at:'el sol, la música y las artes'},
+  {gr:'Deméter',ro:'Ceres',at:'la agricultura y las cosechas'},
+  {gr:'Dioniso',ro:'Baco',at:'el vino y las fiestas'},
+  {gr:'Hades',ro:'Plutón',at:'el mundo de los muertos'},
+  {gr:'Hestia',ro:'Vesta',at:'el fuego del hogar'},
+  {gr:'Cronos',ro:'Saturno',at:'el tiempo; padre de Júpiter'},
+  {gr:'Eros',ro:'Cupido',at:'hijo de Venus; flechas del amor'}
+];
+
+const CIUDADES = [
+  ['Emerita Augusta','Mérida'],['Tarraco','Tarragona'],['Caesaraugusta','Zaragoza'],['Hispalis','Sevilla'],
+  ['Corduba','Córdoba'],['Gades','Cádiz'],['Toletum','Toledo'],['Barcino','Barcelona'],['Valentia','Valencia'],
+  ['Carthago Nova','Cartagena'],['Lucentum','Alicante'],['Legio','León'],['Malaca','Málaga'],['Olisipo','Lisboa']
+];
+
+// Preguntas de cultura: [pregunta, correcta, [distractores], explicación opcional]
+const CULTURA = [
+  ['¿En qué año se fundó Roma según la tradición?','753 a.C.',['509 a.C.','476 d.C.','27 a.C.']],
+  ['¿Quiénes fundaron Roma según la leyenda?','Rómulo y Remo',['Eneas y Ascanio','César y Pompeyo','Cástor y Pólux']],
+  ['¿Qué animal amamantó a Rómulo y Remo?','Una loba',['Una osa','Una cabra','Una leona']],
+  ['¿Qué etapa de Roma va del 509 al 27 a.C.?','La República',['La Monarquía','El Imperio','El Bajo Imperio']],
+  ['¿Quién fue el primer emperador de Roma?','Augusto',['Julio César','Nerón','Trajano']],
+  ['¿Quién fue el último rey de Roma?','Tarquinio el Soberbio',['Rómulo','Numa Pompilio','Servio Tulio']],
+  ['¿En qué año cayó el Imperio romano de Occidente?','476 d.C.',['753 a.C.','1492 d.C.','44 a.C.']],
+  ['¿Sobre cuántas colinas se asentó Roma?','Siete',['Tres','Cinco','Doce']],
+  ['¿Qué río pasa por Roma?','El Tíber',['El Po','El Rin','El Danubio']],
+  ['¿Contra qué ciudad lucharon los romanos en las Guerras Púnicas?','Cartago',['Atenas','Esparta','Troya']],
+  ['¿Qué general cartaginés cruzó los Alpes con elefantes?','Aníbal',['Asdrúbal','Escipión','Viriato']],
+  ['¿Qué dos emperadores nacieron en Itálica (Hispania)?','Trajano y Adriano',['Augusto y Tiberio','Nerón y Calígula','Constantino y Teodosio']],
+  ['¿Cuál era la magistratura más alta de la República?','El consulado',['La cuestura','La edilidad','La pretura']],
+  ['Orden correcto del cursus honorum:','cuestor → edil → pretor → cónsul',['cónsul → pretor → edil → cuestor','edil → cuestor → cónsul → pretor','pretor → cuestor → edil → cónsul']],
+  ['¿Qué significan las siglas SPQR?','Senatus Populusque Romanus',['Sumus Populus Quirites Romani','Senatus Pontifex Quaestor Rex','Salus Patriae Quies Romae']],
+  ['¿Cómo se llamaba el cabeza de familia romano?','Paterfamilias',['Dominus domus','Pontifex maximus','Patronus']],
+  ['¿Dónde se celebraban las luchas de gladiadores?','En el anfiteatro',['En el circo','En el teatro','En las termas']],
+  ['¿Dónde se celebraban las carreras de carros?','En el circo',['En el anfiteatro','En el foro','En la basílica']],
+  ['¿Qué construcción llevaba el agua a las ciudades?','El acueducto',['La cloaca','El puente','La calzada']],
+  ['¿Cómo se llamaban los baños públicos romanos?','Termas',['Domus','Insulae','Basílicas']],
+  ['¿Cómo se llamaba el bloque de pisos donde vivían los pobres?','Insula',['Domus','Villa','Atrium']],
+  ['¿De qué latín derivan las lenguas romances?','Del latín vulgar',['Del latín clásico escrito','Del griego','Del etrusco']],
+  ['¿Cuál de estas lenguas NO es romance?','El euskera',['El rumano','El gallego','El catalán']],
+  ['¿Quién escribió la Eneida?','Virgilio',['Homero','Ovidio','Cicerón']],
+  ['¿Qué obra escribió Julio César?','La guerra de las Galias',['La Eneida','Las Metamorfosis','La Odisea']],
+  ['¿En qué fecha fue asesinado Julio César?','En los idus de marzo del 44 a.C.',['En las calendas de enero del 27 a.C.','En el 476 d.C.','En el 753 a.C.']],
+  ['¿Quién dirigió la gran rebelión de esclavos (73-71 a.C.)?','Espartaco',['Viriato','Vercingétorix','Aníbal']],
+  ['Las tres partes del nombre de un ciudadano romano son:','praenomen, nomen y cognomen',['nomen, gens y tribus','praenomen, patria y agnomen','nombre, apellido y apodo']],
+  ['¿Cómo se llamaba la gran vía romana que recorría la costa mediterránea de Hispania?','Vía Augusta',['Vía Apia','Vía de la Plata','Vía Láctea']],
+  ['¿Qué dioses protegían el hogar romano?','Los lares y los penates',['Las musas','Los titanes','Las parcas']],
+  ['¿En qué guerra empezó la conquista romana de Hispania (218 a.C.)?','La segunda guerra púnica',['La guerra de las Galias','La primera guerra púnica','Las guerras cántabras']],
+  ['¿Qué héroe troyano es antepasado legendario de los romanos?','Eneas',['Héctor','Aquiles','Ulises']],
+  ['¿Quién robó el fuego a los dioses para dárselo a los hombres?','Prometeo',['Hércules','Ícaro','Orfeo']],
+  ['¿Qué héroe mató al Minotauro en el laberinto?','Teseo',['Perseo','Jasón','Aquiles']],
+  ['¿Quién cortó la cabeza de Medusa?','Perseo',['Teseo','Hércules','Ulises']],
+  ['¿Quién voló con alas de cera y cayó al mar?','Ícaro',['Dédalo','Faetón','Pegaso']],
+  ['¿Qué héroe tuvo que realizar doce trabajos?','Hércules',['Teseo','Ulises','Eneas']],
+  ['¿Quién bajó al inframundo para rescatar a Eurídice?','Orfeo',['Eneas','Hércules','Perseo']],
+  ['¿Quién se enamoró de su propio reflejo?','Narciso',['Adonis','Apolo','Jacinto']],
+  ['¿A qué isla intentaba volver Ulises (Odiseo)?','Ítaca',['Creta','Sicilia','Rodas']],
+  ['¿Cuál era el punto débil de Aquiles?','El talón',['La rodilla','El cabello','El hombro']]
+];
+
+const HISTORIA = [
+  ['753 a.C.','Fundación legendaria de Roma por Rómulo. Comienza la Monarquía (7 reyes).'],
+  ['509 a.C.','Expulsión de Tarquinio el Soberbio. Comienza la República: gobiernan dos cónsules y el Senado.'],
+  ['264–146 a.C.','Guerras Púnicas contra Cartago. Aníbal cruza los Alpes; Cartago es destruida en el 146 a.C.'],
+  ['218 a.C.','Los romanos desembarcan en Ampurias: empieza la conquista de Hispania.'],
+  ['19 a.C.','Fin de las guerras cántabras: toda Hispania queda bajo dominio romano.'],
+  ['44 a.C.','Julio César es asesinado en los idus de marzo.'],
+  ['27 a.C.','Octavio recibe el título de Augusto: comienza el Imperio.'],
+  ['98–138 d.C.','Trajano y Adriano, emperadores nacidos en Itálica (Santiponce, Sevilla).'],
+  ['395 d.C.','Muere Teodosio y el Imperio se divide en Oriente y Occidente.'],
+  ['476 d.C.','Odoacro depone a Rómulo Augústulo: fin del Imperio romano de Occidente.']
+];
+
+const PRONOMBRES = {
+  personales: {cols:['ego','tu','nos','vos','se'],
+    rows:[['Nom.','ego','tu','nos','vos','—'],['Ac.','me','te','nos','vos','se'],['Gen.','mei','tui','nostrum / nostri','vestrum / vestri','sui'],['Dat.','mihi','tibi','nobis','vobis','sibi'],['Abl.','me','te','nobis','vobis','se']]},
+  is: {sg:[['Nom.','is','ea','id'],['Ac.','eum','eam','id'],['Gen.','eius','eius','eius'],['Dat.','ei','ei','ei'],['Abl.','eo','ea','eo']],
+       pl:[['Nom.','ei / ii','eae','ea'],['Ac.','eos','eas','ea'],['Gen.','eorum','earum','eorum'],['Dat.','eis / iis','eis / iis','eis / iis'],['Abl.','eis / iis','eis / iis','eis / iis']]},
+  hic: {sg:[['Nom.','hic','haec','hoc'],['Ac.','hunc','hanc','hoc'],['Gen.','huius','huius','huius'],['Dat.','huic','huic','huic'],['Abl.','hoc','hac','hoc']],
+        pl:[['Nom.','hi','hae','haec'],['Ac.','hos','has','haec'],['Gen.','horum','harum','horum'],['Dat.','his','his','his'],['Abl.','his','his','his']]},
+  ille: {sg:[['Nom.','ille','illa','illud'],['Ac.','illum','illam','illud'],['Gen.','illius','illius','illius'],['Dat.','illi','illi','illi'],['Abl.','illo','illa','illo']],
+         pl:[['Nom.','illi','illae','illa'],['Ac.','illos','illas','illa'],['Gen.','illorum','illarum','illorum'],['Dat.','illis','illis','illis'],['Abl.','illis','illis','illis']]},
+  qui: {sg:[['Nom.','qui','quae','quod'],['Ac.','quem','quam','quod'],['Gen.','cuius','cuius','cuius'],['Dat.','cui','cui','cui'],['Abl.','quo','qua','quo']],
+        pl:[['Nom.','qui','quae','quae'],['Ac.','quos','quas','quae'],['Gen.','quorum','quarum','quorum'],['Dat.','quibus','quibus','quibus'],['Abl.','quibus','quibus','quibus']]}
+};
+
+if(typeof module!=='undefined') module.exports={NOUNS,ADJS,VERBS,SENTENCES,ETYM,RULES,LATINISMOS,DIOSES,CIUDADES,CULTURA};
+
+/* ===================== UTILIDADES ===================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v!=null?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const vibrar=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
+const OK_MSG=['¡Optime! (¡Perfecto!)','¡Muy bien!','¡Eso es!','¡Bene! (¡Bien!)','¡Correcto! 💪','¡Euge! (¡Bravo!)'];
+const BAD_MSG=['No es esa','Casi… fíjate bien','Uy, esa no','No pasa nada: mira la explicación'];
+const SC=document.scrollingElement||document.documentElement;
+function flash(txt,color){const f=$('#flash');f.textContent=txt;f.style.color=color;f.classList.remove('show');void f.offsetWidth;f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),650)}
+function confetti(n){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const cols=['#b5482b','#e8c35a','#2f8a5f','#6e1f1b','#f3c0b8','#94d6b0'];
+  const box=document.createElement('div');box.className='confetti';box.setAttribute('aria-hidden','true');
+  for(let i=0;i<n;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%cols.length];
+    p.style.animationDelay=Math.random()*.5+'s';p.style.animationDuration=1.6+Math.random()*1.2+'s';p.style.setProperty('--dx',(Math.random()*120-60)+'px');box.appendChild(p)}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),3500);
+}
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const DECL=['','1ª','2ª','3ª','4ª','5ª'];
+const TSHORT={pres:'presente',impf:'pret. imperfecto',fut:'futuro imperfecto',perf:'pret. perfecto',plq:'pret. pluscuamperfecto',futp:'futuro perfecto'};
+const TORDER=['pres','impf','fut','perf','plq','futp'];
+const nounLabel=k=>{const [c,nu]=k.split('|');return `${CASO_NOMBRE[c]} ${NUM_NOMBRE[nu]}`};
+const verbLabel=k=>{const [vz,tm,i]=k.split('|');return `${PERS[i]} · ${TSHORT[tm]} · ${VOZ[vz]}`};
+function hl(form,stem){return form.startsWith(stem)&&form.length>stem.length?stem+'<span class="des">'+form.slice(stem.length)+'</span>':form}
+
+/* ===================== PROGRESO Y REPASO INTELIGENTE (como en la tabla periódica) ===================== */
+let ITEMS=store.get('latinum-items',{});     // id -> {s: racha, ok, ko}
+let PROG=store.get('latinum-prog',{});       // tipo de pregunta -> {ok,tot}
+let XP=store.get('latinum-xp',0);
+let pStats={ok:0,streak:0};
+function record(id,ok){const r=ITEMS[id]||{s:0,ok:0,ko:0};if(ok){r.s++;r.ok++}else{r.s=0;r.ko++}ITEMS[id]=r;store.set('latinum-items',ITEMS)}
+function level(id){const r=ITEMS[id];if(!r)return 0;if(r.s>=3)return 3;if(r.s===0)return 1;return 2}
+const LVNAME=['Sin ver','A repasar','Aprendiendo','Dominado'];
+function weightOf(id){const r=ITEMS[id];if(!r)return 5;return [6,3,2,0.6][Math.min(r.s,3)]}
+function wpick(list,idf){const tot=list.reduce((a,e)=>a+weightOf(idf(e)),0);let x=Math.random()*tot;for(const e of list){x-=weightOf(idf(e));if(x<=0)return e}return list[list.length-1]}
+function addXP(n){XP+=n;store.set('latinum-xp',XP)}
+function topicRecord(t,ok){const p=PROG[t]||{ok:0,tot:0};p.tot++;if(ok)p.ok++;PROG[t]=p;store.set('latinum-prog',PROG)}
+function updStats(){$('#st-ok').textContent=pStats.ok;$('#st-streak').textContent=pStats.streak}
+const RANKS=[[0,'🪶','Tiro','recluta'],[100,'🛡️','Legionarius','legionario'],[300,'⚔️','Optio','suboficial'],[600,'🦅','Centurio','centurión'],[1000,'🏺','Tribunus','tribuno'],[1600,'🏛️','Legatus','legado'],[2500,'📜','Consul','cónsul'],[4000,'👑','Caesar','emperador']];
+function rankOf(x){let i=0;RANKS.forEach((r,k)=>{if(x>=r[0])i=k});return i}
+
+/* ===================== VOCABULARIO UNIFICADO ===================== */
+const WORDS=[
+  ...NOUNS.map(n=>({id:'w:'+n.la,cat:'sus',la:enunciadoNoun(n),es:n.es,info:`${GEN_NOMBRE[n.g]} · ${DECL[n.d]} declinación`})),
+  ...VERBS.map(v=>({id:'w:'+v.pp[0],cat:'ver',la:v.pp.filter(Boolean).join(', '),es:v.es,info:`verbo · ${conjName(v.c)} conjugación`})),
+  ...ADJS.map(a=>({id:'w:adj:'+a.m,cat:'adj',la:enunciadoAdj(a),es:a.es,info:`adjetivo de ${a.cl===1?'1ª clase (2ª/1ª/2ª decl.)':'2ª clase (3ª decl.)'}`})),
+  ...INVAR.map(w=>({id:'w:'+w.la,cat:'inv',la:w.la,es:w.es,info:'invariable'}))
+];
+const MYTH_START=CULTURA.findIndex(q=>q[0].includes('Prometeo'));
+const HIST_Q=CULTURA.slice(0,MYTH_START), MYTH_Q=CULTURA.slice(MYTH_START);
+
+/* ===================== TABLAS (para lecciones y explicaciones) ===================== */
+function nounTable(n,mark){
+  const t=declineNoun(n),s=nounStem(n);
+  return `<div class="tablewrap"><table class="par"><tr><th>Caso</th><th>Singular</th><th>Plural</th></tr>${CASOS.map(c=>`<tr><th class="l">${CASO_NOMBRE[c]}</th>${['sg','pl'].map(nu=>`<td class="${mark===c+'|'+nu?'mk':''}">${hl(t[nu][c],s)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+}
+function modelsTable(list){
+  const ns=list.map(la=>NOUNS.find(n=>n.la===la));
+  return `<div class="tablewrap"><table class="par"><tr><th></th>${ns.map(n=>`<th><span class="la">${n.la}, ${n.gen}</span><br><small class="muted">${GEN_NOMBRE[n.g]}</small></th>`).join('')}</tr>
+    ${['sg','pl'].map(nu=>`<tr><th colspan="${ns.length+1}">${cap(NUM_NOMBRE[nu])}</th></tr>`+CASOS.map(c=>`<tr><th class="l">${CASO_NOMBRE[c]}</th>${ns.map(n=>`<td>${hl(declineNoun(n)[nu][c],nounStem(n))}</td>`).join('')}</tr>`).join('')).join('')}</table></div>`;
+}
+function adjTable(a,mark){
+  const t=declineAdj(a),st=a.cl===1?cut(a.f,'a'):cut(a.gen,'is');
+  return `<div class="tablewrap"><table class="par"><tr><th></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>
+    ${['sg','pl'].map(nu=>`<tr><th colspan="4">${cap(NUM_NOMBRE[nu])}</th></tr>`+CASOS.map(c=>`<tr><th class="l">${CASO_NOMBRE[c]}</th>${['m','f','n'].map(g=>`<td class="${mark===g+'|'+c+'|'+nu?'mk':''}">${hl(t[g][nu][c],st)}</td>`).join('')}</tr>`).join('')).join('')}</table></div>`;
+}
+function verbTables(v,voz,mark){
+  const t=conjugate(v)[voz];if(!t)return `<p class="muted">Este verbo no se usa en voz pasiva personal.</p>`;
+  return `<div class="vgrid">${TORDER.filter(k=>t[k]).map(tm=>`<div class="vt"><h4>${TIEMPOS[tm]}</h4><ol>${t[tm].map((f,i)=>`<li class="${mark===voz+'|'+tm+'|'+i?'mk':''}"><span>${PERS[i]}</span>${f}</li>`).join('')}</ol></div>`).join('')}</div>`;
+}
+function pronTable(key,cols){
+  const p=PRONOMBRES[key];
+  const part=(rows,title)=>`<tr><th colspan="4">${title}</th></tr>`+rows.map(r=>`<tr><th class="l">${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('');
+  return `<div class="tablewrap"><table class="par"><tr><th></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>${part(p.sg,'Singular')}${part(p.pl,'Plural')}</table></div>`;
+}
+
+/* ===================== LECCIONES ===================== */
+const nounOpts=f=>NOUNS.filter(f).map(n=>`<option value="${n.la}">${n.la}, ${n.gen} (${n.es})</option>`).join('');
+const LESSONS=[
+ {id:'intro',ico:'🌍',t:'El latín y las lenguas romances',qt:['hist'],html:()=>`
+  <h2>El latín y las lenguas romances</h2>
+  <p>El <b>latín</b> era la lengua del <b>Lacio</b>, la región de Roma. Es una lengua <b>indoeuropea</b>, como el griego o el inglés. Con la expansión de Roma se habló en casi toda Europa occidental.</p>
+  <div class="box key"><b>Dos latines:</b><ul><li><b>Latín clásico:</b> el escrito y literario (Cicerón, César, Virgilio).</li><li><b>Latín vulgar:</b> el hablado por el pueblo. De él nacen las <b>lenguas romances</b>.</li></ul></div>
+  <p><b>Lenguas romances:</b> castellano, catalán, gallego, portugués, francés, italiano, rumano, occitano… En España, el castellano, el catalán y el gallego vienen del latín; el <b>euskera no</b> (es anterior a los romanos).</p>
+  <h3>Cómo se pronuncia (pronunciación clásica)</h3>
+  <div class="tablewrap"><table><tr><th>Se escribe</th><th>Se pronuncia</th><th>Ejemplo</th></tr>
+   <tr><td>c</td><td>siempre /k/</td><td><i>Cicero</i> → «Kíkero»</td></tr>
+   <tr><td>g</td><td>siempre /g/ suave</td><td><i>gens</i> → «guens»</td></tr>
+   <tr><td>v</td><td>/u/</td><td><i>veni</i> → «uéni»</td></tr>
+   <tr><td>ae / oe</td><td>ai / oi</td><td><i>rosae</i> → «rósai»</td></tr>
+   <tr><td>qu</td><td>/ku/</td><td><i>quinque</i> → «kuínkue»</td></tr>
+   <tr><td>ch · ph · th</td><td>k · f · t</td><td><i>philosophia</i></td></tr>
+   <tr><td>ti</td><td>ti (nunca «ci»)</td><td><i>natio</i> → «nátio»</td></tr></table></div>
+  <div class="box tip"><b>Acento:</b> en latín no hay palabras agudas. Las de dos sílabas son llanas (<i>ró-sa</i>); las de más, llanas si la penúltima sílaba es larga y esdrújulas si es breve (<i>dó-mi-nus</i>).</div>
+  <h3>Una lengua flexiva</h3>
+  <p>En latín las palabras cambian su <b>terminación (desinencia)</b> según su función en la oración: son los <b>casos</b>. Por eso el orden de las palabras es bastante libre y el verbo suele ir <b>al final</b>.</p>
+  <p class="la lat-mid" style="text-align:center">Puella rosam portat = Rosam puella portat</p><p style="text-align:center">«La niña lleva una rosa»</p>`},
+ {id:'casos',ico:'🧩',t:'Los casos y sus funciones',qt:['casos','anal'],html:()=>`
+  <h2>Los casos y sus funciones</h2>
+  <p>Cada caso indica una función sintáctica. Aprende esta tabla de memoria: es la base de todo.</p>
+  <div class="tablewrap"><table><tr><th>Caso</th><th>Función</th><th>Ejemplo</th></tr>${CASE_FUNC.map(x=>`<tr><th class="l">${CASO_NOMBRE[x.c]}</th><td class="l">${x.f}</td><td class="l">${x.ej}</td></tr>`).join('')}</table></div>
+  <h3>El enunciado del sustantivo</h3>
+  <p>En el diccionario cada sustantivo aparece con su <b>nominativo</b> y su <b>genitivo singular</b>, más el género: <i>rosa, rosae</i> (f.). <b>El genitivo indica la declinación</b>:</p>
+  <div class="tablewrap"><table><tr><th>Declinación</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th><th>5ª</th></tr><tr><th>Genitivo sg.</th><td>-ae</td><td>-i</td><td>-is</td><td>-us</td><td>-ei</td></tr><tr><th>Ejemplo</th><td>rosa, rosae</td><td>dominus, domini</td><td>rex, regis</td><td>manus, manus</td><td>res, rei</td></tr></table></div>
+  <div class="box tip"><b>Para traducir:</b><ul><li>1. Busca el <b>verbo</b> (persona y número).</li><li>2. Busca el <b>sujeto</b>: un nominativo que concuerde con el verbo.</li><li>3. Busca el <b>CD</b> (acusativo), luego el CI (dativo), los CN (genitivo) y los CC (ablativo o preposición).</li></ul></div>`},
+ {id:'d12',ico:'1️⃣',t:'1ª y 2ª declinación',qt:['decl','anal','enun'],html:()=>`
+  <h2>1ª y 2ª declinación</h2>
+  <p><b>1ª declinación</b> (genitivo en <b>-ae</b>): casi todos los sustantivos son <b>femeninos</b>, salvo algunos que designan oficios de hombres: <i>agricola, nauta, poeta</i> (masculinos).</p>
+  <p><b>2ª declinación</b> (genitivo en <b>-i</b>): los acabados en <b>-us</b> y <b>-er</b> son masculinos; los acabados en <b>-um</b>, <b>neutros</b>.</p>
+  ${modelsTable(['rosa','dominus','puer','templum'])}
+  <div class="box key"><b>Regla del neutro</b> (vale para todas las declinaciones): el nominativo, el vocativo y el acusativo son iguales, y en plural acaban en <b>-a</b>.</div>
+  <div class="box warn"><b>¡Ojo!</b> Solo los masculinos en <b>-us</b> tienen vocativo en <b>-e</b> (<i>domine</i>). En <i>puer, ager, magister</i> el tema pierde la <i>e</i>: <i>ager, agri</i>.</div>
+  <h3>Declina cualquier palabra</h3>
+  <div class="pick"><label for="sel-n12">Palabra:</label><select id="sel-n12" data-tbl="n">${nounOpts(n=>n.d<=2)}</select></div><div id="tbl-n12">${nounTable(NOUNS[0])}</div>`},
+ {id:'d3',ico:'3️⃣',t:'3ª declinación',qt:['decl','anal','enun'],html:()=>`
+  <h2>3ª declinación</h2>
+  <p>Genitivo en <b>-is</b>. Es la más variada: el nominativo puede tener muchas formas (<i>rex, consul, corpus, nomen</i>), así que <b>hay que aprender el enunciado</b>; el tema sale del genitivo quitando <i>-is</i> (<i>reg-is</i> → tema <i>reg-</i>).</p>
+  ${modelsTable(['rex','corpus','civis','mare'])}
+  <div class="box key"><b>Temas en consonante y temas en -i</b><ul>
+   <li><b>Consonante</b> (<i>rex, consul, corpus</i>): genitivo plural en <b>-um</b>.</li>
+   <li><b>En -i</b> (<i>civis, urbs, nox, mons</i>): genitivo plural en <b>-ium</b>.</li>
+   <li><b>Neutros en -i</b> (<i>mare, animal</i>): ablativo singular en <b>-i</b> y plural en <b>-ia</b>.</li></ul></div>
+  <h3>Declina cualquier palabra</h3>
+  <div class="pick"><label for="sel-n3">Palabra:</label><select id="sel-n3" data-tbl="n">${nounOpts(n=>n.d===3)}</select></div><div id="tbl-n3">${nounTable(NOUNS.find(n=>n.d===3))}</div>`},
+ {id:'d45',ico:'4️⃣',t:'4ª y 5ª declinación',qt:['decl','anal','enun'],html:()=>`
+  <h2>4ª y 5ª declinación</h2>
+  <p><b>4ª declinación</b> (genitivo en <b>-us</b>): la mayoría masculinos (<i>exercitus, senatus</i>); <i>manus</i> es femenino y <i>cornu</i>, neutro.</p>
+  <p><b>5ª declinación</b> (genitivo en <b>-ei</b>): pocos sustantivos, casi todos femeninos; <i>dies</i> suele ser masculino.</p>
+  ${modelsTable(['manus','cornu','res','dies'])}
+  <div class="box warn"><b>¡Cuidado con <i>manus</i> y <i>res</i>!</b> Una misma forma puede ser varios casos: <i>manus</i> = nominativo sg., genitivo sg., y nominativo, vocativo o acusativo plural. El contexto decide.</div>
+  <h3>Declina cualquier palabra</h3>
+  <div class="pick"><label for="sel-n45">Palabra:</label><select id="sel-n45" data-tbl="n">${nounOpts(n=>n.d>=4)}</select></div><div id="tbl-n45">${nounTable(NOUNS.find(n=>n.d===4))}</div>`},
+ {id:'adj',ico:'🎨',t:'Adjetivos',qt:['conc'],html:()=>`
+  <h2>Adjetivos</h2>
+  <p>El adjetivo <b>concuerda</b> con el sustantivo en <b>género, número y caso</b>, pero <b>no tiene por qué tener la misma terminación</b>: <i>agricola bonus</i> (el buen agricultor), porque <i>agricola</i> es masculino.</p>
+  <div class="box key"><b>1ª clase</b> (2ª-1ª-2ª declinación): <i>bonus, bona, bonum</i> · <i>liber, libera, liberum</i> · <i>pulcher, pulchra, pulchrum</i>.<br>
+  <b>2ª clase</b> (3ª declinación, temas en -i): de tres terminaciones (<i>acer, acris, acre</i>), de dos (<i>fortis, forte</i>) o de una (<i>felix, felicis</i>).</div>
+  <div class="pick"><label for="sel-adj">Adjetivo:</label><select id="sel-adj" data-tbl="a">${ADJS.map(a=>`<option value="${a.m}">${enunciadoAdj(a)} (${a.es})</option>`).join('')}</select></div><div id="tbl-adj">${adjTable(ADJS[0])}</div>`},
+ {id:'pron',ico:'👉',t:'Pronombres',qt:[],html:()=>`
+  <h2>Pronombres</h2>
+  <h3>Personales</h3>
+  <div class="tablewrap"><table class="par"><tr><th></th>${PRONOMBRES.personales.cols.map(c=>`<th>${c}</th>`).join('')}</tr>${PRONOMBRES.personales.rows.map(r=>`<tr><th class="l">${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>
+  <p class="muted">No tienen vocativo (salvo <i>tu</i>). <i>Se</i> es reflexivo: «se, a sí mismo». Con <i>cum</i> se unen detrás: <i>mecum</i> (conmigo), <i>tecum</i>, <i>nobiscum</i>.</p>
+  <div class="grid2">
+   <div><h3><i>is, ea, id</i> · «él, ella, ello; ese»</h3>${pronTable('is')}</div>
+   <div><h3><i>hic, haec, hoc</i> · «este»</h3>${pronTable('hic')}</div>
+   <div><h3><i>ille, illa, illud</i> · «aquel»</h3>${pronTable('ille')}</div>
+   <div><h3><i>qui, quae, quod</i> · «que, el cual»</h3>${pronTable('qui')}</div>
+  </div>
+  <div class="box tip"><b>Truco:</b> el genitivo singular de los demostrativos acaba en <b>-ius</b> (<i>eius, huius, illius, cuius</i>) y el dativo en <b>-i</b> (<i>ei, huic, illi, cui</i>) en los tres géneros.</div>`},
+ {id:'verbo',ico:'⚙️',t:'El verbo',qt:['conj','aver','enun'],html:()=>`
+  <h2>El verbo</h2>
+  <h3>El enunciado</h3>
+  <p>Los verbos aparecen en el diccionario con <b>cuatro formas</b>: <i>amo, amare, amavi, amatum</i> = 1ª sg. del presente · infinitivo · 1ª sg. del perfecto · supino.</p>
+  <div class="tablewrap"><table><tr><th>Conjugación</th><th>Infinitivo</th><th>Ejemplo</th></tr>
+   <tr><td>1ª</td><td>-āre</td><td>amo, amare, amavi, amatum</td></tr>
+   <tr><td>2ª</td><td>-ēre (e larga)</td><td>moneo, monere, monui, monitum</td></tr>
+   <tr><td>3ª</td><td>-ĕre (e breve)</td><td>rego, regere, rexi, rectum</td></tr>
+   <tr><td>3ª mixta</td><td>-ĕre, pero 1ª pers. en <b>-io</b></td><td>capio, capere, cepi, captum</td></tr>
+   <tr><td>4ª</td><td>-īre</td><td>audio, audire, audivi, auditum</td></tr></table></div>
+  <div class="box key"><b>Dos temas:</b><ul><li><b>Tema de presente</b> (del infinitivo): presente, pretérito imperfecto y futuro imperfecto.</li><li><b>Tema de perfecto</b> (de la 3ª forma, quitando <i>-i</i>: <i>amav-</i>): pretérito perfecto, pluscuamperfecto y futuro perfecto.</li></ul></div>
+  <div class="tablewrap"><table><tr><th></th><th>Activa</th><th>Pasiva</th><th>Perfecto</th></tr>
+   <tr><th>Desinencias</th><td>-o/-m, -s, -t, -mus, -tis, -nt</td><td>-or/-r, -ris, -tur, -mur, -mini, -ntur</td><td>-i, -isti, -it, -imus, -istis, -erunt</td></tr></table></div>
+  <div class="box tip"><b>Pistas para reconocer el tiempo:</b><ul>
+   <li><b>-ba-</b> → pretérito imperfecto (<i>ama<b>ba</b>m</i>, «amaba»).</li>
+   <li><b>-b-</b> en 1ª y 2ª (<i>ama<b>bo</b></i>) · <b>-a-/-e-</b> en 3ª y 4ª (<i>reg<b>a</b>m, reg<b>e</b>s</i>) → futuro («amaré»).</li>
+   <li>Tema de perfecto + <b>-era-</b> → pluscuamperfecto («había amado») · + <b>-er-/-eri-</b> → futuro perfecto («habré amado»).</li>
+   <li>Pasiva de perfecto: participio + <i>sum</i>: <i>amatus est</i> «fue amado».</li></ul></div>
+  <div class="grid2"><div class="tablewrap" style="margin:0"><table><tr><th>Activa</th><th>Se traduce</th></tr>
+   <tr><td>amo</td><td>amo</td></tr><tr><td>amabam</td><td>amaba</td></tr><tr><td>amabo</td><td>amaré</td></tr>
+   <tr><td>amavi</td><td>amé, he amado</td></tr><tr><td>amaveram</td><td>había amado</td></tr><tr><td>amavero</td><td>habré amado</td></tr></table></div>
+   <div class="tablewrap" style="margin:0"><table><tr><th>Pasiva</th><th>Se traduce</th></tr>
+   <tr><td>amor</td><td>soy amado</td></tr><tr><td>amabar</td><td>era amado</td></tr><tr><td>amabor</td><td>seré amado</td></tr>
+   <tr><td>amatus sum</td><td>fui amado</td></tr><tr><td>amatus eram</td><td>había sido amado</td></tr><tr><td>amatus ero</td><td>habré sido amado</td></tr></table></div></div>
+  <h3>Conjugador</h3>
+  <div class="pick"><label for="sel-v">Verbo:</label><select id="sel-v" data-tbl="v">${VERBS.map(v=>`<option value="${v.pp[0]}">${v.pp.filter(Boolean).join(', ')} (${v.es})</option>`).join('')}</select>
+   <div class="seg" role="group" aria-label="Voz" id="seg-voz" style="min-width:200px"><button data-voz="act" aria-pressed="true">Activa</button><button data-voz="pas" aria-pressed="false">Pasiva</button></div></div>
+  <div id="tbl-v"></div>`},
+ {id:'prep',ico:'📍',t:'Preposiciones y lugar',qt:['casos'],html:()=>`
+  <h2>Preposiciones y complementos de lugar</h2>
+  <div class="grid2">
+   <div><h3>Con acusativo</h3><div class="tablewrap"><table>${PREPS.filter(p=>p.c==='ac').map(p=>`<tr><td class="l"><b class="la">${p.la}</b></td><td class="l">${p.es}</td></tr>`).join('')}</table></div></div>
+   <div><h3>Con ablativo</h3><div class="tablewrap"><table>${PREPS.filter(p=>p.c==='abl').map(p=>`<tr><td class="l"><b class="la">${p.la}</b></td><td class="l">${p.es}</td></tr>`).join('')}</table></div>
+   <h3>Con los dos</h3><div class="tablewrap"><table>${PREPS.filter(p=>p.c==='ambos').map(p=>`<tr><td class="l"><b class="la">${p.la}</b></td><td class="l">${p.es}</td></tr>`).join('')}</table></div></div>
+  </div>
+  <div class="box key"><b>Complementos de lugar</b><ul>
+   <li><b>¿Dónde?</b> (ubi) → <i>in</i> + ablativo: <i>in urbe</i> «en la ciudad».</li>
+   <li><b>¿Adónde?</b> (quo) → <i>ad / in</i> + acusativo: <i>in urbem</i> «a la ciudad».</li>
+   <li><b>¿De dónde?</b> (unde) → <i>a/ab, e/ex, de</i> + ablativo: <i>ex urbe</i> «desde la ciudad».</li>
+   <li><b>¿Por dónde?</b> (qua) → <i>per</i> + acusativo: <i>per viam</i> «por el camino».</li></ul></div>
+  <div class="box tip"><b>Complemento agente:</b> en las oraciones pasivas, <i>a/ab</i> + ablativo: <i>urbs <b>a militibus</b> defenditur</i> «la ciudad es defendida <b>por los soldados</b>».</div>`},
+ {id:'etim',ico:'🔤',t:'Del latín al castellano',qt:['etim'],html:()=>`
+  <h2>Del latín al castellano</h2>
+  <p>Las palabras castellanas que vienen del latín pueden ser:</p>
+  <div class="box key"><ul><li><b>Patrimoniales:</b> han estado siempre en la lengua y han sufrido todos los cambios fonéticos: <i>oculum</i> → <b>ojo</b>.</li>
+   <li><b>Cultismos:</b> se tomaron más tarde del latín escrito, casi sin cambios: <i>oculum</i> → <b>ocular</b>.</li>
+   <li><b>Dobletes:</b> parejas patrimonial + cultismo de la misma palabra: <b>llama / flama</b>, <b>derecho / directo</b>.</li></ul></div>
+  <p>Las palabras castellanas vienen casi siempre del <b>acusativo</b> latino, que pierde la <b>-m final</b>: <i>rosam</i> → rosa, <i>noctem</i> → noche.</p>
+  <h3>Principales cambios fonéticos</h3>
+  <div class="tablewrap"><table><tr><th>Cambio</th><th>Ejemplos</th></tr>${Object.entries(RULES).map(([k,r])=>`<tr><td class="l"><b>${r}</b></td><td class="l">${ETYM.filter(e=>e.r[0]===k).slice(0,3).map(e=>`<i>${e.la}</i> → ${e.pat}`).join(' · ')}</td></tr>`).join('')}</table></div>
+  <h3>Patrimoniales y cultismos</h3>
+  <div class="tablewrap"><table><tr><th>Latín</th><th>Patrimonial</th><th>Cultismo</th></tr>${ETYM.map(e=>`<tr><td><i>${e.la}</i></td><td>${e.pat}</td><td>${e.cult}</td></tr>`).join('')}</table></div>`},
+ {id:'latin',ico:'💬',t:'Latinismos',qt:['latn'],html:()=>`
+  <h2>Latinismos</h2>
+  <p>Son palabras y expresiones latinas que usamos hoy tal cual, sobre todo en el lenguaje culto, jurídico y periodístico. La RAE recomienda escribirlas en cursiva y sin comillas.</p>
+  <div class="tablewrap"><table><tr><th>Expresión</th><th>Significado</th></tr>${LATINISMOS.map(([a,b])=>`<tr><td class="l"><b class="la">${a}</b></td><td class="l">${b}</td></tr>`).join('')}</table></div>`},
+ {id:'mito',ico:'⚡',t:'Dioses y mitos',qt:['mito'],html:()=>`
+  <h2>Dioses y mitos</h2>
+  <p>Los romanos adoptaron los dioses griegos con otros nombres. Los doce principales vivían en el monte Olimpo.</p>
+  <div class="tablewrap"><table><tr><th>Griego</th><th>Romano</th><th>Se ocupa de… / atributos</th></tr>${DIOSES.map(d=>`<tr><td>${d.gr}</td><td><b>${d.ro}</b></td><td class="l">${d.at}</td></tr>`).join('')}</table></div>
+  <h3>Héroes y mitos que hay que saber</h3>
+  <div class="tablewrap"><table>${MYTH_Q.map(q=>`<tr><td class="l">${q[0].replace(/^¿|\?$/g,'')}</td><td><b>${q[1]}</b></td></tr>`).join('')}</table></div>
+  <div class="box tip">Los <b>planetas</b> llevan nombres de dioses romanos (Mercurio, Venus, Marte, Júpiter, Saturno, Neptuno) y también algunos <b>días de la semana</b>: martes (Marte), miércoles (Mercurio), jueves (Júpiter), viernes (Venus).</div>`},
+ {id:'hist',ico:'🏛️',t:'Roma e Hispania',qt:['hist'],html:()=>`
+  <h2>Historia de Roma e Hispania</h2>
+  <div class="tablewrap"><table><tr><th>Etapa</th><th>Fechas</th><th>Gobierno</th></tr>
+   <tr><td><b>Monarquía</b></td><td>753 – 509 a.C.</td><td class="l">Siete reyes, de Rómulo a Tarquinio el Soberbio.</td></tr>
+   <tr><td><b>República</b></td><td>509 – 27 a.C.</td><td class="l">Dos cónsules elegidos cada año, el Senado y las asambleas del pueblo.</td></tr>
+   <tr><td><b>Imperio</b></td><td>27 a.C. – 476 d.C.</td><td class="l">El emperador concentra el poder. Primero, Augusto.</td></tr></table></div>
+  <ul class="timeline">${HISTORIA.map(([f,t])=>`<li><b>${f}</b>${t}</li>`).join('')}</ul>
+  <div class="box key"><b>Sociedad:</b> <b>patricios</b> (nobles) y <b>plebeyos</b> (pueblo); los <b>esclavos</b> no tenían derechos. La familia la dirigía el <b>paterfamilias</b>. Las magistraturas (<b>cursus honorum</b>): cuestor → edil → pretor → cónsul (y censor).</div>
+  <div class="box tip"><b>Ocio y obras públicas:</b> gladiadores en el <b>anfiteatro</b> (el Coliseo), carreras de carros en el <b>circo</b>, comedias y tragedias en el <b>teatro</b>, baños en las <b>termas</b>; <b>acueductos</b> (Segovia), puentes (Alcántara), calzadas (Vía Augusta).</div>
+  <h3>Ciudades romanas de Hispania</h3>
+  <div class="tablewrap"><table><tr><th>Nombre latino</th><th>Hoy</th><th>Nombre latino</th><th>Hoy</th></tr>${Array.from({length:Math.ceil(CIUDADES.length/2)},(_,i)=>`<tr><td class="la">${CIUDADES[2*i][0]}</td><td>${CIUDADES[2*i][1]}</td><td class="la">${CIUDADES[2*i+1]?CIUDADES[2*i+1][0]:''}</td><td>${CIUDADES[2*i+1]?CIUDADES[2*i+1][1]:''}</td></tr>`).join('')}</table></div>`}
+];
+let SEEN=store.get('latinum-seen',{}),curLesson=0,curVoz='act';
+function showLesson(i){
+  curLesson=i;store.set('latinum-lesson',i);SEEN[LESSONS[i].id]=1;store.set('latinum-seen',SEEN);
+  const L=LESSONS[i];
+  const sn=$('#subnav');
+  if(!sn.children.length)sn.innerHTML=LESSONS.map((l,k)=>`<button data-les="${k}"><span>${l.ico}</span>${l.t}</button>`).join('');
+  [...sn.children].forEach((b,k)=>{b.classList.toggle('on',k===i);b.classList.toggle('seen',!!SEEN[LESSONS[k].id])});
+  $('#lesson').innerHTML=L.html()+`<div class="lesson-nav">${i>0?`<button class="btn ghost" data-les="${i-1}">← ${LESSONS[i-1].t}</button>`:'<span></span>'}
+    ${L.qt.length?`<button class="btn acc" data-practice="${L.qt.join(',')}">✏️ Practicar este tema</button>`:''}
+    ${i<LESSONS.length-1?`<button class="btn" data-les="${i+1}">${LESSONS[i+1].t} →</button>`:''}</div>`;
+  if(L.id==='verbo')drawVerb();
+  const on=sn.children[i];if(sn.scrollWidth>sn.clientWidth)sn.scrollTo({left:on.offsetLeft-sn.clientWidth/2+on.offsetWidth/2,behavior:'smooth'});
+}
+function drawVerb(){const v=VERBS.find(x=>x.pp[0]===$('#sel-v').value);const inf=infinitives(v);
+  $('#tbl-v').innerHTML=verbTables(v,curVoz)+`<p class="muted" style="margin:0">Infinitivos: presente activo <b>${inf.presAct}</b> · perfecto activo <b>${inf.perfAct}</b>${inf.presPas?` · presente pasivo <b>${inf.presPas}</b>`:''}.</p>`}
+$('#subnav').addEventListener('click',e=>{const b=e.target.closest('[data-les]');if(b){showLesson(+b.dataset.les);SC.scrollTop=0}});
+$('#lesson').addEventListener('click',e=>{const t=e.target;let b;
+  if(b=t.closest('[data-les]')){showLesson(+b.dataset.les);SC.scrollTop=0;return}
+  if(b=t.closest('[data-practice]')){PREF.types=b.dataset.practice.split(',');savePref();pmode='test';QZ=null;location.hash='#practicar';return}
+  if(b=t.closest('[data-voz]')){curVoz=b.dataset.voz;$$('#seg-voz button').forEach(x=>x.setAttribute('aria-pressed',x===b));drawVerb()}});
+$('#lesson').addEventListener('change',e=>{const s=e.target;if(!s.dataset.tbl)return;
+  if(s.dataset.tbl==='n'){$('#tbl-'+s.id.slice(4)).innerHTML=nounTable(NOUNS.find(n=>n.la===s.value))}
+  if(s.dataset.tbl==='a'){$('#tbl-adj').innerHTML=adjTable(ADJS.find(a=>a.m===s.value))}
+  if(s.dataset.tbl==='v'){drawVerb()}});
+
+/* ===================== GENERADOR DE PREGUNTAS ===================== */
+const QTYPES={decl:'Declinar',anal:'Analizar sustantivos',conc:'Concordancia',enun:'Enunciados',conj:'Conjugar',aver:'Analizar verbos',
+  voc:'Vocabulario',etim:'Del latín al castellano',latn:'Latinismos',casos:'Casos y preposiciones',trad:'Traducción',mito:'Mitología',hist:'Historia y cultura'};
+const QGROUPS=[['Sustantivos y adjetivos',['decl','anal','conc','enun']],['Verbos',['conj','aver']],['Léxico',['voc','etim','latn']],['Sintaxis',['casos','trad']],['Cultura',['mito','hist']]];
+function pickOthers(answer,cands,n,prefer){
+  const out=[],seen=new Set([answer]);
+  const add=list=>{for(const c of shuffle(list)){if(out.length>=n)break;if(c!=null&&!seen.has(c)){seen.add(c);out.push(c)}}};
+  if(prefer)add(prefer);add(cands);return out;
+}
+const mkQ=(o)=>Object.assign({picked:null},o,{opts:shuffle([o.correct,...o.others])});
+const nounId=n=>'n:'+n.la, verbId=v=>'v:'+v.pp[0];
+const NCASES=['nom','ac','gen','dat','abl'];
+const GEN={
+ decl(){
+  const n=wpick(NOUNS,nounId),t=declineNoun(n);
+  const nu=SOLO_SG.has(n.la)||Math.random()<.5?'sg':'pl',c=Math.random()<.08?'voc':pick(NCASES);
+  const ans=t[nu][c],other=nu==='sg'?'pl':'sg';
+  const all=CASOS.flatMap(cc=>[t.sg[cc],t.pl[cc]]);
+  return mkQ({t:'decl',id:nounId(n),correct:ans,others:pickOthers(ans,all,3,[t[other][c],...NCASES.map(cc=>t[nu][cc])]),
+   show:`<div class="lat-big">${n.la}, ${n.gen}</div><div class="muted">${GEN_NOMBRE[n.g]} · ${DECL[n.d]} declinación · «${n.es}»</div>`,
+   prompt:`¿Cuál es el <b>${CASO_NOMBRE[c].toLowerCase()} ${NUM_NOMBRE[nu]}</b>?`,
+   expl:`${CASO_NOMBRE[c]} ${NUM_NOMBRE[nu]} de <i>${n.la}</i>: <b class="la">${ans}</b>.`,ficha:{tit:`${n.la}, ${n.gen}`,html:nounTable(n,c+'|'+nu)}});
+ },
+ anal(){
+  const n=wpick(NOUNS,nounId),t=declineNoun(n);
+  const nu=SOLO_SG.has(n.la)||Math.random()<.5?'sg':'pl',c=pick(NCASES),form=t[nu][c];
+  const valid=nounAnalyses(n,form),ok=c+'|'+nu;
+  const labels=['sg','pl'].flatMap(x=>NCASES.map(cc=>cc+'|'+x)).filter(k=>!valid.includes(k));
+  const others=pickOthers(ok,labels,3,[NCASES.map(cc=>cc+'|'+nu)].flat().filter(k=>!valid.includes(k)).concat(c+'|'+(nu==='sg'?'pl':'sg')).filter(k=>!valid.includes(k)));
+  const extra=valid.length>1?` Esta forma también puede ser: ${valid.filter(k=>k!==ok).map(k=>nounLabel(k).toLowerCase()).join(', ')} (por eso solo una de las opciones es correcta).`:'';
+  return mkQ({t:'anal',id:nounId(n),correct:nounLabel(ok),others:others.map(nounLabel),
+   show:`<div class="lat-big">${form}</div><div class="muted">de <i>${n.la}, ${n.gen}</i> (${GEN_NOMBRE[n.g]}, «${n.es}»)</div>`,
+   prompt:'¿En qué caso y número está?',expl:`<i>${form}</i> es <b>${nounLabel(ok).toLowerCase()}</b> (${DECL[n.d]} declinación).${extra}`,ficha:{tit:`${n.la}, ${n.gen}`,html:nounTable(n,ok)}});
+ },
+ conc(){
+  const n=wpick(NOUNS.filter(x=>x.d<=3),nounId),a=pick(ADJS),tn=declineNoun(n),ta=declineAdj(a);
+  const nu=SOLO_SG.has(n.la)||Math.random()<.5?'sg':'pl',c=pick(NCASES);
+  const ans=ta[n.g][nu][c];
+  const all=['m','f','n'].flatMap(g=>['sg','pl'].flatMap(x=>CASOS.map(cc=>ta[g][x][cc])));
+  const prefer=['m','f','n'].filter(g=>g!==n.g).map(g=>ta[g][nu][c]).concat(NCASES.map(cc=>ta[n.g][nu][cc]));
+  const trampa=n.d===1&&n.g==='m'?` ¡Ojo! <i>${n.la}</i> acaba en <i>-a</i> pero es masculino.`:'';
+  return mkQ({t:'conc',id:nounId(n),correct:`${tn[nu][c]} ${ans}`,others:pickOthers(ans,all,3,prefer).map(x=>`${tn[nu][c]} ${x}`),
+   show:`<div class="lat-big">${tn[nu][c]} + <span class="muted">?</span></div><div class="muted"><i>${n.la}, ${n.gen}</i> (${GEN_NOMBRE[n.g]}) + <i>${enunciadoAdj(a)}</i> «${a.es}»</div>`,
+   prompt:`El sustantivo está en <b>${CASO_NOMBRE[c].toLowerCase()} ${NUM_NOMBRE[nu]}</b>. ¿Qué forma del adjetivo concuerda?`,
+   expl:`<i>${n.la}</i> es ${GEN_NOMBRE[n.g]}: el adjetivo va en ${GEN_NOMBRE[n.g]}, ${CASO_NOMBRE[c].toLowerCase()} ${NUM_NOMBRE[nu]}: <b class="la">${tn[nu][c]} ${ans}</b>. Concuerdan en género, número y caso, aunque no acaben igual.${trampa}`,
+   ficha:{tit:enunciadoAdj(a),html:adjTable(a,n.g+'|'+c+'|'+nu)}});
+ },
+ enun(){
+  const k=Math.random();
+  if(k<.4){const n=wpick(NOUNS,nounId);const ans=DECL[n.d]+' declinación';
+   return mkQ({t:'enun',id:nounId(n),correct:ans,others:pickOthers(ans,[1,2,3,4,5].map(d=>DECL[d]+' declinación'),3),
+    show:`<div class="lat-big">${n.la}, ${n.gen}</div>`,prompt:'¿De qué declinación es?',
+    expl:`Lo dice el genitivo singular <i>${n.gen}</i>: -ae → 1ª · -i → 2ª · -is → 3ª · -us → 4ª · -ei → 5ª.`});}
+  if(k<.7){const n=wpick(NOUNS.filter(x=>x.d!==4||x.la!==x.gen),nounId),s=nounStem(n);
+   const fake=[s+'ae',s+'i',s+'is',s+'us',s+'ei'].filter(x=>x!==n.gen&&x!==n.la);
+   return mkQ({t:'enun',id:nounId(n),correct:n.gen,others:pickOthers(n.gen,fake,3),
+    show:`<div class="lat-big">${n.la}</div><div class="muted">«${n.es}» · ${DECL[n.d]} declinación</div>`,prompt:'¿Cuál es su genitivo singular?',
+    expl:`El enunciado es <b class="la">${n.la}, ${n.gen}</b>: genitivo en ${['','-ae','-i','-is','-us','-ei'][n.d]} (${DECL[n.d]} declinación).`});}
+  const v=wpick(VERBS.filter(x=>x.c!=='irr'),verbId),ans=conjName(v.c)+' conjugación';
+  return mkQ({t:'enun',id:verbId(v),correct:ans,others:pickOthers(ans,[1,2,3,'3m',4].map(c=>conjName(c)+' conjugación'),3,v.c===3?[conjName('3m')+' conjugación']:v.c==='3m'?[conjName(3)+' conjugación']:null),
+   show:`<div class="lat-big">${v.pp.filter(Boolean).join(', ')}</div><div class="muted">«${v.es}»</div>`,prompt:'¿De qué conjugación es?',
+   expl:`Infinitivo <i>${v.pp[1]}</i>: -āre → 1ª · -ēre → 2ª · -ĕre → 3ª (mixta si la 1ª persona acaba en <i>-io</i>, como <i>capio</i>) · -īre → 4ª.`});
+ },
+ conj(){
+  const v=wpick(VERBS,verbId),T=conjugate(v);
+  const voz=T.pas&&Math.random()<.3?'pas':'act',tms=TORDER.filter(x=>T[voz][x]),tm=pick(tms),i=Math.floor(Math.random()*6);
+  const ans=T[voz][tm][i];
+  const all=[...TORDER.flatMap(x=>T.act[x]||[]),...(T.pas?TORDER.flatMap(x=>T.pas[x]||[]):[])];
+  const prefer=[...T[voz][tm],...tms.map(x=>T[voz][x][i])];
+  return mkQ({t:'conj',id:verbId(v),correct:ans,others:pickOthers(ans,all,3,prefer),
+   show:`<div class="lat-big">${v.pp.filter(Boolean).join(', ')}</div><div class="muted">«${v.es}» · ${conjName(v.c)} conjugación</div>`,
+   prompt:`<b>${PERS[i]}</b> · <b>${TSHORT[tm]}</b> · voz ${VOZ[voz]}`,
+   expl:`${cap(TSHORT[tm])} ${VOZ[voz]}, ${PERS[i]}: <b class="la">${ans}</b>.`,ficha:{tit:v.pp.filter(Boolean).join(', '),html:verbTables(v,voz,voz+'|'+tm+'|'+i)}});
+ },
+ aver(){
+  const v=wpick(VERBS,verbId),T=conjugate(v);
+  const voz=T.pas&&Math.random()<.3?'pas':'act',tms=TORDER.filter(x=>T[voz][x]),tm=pick(tms),i=Math.floor(Math.random()*6);
+  const form=T[voz][tm][i],valid=verbAnalyses(v,form),ok=voz+'|'+tm+'|'+i;
+  const labels=[];['act','pas'].forEach(z=>{if(T[z])TORDER.forEach(x=>{if(T[z][x])for(let p=0;p<6;p++)labels.push(z+'|'+x+'|'+p)})});
+  const cand=labels.filter(k=>!valid.includes(k));
+  const prefer=cand.filter(k=>{const [z,x,p]=k.split('|');return z===voz&&(x===tm||+p===i)});
+  const extra=valid.length>1?` También puede ser ${valid.filter(k=>k!==ok).map(verbLabel).join('; ')}.`:'';
+  return mkQ({t:'aver',id:verbId(v),correct:verbLabel(ok),others:pickOthers(ok,cand,3,prefer).map(verbLabel),
+   show:`<div class="lat-big">${form}</div><div class="muted">de <i>${v.pp.filter(Boolean).join(', ')}</i> «${v.es}»</div>`,prompt:'¿Qué forma verbal es?',
+   expl:`<i>${form}</i>: <b>${verbLabel(ok)}</b>.${extra}`,ficha:{tit:v.pp.filter(Boolean).join(', '),html:verbTables(v,voz,ok)}});
+ },
+ voc(){
+  const w=wpick(WORDS,x=>x.id),same=WORDS.filter(x=>x.cat===w.cat&&x!==w);
+  if(Math.random()<.65){
+   return mkQ({t:'voc',id:w.id,correct:w.es,others:pickOthers(w.es,same.map(x=>x.es),3),
+    show:`<div class="lat-big">${w.la}</div><div class="muted">${w.info}</div>`,prompt:'¿Qué significa?',expl:`<b class="la">${w.la}</b>: «${w.es}» (${w.info}).`});}
+  return mkQ({t:'voc',id:w.id,correct:w.la,others:pickOthers(w.la,same.map(x=>x.la),3),
+   show:`<div class="lat-big" style="font-style:normal">«${w.es}»</div><div class="muted">${w.info.split(' · ')[0]}</div>`,prompt:'¿Cómo se dice en latín?',expl:`«${w.es}» = <b class="la">${w.la}</b> (${w.info}).`});
+ },
+ etim(){
+  const e=wpick(ETYM,x=>'e:'+x.la),k=Math.random();
+  if(k<.4)return mkQ({t:'etim',id:'e:'+e.la,correct:e.pat,others:pickOthers(e.pat,ETYM.map(x=>x.pat),3,[e.cult]),
+   show:`<div class="lat-big">${e.la}</div>`,prompt:'¿Qué palabra <b>patrimonial</b> castellana viene de ella?',
+   expl:`<i>${e.la}</i> → <b>${e.pat}</b> (patrimonial: ${e.r.map(r=>RULES[r]).join('; ')}). El cultismo es <b>${e.cult}</b>.`});
+  if(k<.7)return mkQ({t:'etim',id:'e:'+e.la,correct:e.cult,others:pickOthers(e.cult,ETYM.map(x=>x.cult),3,[e.pat]),
+   show:`<div class="lat-big">${e.la}</div><div class="muted">patrimonial: ${e.pat}</div>`,prompt:'¿Cuál es el <b>cultismo</b> que viene de ella?',
+   expl:`El cultismo <b>${e.cult}</b> conserva la forma latina; el patrimonial <b>${e.pat}</b> ha evolucionado.`});
+  const ans=RULES[e.r[0]];
+  return mkQ({t:'etim',id:'e:'+e.la,correct:ans,others:pickOthers(ans,Object.keys(RULES).filter(r=>!e.r.includes(r)).map(r=>RULES[r]),3),
+   show:`<div class="lat-big"><i>${e.la}</i> <span style="font-style:normal">→ ${e.pat}</span></div>`,prompt:'¿Qué cambio fonético se ve aquí?',
+   expl:`<i>${e.la}</i> → <b>${e.pat}</b>: ${e.r.map(r=>RULES[r]).join('; ')}.`});
+ },
+ latn(){
+  const L=wpick(LATINISMOS,x=>'l:'+x[0]);
+  if(Math.random()<.65)return mkQ({t:'latn',id:'l:'+L[0],correct:L[1],others:pickOthers(L[1],LATINISMOS.map(x=>x[1]),3),
+   show:`<div class="lat-big">${L[0]}</div>`,prompt:'¿Qué significa este latinismo?',expl:`<b class="la">${L[0]}</b>: ${L[1]}.`});
+  return mkQ({t:'latn',id:'l:'+L[0],correct:L[0],others:pickOthers(L[0],LATINISMOS.map(x=>x[0]),3),
+   show:`<div class="lat-mid" style="font-style:normal">«${L[1]}»</div>`,prompt:'¿Qué latinismo significa esto?',expl:`«${L[1]}» = <b class="la">${L[0]}</b>.`});
+ },
+ casos(){
+  const k=Math.random();
+  if(k<.25){const x=pick(CASE_FUNC);return mkQ({t:'casos',id:'k:'+x.c,correct:x.f,others:pickOthers(x.f,CASE_FUNC.map(y=>y.f),3),
+   show:`<div class="lat-big" style="font-style:normal">${CASO_NOMBRE[x.c]}</div>`,prompt:'¿Qué función expresa este caso?',expl:`${CASO_NOMBRE[x.c]}: <b>${x.f.toLowerCase()}</b>. Ej.: ${x.ej}.`});}
+  if(k<.45){const x=pick(CASE_FUNC.filter(y=>y.c!=='voc'));const fn=x.f.split(/[;(]/)[0].trim();return mkQ({t:'casos',id:'k:'+x.c,correct:CASO_NOMBRE[x.c],others:pickOthers(CASO_NOMBRE[x.c],CASOS.map(c=>CASO_NOMBRE[c]),3),
+   show:`<div class="lat-mid" style="font-style:normal">${fn}</div>`,prompt:'¿En qué caso va esta función?',expl:`${fn} → <b>${CASO_NOMBRE[x.c].toLowerCase()}</b>. Ej.: ${x.ej}.`});}
+  const p=wpick(PREPS,x=>'p:'+x.la);
+  const names={ac:'Acusativo',abl:'Ablativo',ambos:'Acusativo y ablativo'};
+  if(k<.8)return mkQ({t:'casos',id:'p:'+p.la,correct:names[p.c],others:Object.values(names).filter(x=>x!==names[p.c]),
+   show:`<div class="lat-big">${p.la}</div>`,prompt:'¿Con qué caso se construye esta preposición?',expl:`<b class="la">${p.la}</b> + ${names[p.c].toLowerCase()}: «${p.es}».`});
+  return mkQ({t:'casos',id:'p:'+p.la,correct:p.es,others:pickOthers(p.es,PREPS.map(x=>x.es),3),
+   show:`<div class="lat-big">${p.la}</div>`,prompt:'¿Qué significa esta preposición?',expl:`<b class="la">${p.la}</b> (+ ${names[p.c].toLowerCase()}): «${p.es}».`});
+ },
+ trad(){
+  const s=wpick(SENTENCES,x=>'s:'+x.la);
+  return mkQ({t:'trad',id:'s:'+s.la,correct:s.ok,others:s.no.slice(0,3),
+   show:`<div class="lat-mid">${s.la}</div>`,prompt:'¿Cuál es la traducción correcta?',
+   expl:`<i>${s.la}</i> → <b>${s.ok}</b> Fíjate en el caso de cada palabra (nominativo = sujeto, acusativo = CD…) y en el tiempo y el número del verbo.`});
+ },
+ mito(){
+  const k=Math.random();
+  if(k<.5){const d=wpick(DIOSES.filter(x=>x.gr!==x.ro),x=>'g:'+x.gr);
+   if(Math.random()<.5)return mkQ({t:'mito',id:'g:'+d.gr,correct:d.ro,others:pickOthers(d.ro,DIOSES.map(x=>x.ro),3),
+    show:`<div class="lat-big" style="font-style:normal">${d.gr}</div><div class="muted">dios griego</div>`,prompt:'¿Cómo lo llamaban los romanos?',expl:`${d.gr} (griego) = <b>${d.ro}</b> (romano): ${d.at}.`});
+   return mkQ({t:'mito',id:'g:'+d.gr,correct:d.ro,others:pickOthers(d.ro,DIOSES.map(x=>x.ro),3),
+    show:`<div class="lat-mid" style="font-style:normal">${cap(d.at)}</div>`,prompt:'¿Qué dios romano es?',expl:`<b>${d.ro}</b> (en griego, ${d.gr}): ${d.at}.`});}
+  const q=wpick(MYTH_Q,x=>'c:'+x[0]);
+  return mkQ({t:'mito',id:'c:'+q[0],correct:q[1],others:q[2],show:'',prompt:q[0],expl:`<b>${q[1]}</b>.`});
+ },
+ hist(){
+  const k=Math.random();
+  if(k<.25){const c=wpick(CIUDADES,x=>'ci:'+x[0]);
+   return mkQ({t:'hist',id:'ci:'+c[0],correct:c[1],others:pickOthers(c[1],CIUDADES.map(x=>x[1]),3),
+    show:`<div class="lat-big">${c[0]}</div><div class="muted">ciudad de Hispania</div>`,prompt:'¿Qué ciudad es hoy?',expl:`<i>${c[0]}</i> es la actual <b>${c[1]}</b>.`});}
+  if(k<.35){const h=pick(HISTORIA);return mkQ({t:'hist',id:'h:'+h[0],correct:h[0],others:pickOthers(h[0],HISTORIA.map(x=>x[0]),3),
+   show:`<div class="lat-mid" style="font-style:normal">${h[1]}</div>`,prompt:'¿Cuándo ocurrió?',expl:`<b>${h[0]}</b>: ${h[1]}`});}
+  const q=wpick(HIST_Q,x=>'c:'+x[0]);
+  return mkQ({t:'hist',id:'c:'+q[0],correct:q[1],others:q[2],show:'',prompt:q[0],expl:`<b>${q[1]}</b>.`});
+ }
+};
+function makeQuestion(types,recent){
+  for(let k=0;k<30;k++){const q=GEN[pick(types)]();if(recent&&recent.includes(q.id+q.correct))continue;return q}
+  return GEN[pick(types)]();
+}
+
+/* ===================== PANTALLA DE PREGUNTA (común) ===================== */
+function qHTML(q,opt={}){
+  const answered=q.picked!==null,okp=q.picked===q.correct;
+  return `<div class="qcard"><span class="qtype">${QTYPES[q.t]}</span>${q.show||''}<div class="qprompt">${q.prompt}</div></div>
+   <div class="opts">${q.opts.map((o,i)=>{let c='';if(answered){if(o===q.correct)c=' ok';else if(o===q.picked)c=' ko'}
+     return `<button class="opt${c}" data-opt="${i}" ${answered?'disabled':''}><span class="k">${c===' ok'?'✓':c===' ko'?'✗':'ABCD'[i]}</span><span>${o}</span></button>`}).join('')}</div>
+   ${answered&&!opt.noExpl?`<div class="feedback ${okp?'ok':'ko'}" role="status"><strong>${okp?pick(OK_MSG):pick(BAD_MSG)}</strong>${q.expl}</div>`:''}`;
+}
+function openFicha(q){openSheet(`<h2 class="la">${q.ficha.tit}</h2>${q.ficha.html}<div class="sheet-nav"><button class="btn block" data-close="btn">Cerrar</button></div>`,'Tabla')}
+
+/* ===================== PRACTICAR: TEST ===================== */
+let PREF=Object.assign({fs:'m',theme:'auto',types:['decl','anal','conj','voc','trad'],deck:'all',dir:'la',crono:'all'},store.get('latinum-pref',{}));
+const savePref=()=>store.set('latinum-pref',PREF);
+let pmode='test',QZ=null,FL=null;
+const ROUND=10;
+function startQuiz(){QZ={i:0,score:0,miss:[],recent:[],done:false};QZ.q=makeQuestion(PREF.types);QZ.recent.push(QZ.q.id+QZ.q.correct);renderPrac()}
+function renderPrac(){
+  $$('[data-pmode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pmode===pmode));
+  if(pmode==='cards'){renderCards();return}
+  const box=$('#prac');
+  if(!QZ){
+    box.innerHTML=`<div class="quiz"><div><span class="ctl-l">Ronda de ${ROUND} preguntas</span><h2 style="margin:0">Ponte a prueba</h2>
+      <p class="muted" style="margin:.3em 0 0">Elige los tipos de pregunta. Las palabras que fallas o que aún no has visto salen más a menudo.</p></div>
+      <div class="card">${QGROUPS.map(([g,ks])=>`<div class="qgroup"><span class="ctl-l">${g}</span><div class="chips">${ks.map(k=>`<button class="chip" data-qt="${k}" aria-pressed="${PREF.types.includes(k)}">${QTYPES[k]}</button>`).join('')}</div></div>`).join('')}
+       <div class="row" style="margin-top:6px"><button class="chip" id="qt-all">Marcar todos</button><button class="chip" id="qt-none">Ninguno</button></div>
+       <button class="btn block" id="qz-start" style="margin-top:14px" ${PREF.types.length?'':'disabled'}>${PREF.types.length?'Empezar':'Elige al menos un tipo'}</button></div></div>`;return;
+  }
+  if(QZ.done){
+    const pct=QZ.score/ROUND;
+    if(!QZ.celebrated){QZ.celebrated=true;if(pct===1)confetti(70);else if(pct>=.8)confetti(25)}
+    const msg=pct===1?'¡Perfecto! Pleno de aciertos. Optime!':pct>=.8?'Muy bien. Ya casi lo tienes.':pct>=.5?'Vas bien. Repasa los fallos y prueba otra vez.':'Hay que repasar. Vuelve a la lección del tema y repite.';
+    box.innerHTML=`<div class="quiz"><div class="qcard"><span class="qtype">Resultado</span><div class="score">${pct===1?'🏆 ':pct>=.8?'⭐ ':''}${QZ.score}/${ROUND}</div><p style="margin:0">${msg}</p>
+      ${QZ.miss.length?`<span class="ctl-l">Para repasar</span><div class="miss">${[...new Set(QZ.miss)].map(m=>`<span>${m}</span>`).join('')}</div>`:''}
+      <div class="row" style="width:100%"><button class="btn ghost" style="flex:1" id="qz-setup">Cambiar tipos</button><button class="btn" style="flex:1" id="qz-again">Otra ronda</button></div></div></div>`;return;
+  }
+  const q=QZ.q,answered=q.picked!==null;
+  box.innerHTML=`<div class="quiz${answered?' answered':''}">
+    <div class="counter"><button class="exitbtn" id="qz-exit">✕ Salir</button><span>Pregunta ${QZ.i+1} de ${ROUND} · ${QZ.score} aciertos</span></div>
+    <div class="bar"><i style="width:${(QZ.i+(answered?1:0))/ROUND*100}%"></i></div>
+    ${qHTML(q)}
+    ${answered?`<div class="next-bar">${q.ficha?`<button class="btn ghost" style="flex:1" id="qz-ficha">Ver tabla</button>`:''}<button class="btn" style="flex:2" id="qz-next">${QZ.i+1<ROUND?'Siguiente':'Ver resultado'}</button></div>`:''}</div>`;
+  if(answered){const n=$('#qz-next');n&&n.focus({preventScroll:true})}
+}
+function missText(q){const m=q.show.match(/class="lat-(?:big|mid)"[^>]*>(.*?)<\/div>/);return m?m[1].replace(/<[^>]+>/g,'').replace(/\s*\+\s*\?$/,''):QTYPES[q.t]}
+function answerQuiz(i){const q=QZ.q;if(q.picked!==null)return;q.picked=q.opts[i];const ok=q.picked===q.correct;
+  record(q.id,ok);topicRecord(q.t,ok);
+  if(ok){QZ.score++;pStats.ok++;pStats.streak++;addXP(10)}else{QZ.miss.push(missText(q));pStats.streak=0;vibrar(60)}
+  updStats();renderPrac();const fb=$('.feedback');fb&&fb.scrollIntoView({block:'nearest',behavior:'smooth'})}
+function nextQuiz(){QZ.i++;if(QZ.i>=ROUND)QZ.done=true;else{QZ.q=makeQuestion(PREF.types,QZ.recent);QZ.recent=[...QZ.recent.slice(-6),QZ.q.id+QZ.q.correct]}renderPrac();SC.scrollTop=0}
+
+/* ===================== PRACTICAR: TARJETAS (como en la tabla periódica) ===================== */
+const DECKS={
+  all:{n:'Todo el vocabulario',items:()=>WORDS},sus:{n:'Sustantivos',items:()=>WORDS.filter(w=>w.cat==='sus')},
+  ver:{n:'Verbos',items:()=>WORDS.filter(w=>w.cat==='ver')},adj:{n:'Adjetivos',items:()=>WORDS.filter(w=>w.cat==='adj')},
+  inv:{n:'Palabras invariables',items:()=>WORDS.filter(w=>w.cat==='inv')},
+  latn:{n:'Latinismos',items:()=>LATINISMOS.map(([a,b])=>({id:'l:'+a,la:a,es:b,info:'latinismo'}))},
+  dios:{n:'Dioses (griego → romano)',items:()=>DIOSES.map(d=>({id:'g:'+d.gr,la:d.gr,es:d.ro,info:d.at,noLa:1}))},
+  ciu:{n:'Ciudades de Hispania',items:()=>CIUDADES.map(([a,b])=>({id:'ci:'+a,la:a,es:b,info:'ciudad romana de Hispania'}))}
+};
+function newDeck(){const d=DECKS[PREF.deck]?PREF.deck:'all';const items=DECKS[d].items();
+  FL={d,deck:shuffle(items).sort((a,b)=>weightOf(b.id)-weightOf(a.id)+(Math.random()-.5)*2).slice(0,20),i:0,flipped:false,known:0}}
+function renderCards(){
+  const box=$('#prac');
+  if(!FL||FL.d!==PREF.deck)newDeck();
+  const deckSel=`<div class="pick" style="margin:0"><label for="fl-deck">Mazo:</label><select id="fl-deck">${Object.entries(DECKS).map(([k,d])=>`<option value="${k}" ${FL.d===k?'selected':''}>${d.n} (${d.items().length})</option>`).join('')}</select></div>`;
+  if(FL.i>=FL.deck.length){
+    if(FL.known===FL.deck.length&&!FL.cel){FL.cel=1;confetti(40)}
+    box.innerHTML=`<div class="quiz">${deckSel}<div class="qcard"><span class="qtype">Mazo terminado</span><div class="score">${FL.known}/${FL.deck.length}</div><p style="margin:0">tarjetas que ya te sabías.</p><button class="btn block" id="fl-new">Barajar otra vez</button></div></div>`;return;
+  }
+  const w=FL.deck[FL.i],la2es=PREF.dir==='la';
+  const front=la2es?`<div class="lat-big"${w.noLa?' style="font-style:normal"':''}>${w.la}</div><div class="muted">¿Qué significa?</div>`:`<div class="lat-big" style="font-style:normal">${w.es}</div><div class="muted">¿Cómo es en latín?</div>`;
+  const back=`<div class="lat-big"${w.noLa?' style="font-style:normal"':''}>${w.la}</div><div style="font-size:1.25rem;font-weight:800">${w.noLa?'→ ':'= '}${w.es}</div><div class="muted">${w.info}</div><div class="lvleg"><span><i style="background:var(--lv${level(w.id)})"></i>${LVNAME[level(w.id)]}</span></div>`;
+  box.innerHTML=`<div class="quiz">${deckSel}
+    <div class="seg" role="group" aria-label="Dirección"><button data-dir="la" aria-pressed="${la2es}">Latín → castellano</button><button data-dir="es" aria-pressed="${!la2es}">Castellano → latín</button></div>
+    <div class="counter"><span>Tarjeta ${FL.i+1} de ${FL.deck.length}</span><span>${FL.known} me las sé</span></div>
+    <div class="bar"><i style="width:${FL.i/FL.deck.length*100}%"></i></div>
+    <div class="card3d${FL.flipped?' flipped':''}" id="card"><div class="inner">
+      <div class="face front"><div class="stripe"></div>${front}<span class="hint">Toca para darle la vuelta</span></div>
+      <div class="face back"><div class="stripe"></div>${back}</div></div></div>
+    <div class="flash-actions" ${FL.flipped?'':'style="visibility:hidden"'}><button class="btn no" id="fl-no">No me la sabía</button><button class="btn yes" id="fl-yes">Me la sabía</button></div>
+    <p class="muted" style="margin:0;font-size:.85rem;text-align:center">${FL.flipped?'También puedes deslizar la tarjeta: ← no me la sabía · me la sabía →':'Sé sincero: las que fallas vuelven a salir más a menudo.'}</p></div>`;
+}
+function flashAnswer(ok){if(!FL.flipped)return;const w=FL.deck[FL.i];record(w.id,ok);if(ok){FL.known++;addXP(3)}else if(FL.deck.length-FL.i>4){FL.deck.splice(FL.i+4+Math.floor(Math.random()*3),0,w)}FL.i++;FL.flipped=false;renderCards()}
+// deslizar la tarjeta
+(function(){let x0=null,y0=null;
+  $('#prac').addEventListener('touchstart',e=>{if(!e.target.closest('#card'))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  $('#prac').addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+    if(FL&&FL.flipped&&Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.5){flashAnswer(dx>0);FL._swiped=Date.now()}});})();
+
+$('#v-practicar').addEventListener('click',e=>{const t=e.target;let b;
+  if(b=t.closest('[data-pmode]')){pmode=b.dataset.pmode;renderPrac();return}
+  if(b=t.closest('[data-qt]')){const k=b.dataset.qt;PREF.types=PREF.types.includes(k)?PREF.types.filter(x=>x!==k):[...PREF.types,k];savePref();renderPrac();return}
+  if(t.closest('#qt-all')){PREF.types=Object.keys(QTYPES);savePref();renderPrac();return}
+  if(t.closest('#qt-none')){PREF.types=[];savePref();renderPrac();return}
+  if(t.closest('#qz-start')||t.closest('#qz-again')){startQuiz();return}
+  if(t.closest('#qz-setup')||t.closest('#qz-exit')){QZ=null;renderPrac();return}
+  if(b=t.closest('[data-opt]')){answerQuiz(+b.dataset.opt);return}
+  if(t.closest('#qz-next')){nextQuiz();return}
+  if(t.closest('#qz-ficha')){openFicha(QZ.q);return}
+  if(t.closest('#b-prog')){openProgress();return}
+  if(b=t.closest('[data-dir]')){PREF.dir=b.dataset.dir;savePref();FL.flipped=false;renderCards();return}
+  if(t.closest('#card')){if(FL._swiped&&Date.now()-FL._swiped<400)return;FL.flipped=!FL.flipped;renderCards();return}
+  if(t.closest('#fl-yes')){flashAnswer(true);return}
+  if(t.closest('#fl-no')){flashAnswer(false);return}
+  if(t.closest('#fl-new')){newDeck();renderCards();return}
+});
+$('#v-practicar').addEventListener('change',e=>{if(e.target.id==='fl-deck'){PREF.deck=e.target.value;savePref();newDeck();renderCards()}});
+
+/* ===================== JUGAR ===================== */
+const CRONO_SETS={all:['Todo mezclado',['decl','anal','conj','aver','voc','latn','mito','casos','etim','enun','conc','hist']],
+  nom:['Sustantivos',['decl','anal','enun','conc']],ver:['Verbos',['conj','aver']],lex:['Vocabulario y latinismos',['voc','latn','etim']],cul:['Cultura y mitología',['mito','hist']]};
+const PAIR_SETS={voc:['Vocabulario',()=>shuffle(WORDS.filter(w=>w.cat!=='inv')).slice(0,6).map(w=>[w.la.split(',')[0],w.es.split(/[,;]/)[0]])],
+  dios:['Dioses griegos y romanos',()=>shuffle(DIOSES.filter(d=>d.gr!==d.ro)).slice(0,6).map(d=>[d.gr,d.ro])],
+  ciu:['Ciudades de Hispania',()=>shuffle(CIUDADES).slice(0,6)],
+  latn:['Latinismos',()=>shuffle(LATINISMOS.filter(l=>l[1].length<34)).slice(0,6)]};
+let CR=null,SV=null,PJ=null,crTimer=null;
+const REC=()=>store.get('latinum-rec',{});
+function setRec(k,v,lower){const r=REC();if(r[k]==null||(lower?v<r[k]:v>r[k])){r[k]=v;store.set('latinum-rec',r);return true}return false}
+function renderGame(){
+  const box=$('#game');
+  if(CR)return renderCrono();
+  if(SV)return renderSurv();
+  if(PJ)return renderPairs();
+  const r=REC();
+  box.innerHTML=`<h2>Jugar</h2><div class="games">
+    <div class="card game-card"><div style="font-size:2rem">⏱️</div><h3>Contrarreloj</h3><p class="muted">60 segundos: ¿cuántas aciertas? Cada fallo resta 3 segundos.</p>
+      <div class="chips">${Object.entries(CRONO_SETS).map(([k,s])=>`<button class="chip" data-cset="${k}" aria-pressed="${PREF.crono===k}">${s[0]}</button>`).join('')}</div>
+      <p class="rec">🏆 Récord: ${r['crono-'+PREF.crono]??'—'}</p><button class="btn block" id="g-crono">Empezar</button></div>
+    <div class="card game-card"><div style="font-size:2rem">🛡️</div><h3>Supervivencia</h3><p class="muted">Tienes 3 vidas. Aguanta todo lo que puedas: ¡cada 10 aciertos ganas una vida!</p>
+      <p class="rec">🏆 Récord: ${r.surv!=null?r.surv+' aciertos':'—'}</p><button class="btn block" id="g-surv">Empezar</button></div>
+    <div class="card game-card"><div style="font-size:2rem">🃏</div><h3>Parejas</h3><p class="muted">Encuentra las 6 parejas con el menor número de intentos.</p>
+      ${Object.entries(PAIR_SETS).map(([k,s])=>`<button class="btn ghost block" style="margin:6px 0" data-pset="${k}">${s[0]}${r['pairs-'+k]!=null?` · 🏆 ${r['pairs-'+k]}`:''}</button>`).join('')}</div>
+  </div>`;
+}
+// --- Contrarreloj
+function startCrono(){CR={set:PREF.crono,score:0,end:Date.now()+60000,q:null,lock:false,fails:0};CR.q=makeQuestion(CRONO_SETS[CR.set][1]);renderCrono();
+  clearInterval(crTimer);crTimer=setInterval(()=>{if(!CR||CR.over)return clearInterval(crTimer);const left=CR.end-Date.now();
+    const tb=$('#cr-tb');if(tb)tb.style.width=Math.max(0,left/600)+'%';const tl=$('#cr-t');if(tl)tl.textContent=Math.max(0,Math.ceil(left/1000));
+    if(left<=0){CR.over=true;clearInterval(crTimer);const nr=setRec('crono-'+CR.set,CR.score);CR.newRec=nr;if(nr&&CR.score>0)confetti(50);addXP(CR.score*2);renderCrono()}},100)}
+function renderCrono(){const box=$('#game');
+  if(CR.over){box.innerHTML=`<div class="quiz"><div class="card end"><div style="font-size:2.4rem">⏱️</div><h2>¡Tiempo!</h2><div class="score">${CR.score}</div><p style="margin:0">aciertos · ${CR.fails} fallos ${CR.newRec&&CR.score?'<br><b>🏆 ¡Nuevo récord!</b>':''}</p>
+    <div class="row" style="width:100%"><button class="btn ghost" style="flex:1" id="g-menu">Menú</button><button class="btn" style="flex:1" id="g-crono">Otra vez</button></div></div></div>`;return}
+  const q=CR.q;
+  box.innerHTML=`<div class="quiz${q.picked!==null?' answered':''}"><div class="hud"><button class="exitbtn" id="g-quit">✕ Salir</button><div class="stats"><div class="stat"><b id="cr-t">${Math.ceil((CR.end-Date.now())/1000)}</b><small>segundos</small></div><div class="stat"><b>${CR.score}</b><small>aciertos</small></div></div></div>
+    <div class="timebar"><div id="cr-tb" style="width:${Math.max(0,(CR.end-Date.now())/600)}%"></div></div>${qHTML(q,{noExpl:true})}</div>`}
+function answerCrono(i){const q=CR.q;if(q.picked!==null||CR.over)return;q.picked=q.opts[i];const ok=q.picked===q.correct;record(q.id,ok);topicRecord(q.t,ok);
+  if(ok){CR.score++;flash('✓','var(--ok)')}else{CR.fails++;CR.end-=3000;flash('✗ −3 s','var(--bad)');vibrar(60)}
+  renderCrono();setTimeout(()=>{if(!CR||CR.over)return;CR.q=makeQuestion(CRONO_SETS[CR.set][1]);renderCrono()},ok?350:1100)}
+// --- Supervivencia
+function startSurv(){SV={lives:3,score:0,q:makeQuestion(Object.keys(QTYPES)),over:false};renderSurv()}
+function renderSurv(){const box=$('#game');
+  if(SV.over){box.innerHTML=`<div class="quiz"><div class="card end"><div style="font-size:2.4rem">🛡️</div><h2>Fin de la partida</h2><div class="score">${SV.score}</div><p style="margin:0">aciertos seguidos${SV.newRec&&SV.score?'<br><b>🏆 ¡Nuevo récord!</b>':''}</p>
+    <div class="row" style="width:100%"><button class="btn ghost" style="flex:1" id="g-menu">Menú</button><button class="btn" style="flex:1" id="g-surv">Otra vez</button></div></div></div>`;return}
+  const q=SV.q,answered=q.picked!==null;
+  box.innerHTML=`<div class="quiz${answered?' answered':''}"><div class="hud"><button class="exitbtn" id="g-quit">✕ Salir</button><span class="lives" aria-label="${SV.lives} vidas">${'❤️'.repeat(SV.lives)}${'🤍'.repeat(Math.max(0,3-SV.lives))}</span><div class="stat"><b>${SV.score}</b><small>aciertos</small></div></div>
+    ${qHTML(q)}${answered?`<div class="next-bar"><button class="btn" style="flex:1" id="sv-next">${SV.lives>0?'Siguiente':'Ver resultado'}</button></div>`:''}</div>`;
+  if(answered){const n=$('#sv-next');n&&n.focus({preventScroll:true})}}
+function answerSurv(i){const q=SV.q;if(q.picked!==null)return;q.picked=q.opts[i];const ok=q.picked===q.correct;record(q.id,ok);topicRecord(q.t,ok);
+  if(ok){SV.score++;addXP(3);if(SV.score%10===0&&SV.lives<3){SV.lives++;flash('+❤️','var(--bad)')}}else{SV.lives--;vibrar(80)}
+  renderSurv()}
+function nextSurv(){if(SV.lives<=0){SV.over=true;SV.newRec=setRec('surv',SV.score);if(SV.newRec&&SV.score)confetti(50)}else SV.q=makeQuestion(Object.keys(QTYPES),[SV.q.id+SV.q.correct]);renderSurv();SC.scrollTop=0}
+// --- Parejas
+function startPairs(k){const pairs=PAIR_SETS[k][1]();
+  const cards=shuffle(pairs.flatMap((p,i)=>[{k:i,txt:p[0],la:k!=='dios'},{k:i,txt:p[1],la:false}]));
+  PJ={set:k,cards,open:[],done:new Set(),moves:0,busy:false};renderPairs()}
+function renderPairs(){const box=$('#game'),P=PJ,fin=P.done.size===P.cards.length/2;
+  box.innerHTML=`<div class="quiz"><div class="hud"><button class="exitbtn" id="g-quit">✕ Salir</button><b>${PAIR_SETS[P.set][0]}</b><div class="stat"><b>${P.moves}</b><small>intentos</small></div></div>
+    ${fin?`<div class="feedback ok" role="status"><strong>¡Todas las parejas! ${P.newRec?'🏆 ¡Nuevo récord!':''}</strong>Lo has conseguido en ${P.moves} intentos (el mínimo posible es 6).</div>`:''}
+    <div class="memo">${P.cards.map((c,i)=>{const op=P.open.includes(i)||P.done.has(c.k);return `<button class="mcard${op?(P.done.has(c.k)?' done':' open'):''}${c.la&&op?' la':''}${c.txt.length>16?' small':''}" data-mc="${i}" ${op?'disabled':''} aria-label="${op?c.txt:'Carta boca abajo'}">${op?c.txt:'SPQR'}</button>`}).join('')}</div>
+    ${fin?`<div class="row"><button class="btn ghost" style="flex:1" id="g-menu">Menú</button><button class="btn" style="flex:1" data-pset="${P.set}">Otra vez</button></div>`:`<p class="muted" style="text-align:center;margin:0">Une cada palabra con su pareja.</p>`}</div>`}
+function tapPair(i){const P=PJ;if(P.busy||P.open.includes(i))return;P.open.push(i);
+  if(P.open.length===2){P.moves++;const [a,b]=P.open.map(x=>P.cards[x]);
+    if(a.k===b.k){P.done.add(a.k);P.open=[];if(P.done.size===P.cards.length/2){P.newRec=setRec('pairs-'+P.set,P.moves,true);addXP(20);confetti(P.moves<=8?60:25)}}
+    else{P.busy=true;vibrar(30);setTimeout(()=>{P.open=[];P.busy=false;if(PJ===P)renderPairs()},900)}}
+  renderPairs()}
+$('#game').addEventListener('click',e=>{const t=e.target;let b;
+  if(b=t.closest('[data-cset]')){PREF.crono=b.dataset.cset;savePref();renderGame();return}
+  if(t.closest('#g-crono')){SV=PJ=null;startCrono();return}
+  if(t.closest('#g-surv')){CR=PJ=null;startSurv();return}
+  if(b=t.closest('[data-pset]')){CR=SV=null;startPairs(b.dataset.pset);return}
+  if(t.closest('#g-menu')||t.closest('#g-quit')){if(CR)CR.over=true;clearInterval(crTimer);CR=SV=PJ=null;renderGame();return}
+  if(b=t.closest('[data-opt]')){if(CR)answerCrono(+b.dataset.opt);else if(SV)answerSurv(+b.dataset.opt);return}
+  if(t.closest('#sv-next')){nextSurv();return}
+  if(b=t.closest('[data-mc]')){tapPair(+b.dataset.mc);return}
+});
+// Teclado: A-D o 1-4 para responder, Intro para seguir
+addEventListener('keydown',e=>{if(!$('#sheet').hidden||e.target.matches('input,select,textarea'))return;
+  const k=e.key.toLowerCase(),idx='abcd'.indexOf(k)>=0?'abcd'.indexOf(k):'1234'.indexOf(k);
+  const v=location.hash.slice(1);
+  if(idx>=0){const b=$(`#v-${v} .opt[data-opt="${idx}"]:not(:disabled)`);if(b){b.click();e.preventDefault()}}
+  else if(k==='enter'){const n=$('#qz-next')||$('#sv-next');if(n&&v!=='inicio'&&document.activeElement!==n){n.click();e.preventDefault()}}
+  else if(k===' '&&pmode==='cards'&&v==='practicar'&&FL&&!FL.flipped){FL.flipped=true;renderCards();e.preventDefault()}});
+
+/* ===================== INICIO ===================== */
+function renderInicio(){
+  const ri=rankOf(XP),R=RANKS[ri],N=RANKS[ri+1];
+  const pc=N?Math.round((XP-R[0])*100/(N[0]-R[0])):100;
+  const ids=WORDS.map(w=>w.id),lv=[0,0,0,0];ids.forEach(id=>lv[level(id)]++);
+  $('#rank').innerHTML=`<div class="top"><span class="ico">${R[1]}</span><div><span class="muted" style="font-size:.85rem;font-weight:700">Tu rango</span><b class="name">${R[2]}</b><span class="muted">${cap(R[3])} · ${XP} XP</span></div></div>
+    <div class="xpbar"><div style="width:${pc}%"></div></div><span class="muted" style="font-size:.85rem">${N?`Te faltan <b>${N[0]-XP} XP</b> para ${N[2]} ${N[1]}`:'¡Has llegado a lo más alto del Imperio!'}</span>
+    <div><span class="ctl-l">Vocabulario (${ids.length} palabras)</span><div class="lvstack">${lv.map((n,i)=>n?`<i style="width:${n*100/ids.length}%;background:var(--lv${i})"></i>`:'').join('')}</div>
+    <div class="lvleg">${LVNAME.map((n,i)=>`<span><i style="background:var(--lv${i})"></i>${n}: ${lv[i]}</span>`).join('')}</div></div>
+    <button class="btn ghost" id="b-prog2">📊 Mi progreso</button>`;
+  const d=new Date(),n=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),L=LATINISMOS[n%LATINISMOS.length];
+  $('#dia').innerHTML=`<span class="eyebrow">Latinismo del día</span><br><b>${L[0]}</b> — ${L[1]}.`;
+  const rep=WORDS.filter(w=>level(w.id)===1).length;
+  $('#quick').innerHTML=`<a class="btn" href="#practicar" data-go="cards">🃏 ${rep?`Repasar ${rep} palabras falladas`:'Tarjetas de vocabulario'}</a><a class="btn ghost" href="#jugar">⏱️ Contrarreloj</a>`;
+}
+$('#v-inicio').addEventListener('click',e=>{if(e.target.closest('#b-prog2'))openProgress();const g=e.target.closest('[data-go]');if(g){pmode='cards';PREF.deck='all';FL=null}});
+
+/* ===================== NAVEGACIÓN ===================== */
+function route(){
+  const v=(location.hash||'#inicio').slice(1);const ok=['inicio','aprender','practicar','jugar'].includes(v)?v:'inicio';
+  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+ok));$$('nav.main a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
+  if(ok!=='jugar'&&CR&&!CR.over){CR.over=true;clearInterval(crTimer);CR=null}
+  if(ok==='inicio')renderInicio();if(ok==='practicar')renderPrac();if(ok==='jugar')renderGame();
+  SC.scrollTop=0;
+}
+addEventListener('hashchange',route);
+showLesson(Math.min(store.get('latinum-lesson',0),LESSONS.length-1));updStats();route();
+
+/* ===================== VERSIÓN, AVISO Y AUTORÍA ===================== */
+const VERSION=(document.querySelector('meta[name="app-version"]')||{}).content||"dev";
+const NOVEDADES=[
+  ["1.0",["🏛️ Primera versión de Latinum","📜 13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos (conjugador completo), preposiciones, etimología, latinismos, mitología e historia","✏️ Test con 13 tipos de pregunta y explicación de cada respuesta","🃏 Tarjetas de vocabulario, latinismos, dioses y ciudades: lo que fallas vuelve a salir más a menudo","🎮 Juegos: Contrarreloj, Supervivencia y Parejas, con récords","🪖 Rangos romanos: de Tiro a Caesar según tus aciertos"]]
+];
+const AUTORES="Adela Moreno Vega y Carlos Moreno Otto";
+const DISCLAIMER="Esta app es una ayuda para repasar y puede contener errores. <b>En caso de error o duda, la fuente fiable es el material oficial de la asignatura de Latín</b> (libro de texto y apuntes del profesorado).";
+$('#foot').innerHTML=`<p>${DISCLAIMER}</p><p>© ${new Date().getFullYear()} <b>Adela Moreno Vega</b> y <b>Carlos Moreno Otto</b> · <button class="ver" id="foot-ver">v${VERSION} · Ajustes y novedades</button></p>`;
+function verCmp(a,b){const x=String(a).split('.').map(Number),y=String(b).split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d}return 0}
+
+/* ===================== HOJAS (ventanas que suben desde abajo) ===================== */
+let sheetOpener=null,skipPop=false;
+function openSheet(html,label){const s=$('#sheet');
+  s.innerHTML=`<div class="sheet-bg" data-close="1"><div class="sheet" role="dialog" aria-modal="true" aria-label="${label}"><div class="grab"></div>${html}</div></div>`;
+  s.hidden=false;if(!sheetOpener||!document.body.contains(sheetOpener))sheetOpener=document.activeElement;
+  if(!(history.state&&history.state.sheet))history.pushState({sheet:1},'',location.hash||'#inicio');
+  const sh=s.querySelector('.sheet');sh.tabIndex=-1;sh.focus({preventScroll:true});}
+function closeSheet(fromPop){const s=$('#sheet');if(s.hidden)return;s.hidden=true;s.innerHTML='';
+  if(sheetOpener&&document.body.contains(sheetOpener))sheetOpener.focus({preventScroll:true});sheetOpener=null;
+  if(!fromPop&&history.state&&history.state.sheet){skipPop=true;history.back()}}
+addEventListener('popstate',()=>{if(skipPop){skipPop=false;return}closeSheet(true)});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+$('#sheet').addEventListener('click',e=>{if(e.target.dataset.close||e.target.closest('[data-close="btn"]'))closeSheet()});
+(function(){let y0=null,dy=0,el=null;
+  $('#sheet').addEventListener('touchstart',e=>{el=e.target.closest('.sheet');if(!el||el.scrollTop>0){el=null;return}y0=e.touches[0].clientY;dy=0},{passive:true});
+  $('#sheet').addEventListener('touchmove',e=>{if(!el)return;dy=e.touches[0].clientY-y0;if(dy>0){el.classList.add('drag');el.style.transform=`translateY(${dy}px)`}},{passive:true});
+  $('#sheet').addEventListener('touchend',()=>{if(!el)return;el.classList.remove('drag');if(dy>90)closeSheet();else el.style.transform='';el=null});})();
+
+/* ===================== AJUSTES ===================== */
+function applyLook(){const r=document.documentElement;r.dataset.fs=PREF.fs;
+  const dark=PREF.theme==='dark'||(PREF.theme==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);
+  r.dataset.theme=dark?'dark':'light';}
+applyLook();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyLook);
+const FS=[['s','Pequeña'],['m','Normal'],['l','Grande'],['xl','Muy grande']];
+const THEMES=[['auto','Automático'],['light','Claro'],['dark','Oscuro']];
+function openSettings(){
+  openSheet(`<h2>Ajustes</h2>
+    <div class="set-group"><h3>Tamaño de letra</h3>
+      <div class="seg" role="group" aria-label="Tamaño de letra">${FS.map(([k,l])=>`<button data-fsz="${k}" aria-pressed="${PREF.fs===k}">${l}</button>`).join('')}</div></div>
+    <div class="set-group"><h3>Aspecto</h3>
+      <div class="seg" role="group" aria-label="Aspecto">${THEMES.map(([k,l])=>`<button data-theme-set="${k}" aria-pressed="${PREF.theme===k}">${l}</button>`).join('')}</div>
+      <p class="muted" style="margin:0;font-size:.82rem">«Automático» sigue el modo claro u oscuro del móvil.</p></div>
+    <div class="set-group"><h3>Instalar en el móvil</h3>
+      ${isStandalone()?`<p class="muted" style="margin:0">✓ Ya la estás usando como app instalada.</p>`:`<button class="btn ghost" id="set-install" style="align-self:flex-start">📲 Cómo añadirla a la pantalla de inicio</button>`}</div>
+    <div class="set-group"><h3>Acerca de</h3>
+      <div class="about"><img src="icon-192.png" alt="" width="48" height="48"><div><b>Latinum · Latín 4º ESO</b><br><span class="muted">Versión ${VERSION}</span></div></div>
+      <p style="margin:0">Creada por <b>Adela Moreno Vega</b> y <b>Carlos Moreno Otto</b>.</p>
+      <p class="muted" style="margin:0;font-size:.82rem">© ${new Date().getFullYear()} ${AUTORES}. Todos los derechos reservados. Uso personal y educativo gratuito.</p></div>
+    <div class="set-group"><h3>Aviso</h3><div class="disclaimer">${DISCLAIMER}</div></div>
+    <div class="set-group"><h3>Versión</h3>
+      <p style="margin:0">Latinum · <b>versión ${VERSION}</b></p>
+      <div class="row"><button class="btn ghost" id="set-upd">🔄 Buscar actualizaciones</button><button class="btn ghost" id="set-nov">Ver novedades</button></div>
+      <p class="muted" id="upd-msg" role="status" style="margin:0;font-size:.82rem">La app lo comprueba sola cada vez que la abres o vuelves a ella.</p></div>
+    <div class="sheet-nav"><button class="btn block" data-close="btn">Cerrar</button></div>`,'Ajustes');
+}
+$('#gear').addEventListener('click',openSettings);
+$('#foot-ver').addEventListener('click',openSettings);
+$('#sheet').addEventListener('click',e=>{const t=e.target;let b;
+  if(b=t.closest('[data-fsz]')){PREF.fs=b.dataset.fsz;savePref();applyLook();$$('[data-fsz]').forEach(x=>x.setAttribute('aria-pressed',x===b));return}
+  if(b=t.closest('[data-theme-set]')){PREF.theme=b.dataset.themeSet;savePref();applyLook();$$('[data-theme-set]').forEach(x=>x.setAttribute('aria-pressed',x===b));return}
+  if(b=t.closest('#set-upd')){const m=$('#upd-msg');b.disabled=true;m.textContent='Comprobando…';
+    buscarVersion(true).then(v=>{b.disabled=false;
+      if(!EN_WEB)m.textContent='Solo se puede comprobar en la app publicada.';
+      else if(v==null)m.textContent='No se ha podido comprobar. ¿Tienes conexión a internet?';
+      else if(verCmp(v,VERSION)>0)m.textContent=`Hay una versión nueva (${v}). Se instalará al cerrar esta ventana.`;
+      else m.textContent=`✓ Tienes la última versión (${VERSION}).`});return}
+  if(t.closest('#set-nov')){verNovedades(null);return}
+  if(t.closest('#set-install')){openInstall();return}
+  if(t.closest('#inst-now')){installNow();return}
+  if(b=t.closest('#inst-copy')){const u=location.origin+location.pathname;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>{b.textContent='✓ Enlace copiado'}).catch(()=>{b.textContent=u});return}
+  if(t.closest('#rs')){$('#rs-box').hidden=false;return}
+  if(t.closest('#rs-no')){$('#rs-box').hidden=true;return}
+  if(t.closest('#rs-yes')){ITEMS={};PROG={};XP=0;['latinum-items','latinum-prog','latinum-xp','latinum-rec','latinum-seen'].forEach(k=>store.set(k,k==='latinum-xp'?0:{}));SEEN={};pStats={ok:0,streak:0};updStats();showLesson(curLesson);openProgress();if(location.hash==='#inicio'||!location.hash)renderInicio();return}
+});
+
+/* ===================== MI PROGRESO ===================== */
+function openProgress(){
+  const r=REC(),vistas=LESSONS.filter(l=>SEEN[l.id]).length;
+  const ids=WORDS.map(w=>w.id),lv=[0,0,0,0];ids.forEach(id=>lv[level(id)]++);
+  const R=RANKS[rankOf(XP)];
+  openSheet(`<h2>📊 Tu progreso</h2>
+    <p style="margin:0">${R[1]} <b>${R[2]}</b> · ${XP} XP</p>
+    <p class="muted" style="margin:4px 0 0">Lecciones vistas: <b>${vistas} de ${LESSONS.length}</b> · Récords: ⏱️ ${r['crono-all']??'—'} · 🛡️ ${r.surv??'—'}</p>
+    <div class="set-group"><h3>Vocabulario</h3><div class="lvstack">${lv.map((n,i)=>n?`<i style="width:${n*100/ids.length}%;background:var(--lv${i})"></i>`:'').join('')}</div>
+      <div class="lvleg">${LVNAME.map((n,i)=>`<span><i style="background:var(--lv${i})"></i>${n}: ${lv[i]}</span>`).join('')}</div>
+      <p class="muted" style="margin:0;font-size:.82rem">Una palabra está «dominada» cuando la aciertas 3 veces seguidas.</p></div>
+    <div class="set-group"><h3>Por tipo de pregunta</h3>
+    ${Object.keys(QTYPES).map(k=>{const p=PROG[k]||{ok:0,tot:0},pc=p.tot?Math.round(p.ok*100/p.tot):0;
+      return `<div class="progrow"><b>${QTYPES[k]}</b><span class="muted">${p.tot?`${p.ok}/${p.tot} · ${pc}%`:'sin empezar'}</span><div class="bar"><i style="width:${pc}%;background:${pc>=80?'var(--ok)':pc>=50?'var(--gold)':'var(--bad)'}"></i></div></div>`}).join('')}</div>
+    <p class="muted" style="font-size:.82rem;margin:6px 0 0">Por debajo del 50 % (en rojo) conviene repasar la lección.</p>
+    <button class="btn ghost" id="rs" style="margin-top:12px">Borrar mi progreso</button>
+    <div class="confirm" id="rs-box" hidden><span style="flex:1;min-width:180px">¿Borrar todo tu progreso, tu rango y tus récords? No se puede deshacer.</span><button class="btn ghost" id="rs-no">Cancelar</button><button class="btn acc" id="rs-yes">Borrar</button></div>
+    <div class="sheet-nav"><button class="btn block" data-close="btn">Cerrar</button></div>`,'Tu progreso');
+}
+
+/* ===================== INSTALAR EN LA PANTALLA DE INICIO ===================== */
+const UA=navigator.userAgent;
+const IS_IOS=/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const IS_ANDROID=/Android/.test(UA);
+const IN_APP=/FBAN|FBAV|Instagram|Line\/|; wv\)|GSA\//.test(UA);
+const IOS_OTHER=IS_IOS&&/CriOS|FxiOS|EdgiOS/.test(UA);
+const IS_IPAD=/iPad/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+let deferredPrompt=null;
+function iosVersion(){const sv=UA.match(/Version\/(\d+)(?:\.(\d+))?.*Safari/);if(sv&&!IOS_OTHER)return [+sv[1],+(sv[2]||0)];const os=UA.match(/OS (\d+)_(\d+)/);return os?[+os[1],+os[2]]:[0,0]}
+function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function renderInstallBanner(){const slot=$('#install-slot');
+  if(isStandalone()||store.get('latinum-install-hide',0)||(!IS_IOS&&!IS_ANDROID&&!deferredPrompt)){slot.innerHTML='';return}
+  slot.innerHTML=`<div class="install-banner"><img src="icon-192.png" alt=""><div><b>📲 Instálala en tu móvil</b><span>Tenla en la pantalla de inicio, como una app.</span></div>
+    <button class="btn" id="ib-how">${deferredPrompt?'Instalar':'Ver cómo'}</button><button class="x" id="ib-x" aria-label="No mostrar más">×</button></div>`;}
+$('#install-slot').addEventListener('click',e=>{if(e.target.closest('#ib-how'))openInstall();if(e.target.closest('#ib-x')){store.set('latinum-install-hide',1);renderInstallBanner()}});
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;renderInstallBanner()});
+addEventListener('appinstalled',()=>{deferredPrompt=null;store.set('latinum-install-hide',1);closeSheet();renderInstallBanner()});
+async function installNow(){if(!deferredPrompt)return;deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;renderInstallBanner()}
+const SHARE_SVG='<svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+const DOTS_SVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>';
+const HDOTS_SVG='<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>';
+const PLUS_SVG='<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>';
+function openInstall(){
+  if(deferredPrompt&&!IS_IOS){installNow();return}
+  let body;
+  if(IN_APP){
+    body=`<p style="margin:12px 0 0">Has abierto el enlace dentro de otra app. Para instalarla, ábrela primero en el navegador:</p>
+      <ol class="steps"><li><span>Toca el menú ${DOTS_SVG} o el botón ${SHARE_SVG} de esta pantalla.</span></li>
+      <li><span>Elige <b>«Abrir en ${IS_IOS?'Safari':'Chrome'}»</b> (o «Abrir en el navegador»).</span></li>
+      <li><span>Allí, vuelve a tocar <b>⚙️ → Cómo añadirla a la pantalla de inicio</b>.</span></li></ol>`;
+  }else if(IS_IOS){
+    const [maj,min]=iosVersion(),dev=IS_IPAD?'iPad':'iPhone';
+    const ver=maj?`<p class="hintbox" style="margin:12px 0 0">Tu ${dev} tiene <b>iOS ${maj}${min?'.'+min:''}</b>. Estos son los pasos para esa versión.</p>`:'';
+    const end=`<li><span>Si aparece <b>«Abrir como app web»</b>, déjalo activado y pulsa <span class="kbd">Añadir</span> (arriba a la derecha).</span></li>
+      <li><span>Listo: el icono <b>Latinum</b> aparecerá en tu pantalla de inicio. Ábrela siempre desde ahí.</span></li>`;
+    if(maj&&(maj<16||(maj===16&&min<4))&&IOS_OTHER){
+      body=ver+`<p style="margin:12px 0 0">En esta versión de iOS solo se puede instalar desde <b>Safari</b>:</p>
+        <ol class="steps"><li><span>Copia el enlace y ábrelo en <b>Safari</b>. <button class="btn ghost" id="inst-copy" style="margin-top:6px;padding:8px 12px;font-size:.85rem">Copiar enlace</button></span></li>
+        <li><span>Toca el botón <b>Compartir</b> ${SHARE_SVG} de la barra de abajo.</span></li>
+        <li><span>Elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}.</span></li>${end}</ol>`;
+    }else if(IOS_OTHER){
+      body=ver+`<p style="margin:12px 0 0">Desde este navegador (o desde Safari):</p>
+        <ol class="steps"><li><span>Toca el botón <b>Compartir</b> ${SHARE_SVG}, en la barra de direcciones o en el menú del navegador.</span></li>
+        <li><span>Elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}. Si no está, toca <b>«Más»</b> o baja en la lista.</span></li>${end}</ol>`;
+    }else if(maj>=26){
+      body=ver+`<ol class="steps">
+        <li><span>Toca el botón <b>···</b> ${HDOTS_SVG} que está a la derecha de la barra de la dirección${IS_IPAD?' (arriba)':' (abajo)'}.</span></li>
+        <li><span>Toca <b>«Compartir»</b> ${SHARE_SVG}.</span></li>
+        <li><span>Toca <b>«Ver más»</b> si hace falta, baja en la lista y elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}.</span></li>${end}</ol>`;
+    }else{
+      body=ver+`<ol class="steps">
+        <li><span>Toca el botón <b>Compartir</b> ${SHARE_SVG}${IS_IPAD?', arriba a la derecha.':', en el centro de la barra de abajo. Si no ves la barra, desliza un poco la página hacia arriba.'}</span></li>
+        <li><span>Baja en la lista y elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}.</span></li>${end}</ol>`;
+    }
+  }else if(IS_ANDROID){
+    body=`<p style="margin:12px 0 0">En el móvil Android, con Chrome:</p>
+      <ol class="steps"><li><span>Toca el menú ${DOTS_SVG} (arriba a la derecha).</span></li>
+      <li><span>Elige <b>«Añadir a pantalla de inicio»</b> o <b>«Instalar aplicación»</b>.</span></li>
+      <li><span>Pulsa <span class="kbd">Instalar</span>. El icono aparecerá en tu pantalla de inicio.</span></li></ol>`;
+  }else{
+    body=`<p style="margin:12px 0 0">Está pensada sobre todo para el móvil: abre este mismo enlace en el teléfono y sigue los pasos que salen allí.</p>
+      <ol class="steps"><li><span>En el ordenador también se puede instalar con Chrome o Edge: busca el icono de instalar ${PLUS_SVG} a la derecha de la barra de direcciones.</span></li></ol>`;
+  }
+  openSheet(`<div class="about"><img src="icon-192.png" alt="" width="56" height="56"><div><h2 style="margin:0">Instalar la app</h2><span class="muted" style="font-size:.82rem">Gratis, sin tienda y sin registrarse</span></div></div>
+    ${body}
+    <p class="muted" style="font-size:.82rem;margin:12px 0 0">Una vez instalada se abre a pantalla completa, funciona sin conexión y se actualiza sola.</p>
+    <div class="sheet-nav">${deferredPrompt?`<button class="btn" id="inst-now">Instalar ahora</button>`:''}<button class="btn ${deferredPrompt?'ghost':'block'}" data-close="btn">Entendido</button></div>`,'Instalar en el móvil');
+}
+if(/[?&]instalar\b/.test(location.search)&&!isStandalone()){history.replaceState(null,'',location.pathname+location.hash);setTimeout(openInstall,400)}
+renderInstallBanner();
+
+/* ===================== ACTUALIZACIÓN AUTOMÁTICA ===================== */
+function verNovedades(desde){
+  const todas=NOVEDADES.filter(([v])=>!desde||verCmp(v,desde)>0);if(!todas.length)return;
+  openSheet(`<h2>${desde?'¡La app se ha actualizado!':'Novedades'}</h2>
+    <div class="nov">${todas.slice(0,4).map(([v,items])=>`<h4>Versión ${v}</h4><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`).join('')}</div>
+    <div class="sheet-nav"><button class="btn block" data-close="btn">Entendido</button></div>`,'Novedades');
+}
+(function(){const vista=store.get('latinum-version',null);store.set('latinum-version',VERSION);
+  if(vista&&verCmp(VERSION,vista)>0)setTimeout(()=>verNovedades(vista),600);})();
+const EN_WEB=/\.github\.io$/.test(location.hostname)||location.hostname==='localhost';
+let actPendiente=false;
+// Nunca se recarga en mitad de un test, un juego o con una ventana abierta
+function seguroRecargar(){
+  if(!$('#sheet').hidden)return false;
+  if(QZ&&!QZ.done)return false;
+  if(CR&&!CR.over)return false;
+  if(SV&&!SV.over)return false;
+  if(PJ&&PJ.done.size<PJ.cards.length/2)return false;
+  if(FL&&FL.i>0&&FL.i<FL.deck.length&&location.hash==='#practicar'&&pmode==='cards')return false;
+  return true;
+}
+function actualizar(){
+  if(!seguroRecargar()){actPendiente=true;return}
+  $('#barra-act').hidden=false;
+  setTimeout(()=>location.replace(location.pathname+'?u='+Date.now()+location.hash),900);
+}
+let lastCheck=0;
+async function buscarVersion(force){
+  if(!EN_WEB)return null;
+  if(!force&&Date.now()-lastCheck<4000)return null;
+  lastCheck=Date.now();
+  try{const txt=await (await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'})).text();
+    const m=txt.match(/name="app-version" content="([^"]+)"/);
+    if(m&&verCmp(m[1],VERSION)>0){actualizar();return m[1]}
+    return VERSION;}catch(e){return null}
+}
+new MutationObserver(()=>{if(actPendiente&&seguroRecargar()){actPendiente=false;actualizar()}})
+  .observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','class']});
+addEventListener('hashchange',()=>{if(actPendiente&&seguroRecargar()){actPendiente=false;actualizar()}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')buscarVersion()});
+setInterval(buscarVersion,90*1000);
+addEventListener('focus',()=>buscarVersion());
+addEventListener('pageshow',()=>buscarVersion());
+buscarVersion();
+if(/[?&]u=/.test(location.search))history.replaceState(history.state,'',location.pathname+location.hash);
+if(EN_WEB&&'serviceWorker' in navigator){
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{}));
+}
+
+</script>
+</body>
+</html>
