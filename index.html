@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="app-version" content="1.2">
+<meta name="app-version" content="1.3">
 <meta name="theme-color" content="#6e1f1b">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
@@ -134,6 +134,18 @@ main{max-width:1060px;margin:0 auto;padding:24px max(18px,env(safe-area-inset-ri
 .subnav button span{margin-right:6px}
 .subnav button.seen::after{content:" ✓";color:var(--ok);font-weight:800}
 .subnav button.on.seen::after{color:inherit}
+.lix{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.ltile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 12px 10px;min-height:120px;color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.ltile:hover{border-color:var(--ink2)}
+.ltile .li{font-size:1.5rem;line-height:1}
+.ltile .ln{position:absolute;top:10px;right:12px;font-family:Fraunces,serif;font-weight:800;color:var(--ink2);font-size:.9rem}
+.ltile b{font-size:1rem;line-height:1.2}
+.ltile small{color:var(--ink2);font-size:.82rem;line-height:1.3}
+.ltile .st{margin-top:auto;padding-top:4px;font-size:.8rem;font-weight:800;color:var(--ink2)}
+.ltile.seen .st{color:var(--ok)}
+.ltile.next{border-color:var(--acc)} .ltile.next .st{color:var(--acc)}
+.les-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.les-bar .btn{padding:8px 16px}
 .box{border-radius:12px;padding:12px 16px;margin:12px 0}
 .box.key{background:var(--key);border-left:5px solid var(--head)}
 .box.tip{background:var(--gold-l);border-left:5px solid var(--gold)}
@@ -315,7 +327,9 @@ footer p{margin:0} footer b{color:var(--ink)}
   .hero{grid-template-columns:1fr}
   .modes,.games{grid-template-columns:1fr}
   .learn{grid-template-columns:1fr}
-  .subnav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px;margin-inline:-4px;scrollbar-width:none}
+  .subnav{display:none}
+  .lix{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .ltile{min-height:128px;padding:10px}
   .subnav button{white-space:nowrap;flex:none}
   .hero h1{font-size:2rem}
   header{gap:4px 8px;padding-bottom:6px}
@@ -370,7 +384,8 @@ footer p{margin:0} footer b{color:var(--ink)}
 
 <section class="view" id="v-aprender">
   <h1 class="sr">Aprender · Latinum</h1>
-  <div class="learn">
+  <div id="learn-index"></div>
+  <div class="learn" id="learn-lesson" hidden>
     <nav class="subnav" id="subnav" aria-label="Lecciones"></nav>
     <article class="card" id="lesson"></article>
   </div>
@@ -1193,23 +1208,41 @@ const LESSONS=[
   <h3>Ciudades romanas de Hispania</h3>
   <div class="tablewrap"><table><tr><th>Nombre latino</th><th>Hoy</th><th>Nombre latino</th><th>Hoy</th></tr>${Array.from({length:Math.ceil(CIUDADES.length/2)},(_,i)=>`<tr><td class="la">${CIUDADES[2*i][0]}</td><td>${CIUDADES[2*i][1]}</td><td class="la">${CIUDADES[2*i+1]?CIUDADES[2*i+1][0]:''}</td><td>${CIUDADES[2*i+1]?CIUDADES[2*i+1][1]:''}</td></tr>`).join('')}</table></div>`}
 ];
-let SEEN=store.get('latinum-seen',{}),curLesson=0,curVoz='act';
+const LDESC={intro:'Origen, lenguas romances y pronunciación',casos:'Los 6 casos y el enunciado',d12:'rosa, dominus, puer, templum',d3:'rex, corpus, civis, mare',d45:'manus, cornu, res, dies',
+  adj:'Concordancia y las dos clases',pron:'ego, is, hic, ille, qui',verbo:'Enunciado, tiempos y conjugador',prep:'Acusativo, ablativo y lugar',etim:'Patrimoniales, cultismos y reglas',
+  latin:`${LATINISMOS.length} expresiones latinas`,mito:'Dioses griegos y romanos, héroes',hist:'Etapas, sociedad e Hispania'};
+let SEEN=store.get('latinum-seen',{}),curLesson=0,curVoz='act',LOPEN=false;
+// Índice de lecciones (opción B)
+function renderIndex(){
+  const vistas=LESSONS.filter(l=>SEEN[l.id]).length,next=LESSONS.findIndex(l=>!SEEN[l.id]);
+  $('#learn-index').innerHTML=`<div class="lix-head"><div><h2 style="margin:0">Lecciones</h2><span class="muted">${vistas} de ${LESSONS.length} vistas</span></div></div>
+    <div class="bar" style="margin:8px 0 14px"><i style="width:${vistas*100/LESSONS.length}%;background:var(--ok)"></i></div>
+    <div class="lix">${LESSONS.map((l,k)=>{const seen=!!SEEN[l.id],nx=k===next;
+      return `<button class="ltile${seen?' seen':''}${nx?' next':''}" data-open="${k}"><span class="ln">${k+1}</span><span class="li" aria-hidden="true">${l.ico}</span><b>${l.t}</b><small>${LDESC[l.id]}</small>
+        <span class="st">${seen?'✓ Vista':nx?(vistas?'Sigue por aquí':'Empieza por aquí'):'Pendiente'}</span></button>`}).join('')}</div>`;
+}
+function renderLearn(){$('#learn-index').hidden=LOPEN;$('#learn-lesson').hidden=!LOPEN;if(!LOPEN)renderIndex()}
+function openLesson(i){if(!(history.state&&history.state.les))history.pushState({les:1},'',location.hash||'#aprender');LOPEN=true;showLesson(i);renderLearn();SC.scrollTop=0}
+function closeLesson(){LOPEN=false;renderLearn();SC.scrollTop=0;const t=$(`#learn-index [data-open="${curLesson}"]`);t&&t.focus({preventScroll:true})}
+$('#learn-index').addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openLesson(+b.dataset.open)});
 function showLesson(i){
-  curLesson=i;store.set('latinum-lesson',i);SEEN[LESSONS[i].id]=1;store.set('latinum-seen',SEEN);
+  LOPEN=true;curLesson=i;store.set('latinum-lesson',i);SEEN[LESSONS[i].id]=1;store.set('latinum-seen',SEEN);
   const L=LESSONS[i];
   const sn=$('#subnav');
   if(!sn.children.length)sn.innerHTML=LESSONS.map((l,k)=>`<button data-les="${k}"><span>${l.ico}</span>${l.t}</button>`).join('');
   [...sn.children].forEach((b,k)=>{b.classList.toggle('on',k===i);if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');b.classList.toggle('seen',!!SEEN[LESSONS[k].id])});
-  $('#lesson').innerHTML=L.html()+`<div class="lesson-nav">${i>0?`<button class="btn ghost" data-les="${i-1}">← ${LESSONS[i-1].t}</button>`:'<span></span>'}
+  $('#lesson').innerHTML=`<div class="les-bar"><button class="btn ghost" id="les-index">☰ Lecciones</button><span class="muted">Lección ${i+1} de ${LESSONS.length}</span></div>`+L.html()+`<div class="lesson-nav">${i>0?`<button class="btn ghost" data-les="${i-1}">← ${LESSONS[i-1].t}</button>`:'<span></span>'}
     ${L.qt.length?`<button class="btn acc" data-practice="${L.qt.join(',')}">✏️ Practicar este tema</button>`:''}
     ${i<LESSONS.length-1?`<button class="btn" data-les="${i+1}">${LESSONS[i+1].t} →</button>`:''}</div>`;
   if(L.id==='verbo')drawVerb();
+  $('#learn-index').hidden=true;$('#learn-lesson').hidden=false;
   const on=sn.children[i];if(sn.scrollWidth>sn.clientWidth)sn.scrollTo({left:on.offsetLeft-sn.clientWidth/2+on.offsetWidth/2,behavior:'smooth'});
 }
 function drawVerb(){const v=VERBS.find(x=>x.pp[0]===$('#sel-v').value);const inf=infinitives(v);
   $('#tbl-v').innerHTML=verbTables(v,curVoz)+`<p class="muted" style="margin:0">Infinitivos: presente activo <b>${inf.presAct}</b> · perfecto activo <b>${inf.perfAct}</b>${inf.presPas?` · presente pasivo <b>${inf.presPas}</b>`:''}.</p>`}
 $('#subnav').addEventListener('click',e=>{const b=e.target.closest('[data-les]');if(b){showLesson(+b.dataset.les);SC.scrollTop=0}});
 $('#lesson').addEventListener('click',e=>{const t=e.target;let b;
+  if(t.closest('#les-index')){if(history.state&&history.state.les){skipPop=true;history.back()}closeLesson();return}
   if(b=t.closest('[data-les]')){showLesson(+b.dataset.les);SC.scrollTop=0;return}
   if(b=t.closest('[data-practice]')){PREF.types=b.dataset.practice.split(',');PREF.preset=null;savePref();pmode='test';QZ=null;location.hash='#practicar';setTimeout(startQuiz,0);return}
   if(b=t.closest('[data-voz]')){curVoz=b.dataset.voz;$$('#seg-voz button').forEach(x=>x.setAttribute('aria-pressed',x===b));drawVerb()}});
@@ -1611,22 +1644,23 @@ function renderInicio(){
   const rep=WORDS.filter(w=>level(w.id)===1).length;
   $('#quick').innerHTML=`<a class="btn" href="#practicar" data-go="cards">🃏 ${rep?`Repasar ${rep} palabras falladas`:'Tarjetas de vocabulario'}</a><a class="btn ghost" href="#jugar">⏱️ Contrarreloj</a>`;
 }
-$('#v-inicio').addEventListener('click',e=>{if(e.target.closest('#b-prog2'))openProgress();const g=e.target.closest('[data-go]');if(g){pmode='cards';PREF.deck='all';FL=null}});
+$('#v-inicio').addEventListener('click',e=>{if(e.target.closest('a[href="#aprender"]'))LOPEN=false;if(e.target.closest('#b-prog2'))openProgress();const g=e.target.closest('[data-go]');if(g){pmode='cards';PREF.deck='all';FL=null}});
 
 /* ===================== NAVEGACIÓN ===================== */
 function route(){
   const v=(location.hash||'#inicio').slice(1);const ok=['inicio','aprender','practicar','jugar'].includes(v)?v:'inicio';
   $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+ok));$$('nav.main a').forEach(a=>{a.classList.toggle('on',a.dataset.v===ok);if(a.dataset.v===ok)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   if(ok!=='jugar'&&CR&&!CR.over){CR.over=true;clearInterval(crTimer);CR=null}
-  if(ok==='inicio')renderInicio();if(ok==='practicar')renderPrac();if(ok==='jugar')renderGame();
+  if(ok==='inicio')renderInicio();if(ok==='aprender')renderLearn();if(ok==='practicar')renderPrac();if(ok==='jugar')renderGame();
   SC.scrollTop=0;
 }
 addEventListener('hashchange',route);
-showLesson(Math.min(store.get('latinum-lesson',0),LESSONS.length-1));updStats();route();
+curLesson=Math.min(store.get('latinum-lesson',0),LESSONS.length-1);updStats();route();
 
 /* ===================== VERSIÓN, AVISO Y AUTORÍA ===================== */
 const VERSION=(document.querySelector('meta[name="app-version"]')||{}).content||"dev";
 const NOVEDADES=[
+  ["1.3",["📚 Aprender empieza con un índice: las 13 lecciones a la vista, con ✓ en las que ya has visto y «Sigue por aquí» en la siguiente","☰ Dentro de cada lección, el botón «Lecciones» (o el botón «atrás» del móvil) vuelve al índice"]],
   ["1.2",["🎯 «Ponte a prueba» es más fácil: elige uno de los 6 temas (Un poco de todo, Sustantivos, Verbos, Vocabulario, Traducir o Cultura) y el test empieza al momento","⚙️ Quien quiera elegir los tipos uno a uno los tiene en «Personalizar», cada uno con un ejemplo","✏️ «Practicar este tema», al final de cada lección, empieza el test directamente"]],
   ["1.1",["🍏 Revisada con las guías de diseño de Apple (HIG): todos los botones de al menos 44 puntos, más contraste en modo claro y oscuro, y foco visible","♿ Mejoras de accesibilidad (WCAG 2.2): lectores de pantalla, teclado (la tarjeta se gira con Espacio o Intro) y títulos de cada pantalla","↩️ El botón «atrás» del móvil sale del test o del juego y vuelve al menú","❓ Al responder, la pregunta se encoge y sigue a la vista junto a la solución","🧩 Las preguntas de preposiciones tienen ya siempre cuatro opciones","📱 En el iPhone no se amplía la pantalla al elegir en los desplegables y la franja de arriba queda fija","🏷️ En las tarjetas, «Sin ver» pasa a ser «Aún no la has practicado»"]],
   ["1.0",["🏛️ Primera versión de Latinum","📜 13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos (conjugador completo), preposiciones, etimología, latinismos, mitología e historia","✏️ Test con 13 tipos de pregunta y explicación de cada respuesta","🃏 Tarjetas de vocabulario, latinismos, dioses y ciudades: lo que fallas vuelve a salir más a menudo","🎮 Juegos: Contrarreloj, Supervivencia y Parejas, con récords","🪖 Rangos romanos: de Tiro a Caesar según tus aciertos"]]
@@ -1646,7 +1680,7 @@ function openSheet(html,label){const s=$('#sheet');
 function closeSheet(fromPop){const s=$('#sheet');if(s.hidden)return;s.hidden=true;s.innerHTML='';
   if(sheetOpener&&document.body.contains(sheetOpener))sheetOpener.focus({preventScroll:true});sheetOpener=null;
   if(!fromPop&&history.state&&history.state.sheet){skipPop=true;history.back()}}
-addEventListener('popstate',()=>{if(skipPop){skipPop=false;return}if(!$('#sheet').hidden){closeSheet(true);return}if(QZ||CR||SV||PJ)leaveSub()});
+addEventListener('popstate',()=>{if(skipPop){skipPop=false;return}if(!$('#sheet').hidden){closeSheet(true);return}if(QZ||CR||SV||PJ){leaveSub();return}if(LOPEN&&location.hash==='#aprender')closeLesson()});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 $('#sheet').addEventListener('click',e=>{if(e.target.dataset.close||e.target.closest('[data-close="btn"]'))closeSheet()});
 (function(){let y0=null,dy=0,el=null;
@@ -1698,7 +1732,7 @@ $('#sheet').addEventListener('click',e=>{const t=e.target;let b;
   if(b=t.closest('#inst-copy')){const u=location.origin+location.pathname;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>{b.textContent='✓ Enlace copiado'}).catch(()=>{b.textContent=u});return}
   if(t.closest('#rs')){$('#rs-box').hidden=false;return}
   if(t.closest('#rs-no')){$('#rs-box').hidden=true;return}
-  if(t.closest('#rs-yes')){ITEMS={};PROG={};XP=0;['latinum-items','latinum-prog','latinum-xp','latinum-rec','latinum-seen'].forEach(k=>store.set(k,k==='latinum-xp'?0:{}));SEEN={};pStats={ok:0,streak:0};updStats();showLesson(curLesson);openProgress();if(location.hash==='#inicio'||!location.hash)renderInicio();return}
+  if(t.closest('#rs-yes')){ITEMS={};PROG={};XP=0;['latinum-items','latinum-prog','latinum-xp','latinum-rec','latinum-seen'].forEach(k=>store.set(k,k==='latinum-xp'?0:{}));SEEN={};pStats={ok:0,streak:0};updStats();if(LOPEN)showLesson(curLesson);renderLearn();openProgress();if(location.hash==='#inicio'||!location.hash)renderInicio();return}
 });
 
 /* ===================== MI PROGRESO ===================== */
