@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="app-version" content="1.0">
+<meta name="app-version" content="1.1">
 <meta name="theme-color" content="#6e1f1b">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
@@ -43,7 +43,7 @@
 :root{
   --ink:#2a1f1a; --ink2:#6b5a4e; --paper:#f8f2e7; --card:#fffdf8; --line:#e7dccb; --soft:#f2e9da; --th:#f1e6d3; --key:#f6ecd9;
   --head:#6e1f1b; --btn:#6e1f1b; --btn-ink:#fff;
-  --acc:#b5482b; --gold:#a8790a; --ok:#2f8a5f; --bad:#c23b32;
+  --acc:#b5482b; --gold:#a8790a; --ok:#237a4f; --bad:#c23b32; --on:#fff;
   --acc-l:#f9e3da; --gold-l:#f8ecc9; --ok-l:#dcf1e5; --bad-l:#fbe1df;
   --lv0:#e6ddcf; --lv1:#f3c0b8; --lv2:#f5dc8a; --lv3:#94d6b0;
   --r:16px; color-scheme:light;
@@ -51,7 +51,7 @@
 :root[data-theme="dark"]{
   --ink:#efe6da; --ink2:#b9a99a; --paper:#16110e; --card:#211a16; --line:#3a2e27; --soft:#2a211c; --th:#30251f; --key:#2c231b;
   --head:#3a0f0d; --btn:#efe6da; --btn-ink:#1b1410;
-  --acc:#e0714f; --gold:#e0b44a; --ok:#4cbf88; --bad:#ef6b62;
+  --acc:#e0714f; --gold:#e0b44a; --ok:#4cbf88; --bad:#ef6b62; --on:#1b1410;
   --acc-l:#46251b; --gold-l:#3e3215; --ok-l:#173a29; --bad-l:#4a2220;
   --lv0:#3a2e27; --lv1:#6b2c28; --lv2:#6b5714; --lv3:#1f6a40;
   color-scheme:dark;
@@ -59,7 +59,11 @@
 html[data-fs="s"]{font-size:15px} html,html[data-fs="m"]{font-size:17px} html[data-fs="l"]{font-size:19px} html[data-fs="xl"]{font-size:21px}
 *{box-sizing:border-box}
 html,body{margin:0}
-html{background:var(--paper);overscroll-behavior-y:none;-webkit-text-size-adjust:100%}
+html{background:var(--paper);overscroll-behavior-y:none;-webkit-text-size-adjust:100%;scroll-padding-top:150px;scroll-padding-bottom:110px}
+body{overscroll-behavior-y:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#statusfill{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:var(--head);z-index:100;pointer-events:none}
 body{font-family:Nunito,system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:1rem;line-height:1.55;-webkit-tap-highlight-color:transparent}
 h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
 h2{font-size:1.7rem} h3{font-size:1.2rem} h4{font-size:1.02rem}
@@ -74,7 +78,7 @@ button,select{font:inherit;cursor:pointer;touch-action:manipulation;color:inheri
 header{position:sticky;top:0;z-index:10;background:var(--head);color:#fff;display:flex;align-items:center;gap:14px;
   padding:calc(env(safe-area-inset-top,0px) + 10px) max(18px,env(safe-area-inset-right,0px)) 10px max(18px,env(safe-area-inset-left,0px));flex-wrap:wrap;
   background-image:linear-gradient(90deg,rgb(255 255 255 / .05) 1px,transparent 1px);background-size:6px 100%}
-.brand{font-family:Cinzel,Fraunces,serif;font-weight:800;font-size:1.35rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.04em}
+.brand{font-family:Cinzel,Fraunces,serif;font-weight:800;font-size:1.35rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.04em;min-height:44px}
 .brand svg{width:30px;height:30px}
 .brand small{font-family:Nunito;font-weight:700;font-size:.72rem;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:99px;letter-spacing:0}
 nav.main{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;order:1}
@@ -108,7 +112,7 @@ main{max-width:1060px;margin:0 auto;padding:24px max(18px,env(safe-area-inset-ri
 .mode{display:block;text-decoration:none;color:inherit;transition:transform .15s}
 .mode:hover{transform:translateY(-3px)}
 .mode .ico{font-size:2rem}
-.mode h3{margin:.3em 0}
+.mode h2{margin:.3em 0;font-size:1.2rem}
 .mode p{color:var(--ink2);margin:0}
 .quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .install-banner{display:flex;align-items:center;gap:10px;background:#ffe066;color:#2b2100;border:1.5px solid #e6bf2e;border-radius:14px;padding:10px 6px 10px 12px;margin-bottom:18px;box-shadow:0 6px 18px -10px rgb(0 0 0 / .4)}
@@ -124,10 +128,10 @@ main{max-width:1060px;margin:0 auto;padding:24px max(18px,env(safe-area-inset-ri
 .learn{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start}
 .learn>*{min-width:0}
 .subnav{position:sticky;top:80px;display:flex;flex-direction:column;gap:3px}
-.subnav button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:10px;font-weight:700;color:var(--ink2)}
+.subnav button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:10px;font-weight:700;color:var(--ink2);min-height:44px}
 .subnav button:hover{background:var(--card)}
 .subnav button.on{background:var(--btn);color:var(--btn-ink)}
-.subnav button span{opacity:.6;margin-right:6px}
+.subnav button span{margin-right:6px}
 .subnav button.seen::after{content:" ✓";color:var(--ok);font-weight:800}
 .subnav button.on.seen::after{color:inherit}
 .box{border-radius:12px;padding:12px 16px;margin:12px 0}
@@ -139,7 +143,7 @@ main{max-width:1060px;margin:0 auto;padding:24px max(18px,env(safe-area-inset-ri
 .btn{background:var(--btn);color:var(--btn-ink);border:0;border-radius:99px;padding:11px 20px;font-weight:800;min-height:44px}
 .btn:hover{filter:brightness(1.12)}
 .btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
-.btn.acc{background:var(--acc);color:#fff}
+.btn.acc{background:var(--acc);color:var(--on)}
 .btn.block{width:100%}
 .btn:disabled{opacity:.35;cursor:default}
 .tablewrap{overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
@@ -151,7 +155,7 @@ table.par td{font-size:1.06rem}
 table.par td.mk{background:var(--gold-l);outline:2px solid var(--gold);outline-offset:-2px;font-weight:800}
 .pick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
 .pick label{font-weight:700}
-.pick select{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:7px 10px;font-weight:700;min-height:42px;max-width:100%}
+.pick select{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:7px 10px;font-weight:700;min-height:48px;max-width:100%;font-size:max(16px,1rem)}
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin:10px 0}
 .vt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .vt h4{margin:0 0 6px;font-size:.95rem}
@@ -164,7 +168,7 @@ table.par td.mk{background:var(--gold-l);outline:2px solid var(--gold);outline-o
 .timeline li::before{content:"";position:absolute;left:-27px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:3px solid var(--paper)}
 .timeline b{font-family:Fraunces,serif;display:block}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.chip{background:var(--card);border:2px solid var(--line);border-radius:99px;padding:7px 13px;font-weight:700;font-size:.92rem;color:var(--ink);min-height:40px}
+.chip{background:var(--card);border:2px solid var(--line);border-radius:99px;padding:7px 13px;font-weight:700;font-size:.92rem;color:var(--ink);min-height:44px}
 .chip:hover{border-color:var(--ink2)}
 .chip.on,.chip[aria-pressed="true"]{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
@@ -180,7 +184,7 @@ button.stat{font:inherit;color:var(--ink)}
 .qgroup{margin:10px 0}
 .ctl-l{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);font-weight:800;margin-bottom:2px}
 .counter{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;color:var(--ink2);font-size:.92rem}
-.exitbtn{background:none;border:0;color:var(--ink2);font-weight:800;padding:6px 0;min-height:40px}
+.exitbtn{background:none;border:0;color:var(--ink2);font-weight:800;padding:6px 10px 6px 0;min-height:44px;min-width:64px;text-align:left}
 .bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}
 .bar>i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .25s}
 .qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
@@ -192,22 +196,28 @@ button.stat{font:inherit;color:var(--ink)}
 .opt{display:flex;align-items:center;gap:12px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-size:1.06rem;font-weight:700;color:var(--ink);min-height:56px}
 .opt .k{flex:none;width:30px;height:30px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:.85rem;font-weight:800;color:var(--ink2)}
 .opt:hover:not(:disabled){border-color:var(--ink)}
-.opt.ok{background:var(--ok-l);border-color:var(--ok)} .opt.ok .k{background:var(--ok);color:#fff}
-.opt.ko{background:var(--bad-l);border-color:var(--bad)} .opt.ko .k{background:var(--bad);color:#fff}
+.opt.ok{background:var(--ok-l);border-color:var(--ok)} .opt.ok .k{background:var(--ok);color:var(--on)}
+.opt.ko{background:var(--bad-l);border-color:var(--bad)} .opt.ko .k{background:var(--bad);color:var(--on)}
 .opt:disabled{cursor:default;color:var(--ink)}
 .quiz.answered .opt:not(.ok):not(.ko){opacity:.55}
+.quiz.answered .qcard{padding:10px 14px;gap:4px}
+.quiz.answered .qcard .lat-big{font-size:1.35rem}
+.quiz.answered .qcard .lat-mid{font-size:1.1rem}
+.quiz.answered .qcard .qtype{display:none}
+.quiz.answered .qcard .muted{font-size:.85rem}
 .feedback{border-radius:14px;padding:12px 16px;line-height:1.5}
 .feedback strong{display:block;font-size:1.08rem;margin-bottom:2px}
 .feedback.ok{background:var(--ok-l);border-left:5px solid var(--ok)}
 .feedback.ko{background:var(--bad-l);border-left:5px solid var(--bad)}
 .feedback table{margin-top:8px;font-size:.92rem}
 .next-bar{display:flex;gap:10px;position:sticky;bottom:0;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--paper) 30%)}
+.next-bar{pointer-events:none}.next-bar>*{pointer-events:auto}
 .score{font-family:Fraunces,serif;font-size:3.2rem;font-weight:800;line-height:1.1}
 .miss{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .miss span{background:var(--bad-l);border-radius:99px;padding:4px 12px;font-weight:700;font-style:italic}
 
 /* tarjetas */
-.card3d{perspective:1200px;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.card3d{perspective:1200px;cursor:pointer;border-radius:20px;user-select:none;-webkit-user-select:none;touch-action:pan-y}
 .card3d .inner{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
 .card3d.flipped .inner{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;text-align:center;overflow:hidden}
@@ -216,7 +226,7 @@ button.stat{font:inherit;color:var(--ink)}
 .face .hint{position:absolute;bottom:12px;font-size:.8rem;color:var(--ink2)}
 .flash-actions{display:flex;gap:10px}
 .flash-actions .btn{flex:1}
-.btn.no{background:var(--bad);color:#fff} .btn.yes{background:var(--ok);color:#fff}
+.btn.no{background:var(--bad);color:var(--on)} .btn.yes{background:var(--ok);color:var(--on)}
 .lvstack{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--lv0)}
 .lvstack i{display:block;height:100%}
 .lvleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.82rem;color:var(--ink2);margin-top:6px}
@@ -253,7 +263,7 @@ footer{text-align:center;color:var(--ink2);font-size:.82rem;padding:10px max(18p
 footer p{margin:0} footer b{color:var(--ink)}
 .disclaimer{background:#fff4d1;color:#4a3800;border:1px solid #f0d27a;border-radius:12px;padding:10px 12px;font-size:.85rem;line-height:1.45}
 :root[data-theme="dark"] .disclaimer{background:#3d3208;color:#fff0bf;border-color:#6b5713}
-.ver{background:none;border:0;color:var(--ink2);font-size:.8rem;text-decoration:underline;text-underline-offset:2px;padding:8px}
+.ver{background:none;border:0;color:var(--ink2);font-size:.8rem;text-decoration:underline;text-underline-offset:2px;padding:8px;min-height:44px}
 
 /* hojas (ajustes, novedades, instalar, progreso, tablas) */
 .sheet-bg{position:fixed;inset:0;background:rgb(15 8 5 / .5);z-index:40;display:flex;align-items:flex-end;justify-content:center}
@@ -267,7 +277,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 .set-group{display:flex;flex-direction:column;gap:8px;margin-top:16px}
 .set-group h3{margin:0;font-size:1rem}
 .seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px}
-.seg button{border:0;background:none;padding:8px 10px;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--ink2);min-height:40px}
+.seg button{border:0;background:none;padding:8px 10px;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--ink2);min-height:44px}
 .seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .15)}
 .about{display:flex;align-items:center;gap:12px}.about img{border-radius:11px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -275,7 +285,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 .nov ul{margin:0;padding-left:20px} .nov li{margin:3px 0}
 .steps{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:st}
 .steps li{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:12px;padding:10px 12px;counter-increment:st}
-.steps li::before{content:counter(st);flex:none;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.steps li::before{content:counter(st);flex:none;width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--on);display:grid;place-items:center;font-weight:800;font-size:.8rem}
 .steps svg{width:20px;height:20px;vertical-align:-4px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .kbd{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:6px;padding:0 6px;font-weight:700}
 .hintbox{background:var(--gold-l);border-radius:12px;padding:10px 12px;font-size:.9rem}
@@ -283,7 +293,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 .progrow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;margin:10px 0}
 .progrow .bar{grid-column:1/-1;height:10px}
 .progrow .bar>i{background:var(--ok)}
-#barra-act{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:60;background:var(--acc);color:#fff;font-weight:800;font-size:.9rem;padding:9px 16px;border-radius:999px;box-shadow:0 6px 20px -8px rgb(0 0 0 / .5)}
+#barra-act{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:60;background:var(--acc);color:var(--on);font-weight:800;font-size:.9rem;padding:9px 16px;border-radius:999px;box-shadow:0 6px 20px -8px rgb(0 0 0 / .5)}
 
 @media (max-width:820px){
   .hero{grid-template-columns:1fr}
@@ -308,13 +318,14 @@ footer p{margin:0} footer b{color:var(--ink)}
 </style>
 </head>
 <body>
+<div id="statusfill" aria-hidden="true"></div>
 <header>
   <a class="brand" href="#inicio">
     <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="7" width="26" height="4" rx="1" fill="#e8c35a"/><rect x="9" y="11" width="22" height="2" fill="#e8c35a"/><rect x="11" y="13" width="4" height="18" fill="#fff"/><rect x="18" y="13" width="4" height="18" fill="#fff"/><rect x="25" y="13" width="4" height="18" fill="#fff"/><rect x="8" y="31" width="24" height="3" fill="#e8c35a"/><rect x="6" y="34" width="28" height="2.5" rx="1" fill="#e8c35a"/></svg>
     Latinum <small>4º ESO</small>
   </a>
   <button class="gear" id="gear" aria-label="Ajustes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
-  <nav class="main">
+  <nav class="main" aria-label="Secciones">
     <a href="#inicio" data-v="inicio"><span class="i">🏛️</span>Inicio</a>
     <a href="#aprender" data-v="aprender"><span class="i">📜</span>Aprender</a>
     <a href="#practicar" data-v="practicar"><span class="i">✏️</span>Practicar</a>
@@ -334,14 +345,15 @@ footer p{margin:0} footer b{color:var(--ink)}
     <div class="card rank" id="rank"></div>
   </div>
   <div class="modes">
-    <a class="card mode" href="#aprender"><div class="ico">📜</div><h3>Aprender</h3><p>13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos y cultura.</p></a>
-    <a class="card mode" href="#practicar"><div class="ico">✏️</div><h3>Practicar</h3><p>Test de 13 tipos y tarjetas de vocabulario. Lo que fallas vuelve a salir más a menudo.</p></a>
-    <a class="card mode" href="#jugar"><div class="ico">🎮</div><h3>Jugar</h3><p>Contrarreloj, Supervivencia con 3 vidas y Parejas. ¡Bate tus récords!</p></a>
+    <a class="card mode" href="#aprender"><div class="ico">📜</div><h2>Aprender</h2><p>13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos y cultura.</p></a>
+    <a class="card mode" href="#practicar"><div class="ico">✏️</div><h2>Practicar</h2><p>Test de 13 tipos y tarjetas de vocabulario. Lo que fallas vuelve a salir más a menudo.</p></a>
+    <a class="card mode" href="#jugar"><div class="ico">🎮</div><h2>Jugar</h2><p>Contrarreloj, Supervivencia con 3 vidas y Parejas. ¡Bate tus récords!</p></a>
   </div>
   <div class="quick" id="quick"></div>
 </section>
 
 <section class="view" id="v-aprender">
+  <h1 class="sr">Aprender · Latinum</h1>
   <div class="learn">
     <nav class="subnav" id="subnav" aria-label="Lecciones"></nav>
     <article class="card" id="lesson"></article>
@@ -349,6 +361,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 </section>
 
 <section class="view" id="v-practicar">
+  <h1 class="sr">Practicar · Latinum</h1>
   <div class="toolbar">
     <div class="seg" role="group" aria-label="Modo de práctica" style="min-width:240px"><button data-pmode="test">📝 Test</button><button data-pmode="cards">🃏 Tarjetas</button></div>
     <div class="stats"><div class="stat"><b id="st-ok">0</b><small>aciertos</small></div><div class="stat"><b id="st-streak">0</b><small>racha</small></div><button class="stat" id="b-prog"><b>📊</b><small>progreso</small></button></div>
@@ -357,6 +370,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 </section>
 
 <section class="view" id="v-jugar">
+  <h1 class="sr">Jugar · Latinum</h1>
   <div id="game"></div>
 </section>
 </main>
@@ -364,6 +378,7 @@ footer p{margin:0} footer b{color:var(--ink)}
 <footer id="foot"></footer>
 <div id="sheet" hidden></div>
 <div class="flash" id="flash" aria-hidden="true"></div>
+<div class="sr" id="sr-live" role="status" aria-live="polite"></div>
 <div id="barra-act" hidden>🔄 Actualizando a la versión nueva…</div>
 
 <script>
@@ -945,7 +960,7 @@ const vibrar=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
 const OK_MSG=['¡Optime! (¡Perfecto!)','¡Muy bien!','¡Eso es!','¡Bene! (¡Bien!)','¡Correcto! 💪','¡Euge! (¡Bravo!)'];
 const BAD_MSG=['No es esa','Casi… fíjate bien','Uy, esa no','No pasa nada: mira la explicación'];
 const SC=document.scrollingElement||document.documentElement;
-function flash(txt,color){const f=$('#flash');f.textContent=txt;f.style.color=color;f.classList.remove('show');void f.offsetWidth;f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),650)}
+function flash(txt,color){const l=$('#sr-live');if(l)l.textContent=txt.replace('✓','Correcto').replace('✗','Fallo');const f=$('#flash');f.textContent=txt;f.style.color=color;f.classList.remove('show');void f.offsetWidth;f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),650)}
 function confetti(n){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const cols=['#b5482b','#e8c35a','#2f8a5f','#6e1f1b','#f3c0b8','#94d6b0'];
@@ -995,12 +1010,12 @@ function nounTable(n,mark){
 }
 function modelsTable(list){
   const ns=list.map(la=>NOUNS.find(n=>n.la===la));
-  return `<div class="tablewrap"><table class="par"><tr><th></th>${ns.map(n=>`<th><span class="la">${n.la}, ${n.gen}</span><br><small class="muted">${GEN_NOMBRE[n.g]}</small></th>`).join('')}</tr>
+  return `<div class="tablewrap"><table class="par"><tr><th><span class="sr">Caso</span></th>${ns.map(n=>`<th><span class="la">${n.la}, ${n.gen}</span><br><small class="muted">${GEN_NOMBRE[n.g]}</small></th>`).join('')}</tr>
     ${['sg','pl'].map(nu=>`<tr><th colspan="${ns.length+1}">${cap(NUM_NOMBRE[nu])}</th></tr>`+CASOS.map(c=>`<tr><th class="l">${CASO_NOMBRE[c]}</th>${ns.map(n=>`<td>${hl(declineNoun(n)[nu][c],nounStem(n))}</td>`).join('')}</tr>`).join('')).join('')}</table></div>`;
 }
 function adjTable(a,mark){
   const t=declineAdj(a),st=a.cl===1?cut(a.f,'a'):cut(a.gen,'is');
-  return `<div class="tablewrap"><table class="par"><tr><th></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>
+  return `<div class="tablewrap"><table class="par"><tr><th><span class="sr">Caso</span></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>
     ${['sg','pl'].map(nu=>`<tr><th colspan="4">${cap(NUM_NOMBRE[nu])}</th></tr>`+CASOS.map(c=>`<tr><th class="l">${CASO_NOMBRE[c]}</th>${['m','f','n'].map(g=>`<td class="${mark===g+'|'+c+'|'+nu?'mk':''}">${hl(t[g][nu][c],st)}</td>`).join('')}</tr>`).join('')).join('')}</table></div>`;
 }
 function verbTables(v,voz,mark){
@@ -1010,7 +1025,7 @@ function verbTables(v,voz,mark){
 function pronTable(key,cols){
   const p=PRONOMBRES[key];
   const part=(rows,title)=>`<tr><th colspan="4">${title}</th></tr>`+rows.map(r=>`<tr><th class="l">${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('');
-  return `<div class="tablewrap"><table class="par"><tr><th></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>${part(p.sg,'Singular')}${part(p.pl,'Plural')}</table></div>`;
+  return `<div class="tablewrap"><table class="par"><tr><th><span class="sr">Caso</span></th><th>Masc.</th><th>Fem.</th><th>Neutro</th></tr>${part(p.sg,'Singular')}${part(p.pl,'Plural')}</table></div>`;
 }
 
 /* ===================== LECCIONES ===================== */
@@ -1078,7 +1093,7 @@ const LESSONS=[
  {id:'pron',ico:'👉',t:'Pronombres',qt:[],html:()=>`
   <h2>Pronombres</h2>
   <h3>Personales</h3>
-  <div class="tablewrap"><table class="par"><tr><th></th>${PRONOMBRES.personales.cols.map(c=>`<th>${c}</th>`).join('')}</tr>${PRONOMBRES.personales.rows.map(r=>`<tr><th class="l">${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>
+  <div class="tablewrap"><table class="par"><tr><th><span class="sr">Caso</span></th>${PRONOMBRES.personales.cols.map(c=>`<th>${c}</th>`).join('')}</tr>${PRONOMBRES.personales.rows.map(r=>`<tr><th class="l">${r[0]}</th>${r.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>
   <p class="muted">No tienen vocativo (salvo <i>tu</i>). <i>Se</i> es reflexivo: «se, a sí mismo». Con <i>cum</i> se unen detrás: <i>mecum</i> (conmigo), <i>tecum</i>, <i>nobiscum</i>.</p>
   <div class="grid2">
    <div><h3><i>is, ea, id</i> · «él, ella, ello; ese»</h3>${pronTable('is')}</div>
@@ -1098,7 +1113,7 @@ const LESSONS=[
    <tr><td>3ª mixta</td><td>-ĕre, pero 1ª pers. en <b>-io</b></td><td>capio, capere, cepi, captum</td></tr>
    <tr><td>4ª</td><td>-īre</td><td>audio, audire, audivi, auditum</td></tr></table></div>
   <div class="box key"><b>Dos temas:</b><ul><li><b>Tema de presente</b> (del infinitivo): presente, pretérito imperfecto y futuro imperfecto.</li><li><b>Tema de perfecto</b> (de la 3ª forma, quitando <i>-i</i>: <i>amav-</i>): pretérito perfecto, pluscuamperfecto y futuro perfecto.</li></ul></div>
-  <div class="tablewrap"><table><tr><th></th><th>Activa</th><th>Pasiva</th><th>Perfecto</th></tr>
+  <div class="tablewrap"><table><tr><th><span class="sr">Tipo</span></th><th>Activa</th><th>Pasiva</th><th>Perfecto</th></tr>
    <tr><th>Desinencias</th><td>-o/-m, -s, -t, -mus, -tis, -nt</td><td>-or/-r, -ris, -tur, -mur, -mini, -ntur</td><td>-i, -isti, -it, -imus, -istis, -erunt</td></tr></table></div>
   <div class="box tip"><b>Pistas para reconocer el tiempo:</b><ul>
    <li><b>-ba-</b> → pretérito imperfecto (<i>ama<b>ba</b>m</i>, «amaba»).</li>
@@ -1168,7 +1183,7 @@ function showLesson(i){
   const L=LESSONS[i];
   const sn=$('#subnav');
   if(!sn.children.length)sn.innerHTML=LESSONS.map((l,k)=>`<button data-les="${k}"><span>${l.ico}</span>${l.t}</button>`).join('');
-  [...sn.children].forEach((b,k)=>{b.classList.toggle('on',k===i);b.classList.toggle('seen',!!SEEN[LESSONS[k].id])});
+  [...sn.children].forEach((b,k)=>{b.classList.toggle('on',k===i);if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');b.classList.toggle('seen',!!SEEN[LESSONS[k].id])});
   $('#lesson').innerHTML=L.html()+`<div class="lesson-nav">${i>0?`<button class="btn ghost" data-les="${i-1}">← ${LESSONS[i-1].t}</button>`:'<span></span>'}
     ${L.qt.length?`<button class="btn acc" data-practice="${L.qt.join(',')}">✏️ Practicar este tema</button>`:''}
     ${i<LESSONS.length-1?`<button class="btn" data-les="${i+1}">${LESSONS[i+1].t} →</button>`:''}</div>`;
@@ -1309,7 +1324,7 @@ const GEN={
    show:`<div class="lat-mid" style="font-style:normal">${fn}</div>`,prompt:'¿En qué caso va esta función?',expl:`${fn} → <b>${CASO_NOMBRE[x.c].toLowerCase()}</b>. Ej.: ${x.ej}.`});}
   const p=wpick(PREPS,x=>'p:'+x.la);
   const names={ac:'Acusativo',abl:'Ablativo',ambos:'Acusativo y ablativo'};
-  if(k<.8)return mkQ({t:'casos',id:'p:'+p.la,correct:names[p.c],others:Object.values(names).filter(x=>x!==names[p.c]),
+  if(k<.8)return mkQ({t:'casos',id:'p:'+p.la,correct:names[p.c],others:[...Object.values(names).filter(x=>x!==names[p.c]),'Dativo'],
    show:`<div class="lat-big">${p.la}</div>`,prompt:'¿Con qué caso se construye esta preposición?',expl:`<b class="la">${p.la}</b> + ${names[p.c].toLowerCase()}: «${p.es}».`});
   return mkQ({t:'casos',id:'p:'+p.la,correct:p.es,others:pickOthers(p.es,PREPS.map(x=>x.es),3),
    show:`<div class="lat-big">${p.la}</div>`,prompt:'¿Qué significa esta preposición?',expl:`<b class="la">${p.la}</b> (+ ${names[p.c].toLowerCase()}): «${p.es}».`});
@@ -1354,6 +1369,11 @@ function qHTML(q,opt={}){
      return `<button class="opt${c}" data-opt="${i}" ${answered?'disabled':''}><span class="k">${c===' ok'?'✓':c===' ko'?'✗':'ABCD'[i]}</span><span>${o}</span></button>`}).join('')}</div>
    ${answered&&!opt.noExpl?`<div class="feedback ${okp?'ok':'ko'}" role="status"><strong>${okp?pick(OK_MSG):pick(BAD_MSG)}</strong>${q.expl}</div>`:''}`;
 }
+// Tras responder: la pregunta queda a la vista bajo la cabecera y, si cabe, también la explicación
+function keepQuestion(){const q=document.querySelector('.view.on .qcard');if(!q)return;const hb=document.querySelector('header').getBoundingClientRect().bottom;
+  const fb=document.querySelector('.view.on .feedback');const top=q.getBoundingClientRect().top+SC.scrollTop-hb-8;
+  let y=top;if(fb){const need=fb.getBoundingClientRect().bottom+SC.scrollTop+90-innerHeight;if(need>y)y=Math.min(need,top+q.offsetHeight*.5)}
+  SC.scrollTo({top:Math.max(0,y),behavior:'smooth'})}
 function openFicha(q){openSheet(`<h2 class="la">${q.ficha.tit}</h2>${q.ficha.html}<div class="sheet-nav"><button class="btn block" data-close="btn">Cerrar</button></div>`,'Tabla')}
 
 /* ===================== PRACTICAR: TEST ===================== */
@@ -1361,7 +1381,7 @@ let PREF=Object.assign({fs:'m',theme:'auto',types:['decl','anal','conj','voc','t
 const savePref=()=>store.set('latinum-pref',PREF);
 let pmode='test',QZ=null,FL=null;
 const ROUND=10;
-function startQuiz(){QZ={i:0,score:0,miss:[],recent:[],done:false};QZ.q=makeQuestion(PREF.types);QZ.recent.push(QZ.q.id+QZ.q.correct);renderPrac()}
+function startQuiz(){subPush();QZ={i:0,score:0,miss:[],recent:[],done:false};QZ.q=makeQuestion(PREF.types);QZ.recent.push(QZ.q.id+QZ.q.correct);renderPrac()}
 function renderPrac(){
   $$('[data-pmode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pmode===pmode));
   if(pmode==='cards'){renderCards();return}
@@ -1393,7 +1413,7 @@ function missText(q){const m=q.show.match(/class="lat-(?:big|mid)"[^>]*>(.*?)<\/
 function answerQuiz(i){const q=QZ.q;if(q.picked!==null)return;q.picked=q.opts[i];const ok=q.picked===q.correct;
   record(q.id,ok);topicRecord(q.t,ok);
   if(ok){QZ.score++;pStats.ok++;pStats.streak++;addXP(10)}else{QZ.miss.push(missText(q));pStats.streak=0;vibrar(60)}
-  updStats();renderPrac();const fb=$('.feedback');fb&&fb.scrollIntoView({block:'nearest',behavior:'smooth'})}
+  updStats();renderPrac();keepQuestion()}
 function nextQuiz(){QZ.i++;if(QZ.i>=ROUND)QZ.done=true;else{QZ.q=makeQuestion(PREF.types,QZ.recent);QZ.recent=[...QZ.recent.slice(-6),QZ.q.id+QZ.q.correct]}renderPrac();SC.scrollTop=0}
 
 /* ===================== PRACTICAR: TARJETAS (como en la tabla periódica) ===================== */
@@ -1417,14 +1437,14 @@ function renderCards(){
   }
   const w=FL.deck[FL.i],la2es=PREF.dir==='la';
   const front=la2es?`<div class="lat-big"${w.noLa?' style="font-style:normal"':''}>${w.la}</div><div class="muted">¿Qué significa?</div>`:`<div class="lat-big" style="font-style:normal">${w.es}</div><div class="muted">¿Cómo es en latín?</div>`;
-  const back=`<div class="lat-big"${w.noLa?' style="font-style:normal"':''}>${w.la}</div><div style="font-size:1.25rem;font-weight:800">${w.noLa?'→ ':'= '}${w.es}</div><div class="muted">${w.info}</div><div class="lvleg"><span><i style="background:var(--lv${level(w.id)})"></i>${LVNAME[level(w.id)]}</span></div>`;
+  const back=`<div class="lat-big"${w.noLa?' style="font-style:normal"':''}>${w.la}</div><div style="font-size:1.25rem;font-weight:800">${w.noLa?'→ ':'= '}${w.es}</div><div class="muted">${w.info}</div><div class="lvleg"><span><i style="background:var(--lv${level(w.id)})"></i>${level(w.id)?LVNAME[level(w.id)]:'Aún no la has practicado'}</span></div>`;
   box.innerHTML=`<div class="quiz">${deckSel}
     <div class="seg" role="group" aria-label="Dirección"><button data-dir="la" aria-pressed="${la2es}">Latín → castellano</button><button data-dir="es" aria-pressed="${!la2es}">Castellano → latín</button></div>
     <div class="counter"><span>Tarjeta ${FL.i+1} de ${FL.deck.length}</span><span>${FL.known} me las sé</span></div>
     <div class="bar"><i style="width:${FL.i/FL.deck.length*100}%"></i></div>
-    <div class="card3d${FL.flipped?' flipped':''}" id="card"><div class="inner">
-      <div class="face front"><div class="stripe"></div>${front}<span class="hint">Toca para darle la vuelta</span></div>
-      <div class="face back"><div class="stripe"></div>${back}</div></div></div>
+    <div class="card3d${FL.flipped?' flipped':''}" id="card" role="button" tabindex="0"><div class="inner">
+      <div class="face front" ${FL.flipped?'aria-hidden="true"':''}><div class="stripe"></div>${front}<span class="hint">Toca para darle la vuelta</span></div>
+      <div class="face back" ${FL.flipped?'':'aria-hidden="true"'}><div class="stripe"></div>${back}</div></div></div>
     <div class="flash-actions" ${FL.flipped?'':'style="visibility:hidden"'}><button class="btn no" id="fl-no">No me la sabía</button><button class="btn yes" id="fl-yes">Me la sabía</button></div>
     <p class="muted" style="margin:0;font-size:.85rem;text-align:center">${FL.flipped?'También puedes deslizar la tarjeta: ← no me la sabía · me la sabía →':'Sé sincero: las que fallas vuelven a salir más a menudo.'}</p></div>`;
 }
@@ -1441,7 +1461,7 @@ $('#v-practicar').addEventListener('click',e=>{const t=e.target;let b;
   if(t.closest('#qt-all')){PREF.types=Object.keys(QTYPES);savePref();renderPrac();return}
   if(t.closest('#qt-none')){PREF.types=[];savePref();renderPrac();return}
   if(t.closest('#qz-start')||t.closest('#qz-again')){startQuiz();return}
-  if(t.closest('#qz-setup')||t.closest('#qz-exit')){QZ=null;renderPrac();return}
+  if(t.closest('#qz-setup')||t.closest('#qz-exit')){exitSub();return}
   if(b=t.closest('[data-opt]')){answerQuiz(+b.dataset.opt);return}
   if(t.closest('#qz-next')){nextQuiz();return}
   if(t.closest('#qz-ficha')){openFicha(QZ.q);return}
@@ -1481,7 +1501,7 @@ function renderGame(){
   </div>`;
 }
 // --- Contrarreloj
-function startCrono(){CR={set:PREF.crono,score:0,end:Date.now()+60000,q:null,lock:false,fails:0};CR.q=makeQuestion(CRONO_SETS[CR.set][1]);renderCrono();
+function startCrono(){subPush();CR={set:PREF.crono,score:0,end:Date.now()+60000,q:null,lock:false,fails:0};CR.q=makeQuestion(CRONO_SETS[CR.set][1]);renderCrono();
   clearInterval(crTimer);crTimer=setInterval(()=>{if(!CR||CR.over)return clearInterval(crTimer);const left=CR.end-Date.now();
     const tb=$('#cr-tb');if(tb)tb.style.width=Math.max(0,left/600)+'%';const tl=$('#cr-t');if(tl)tl.textContent=Math.max(0,Math.ceil(left/1000));
     if(left<=0){CR.over=true;clearInterval(crTimer);const nr=setRec('crono-'+CR.set,CR.score);CR.newRec=nr;if(nr&&CR.score>0)confetti(50);addXP(CR.score*2);renderCrono()}},100)}
@@ -1495,7 +1515,7 @@ function answerCrono(i){const q=CR.q;if(q.picked!==null||CR.over)return;q.picked
   if(ok){CR.score++;flash('✓','var(--ok)')}else{CR.fails++;CR.end-=3000;flash('✗ −3 s','var(--bad)');vibrar(60)}
   renderCrono();setTimeout(()=>{if(!CR||CR.over)return;CR.q=makeQuestion(CRONO_SETS[CR.set][1]);renderCrono()},ok?350:1100)}
 // --- Supervivencia
-function startSurv(){SV={lives:3,score:0,q:makeQuestion(Object.keys(QTYPES)),over:false};renderSurv()}
+function startSurv(){subPush();SV={lives:3,score:0,q:makeQuestion(Object.keys(QTYPES)),over:false};renderSurv()}
 function renderSurv(){const box=$('#game');
   if(SV.over){box.innerHTML=`<div class="quiz"><div class="card end"><div style="font-size:2.4rem">🛡️</div><h2>Fin de la partida</h2><div class="score">${SV.score}</div><p style="margin:0">aciertos seguidos${SV.newRec&&SV.score?'<br><b>🏆 ¡Nuevo récord!</b>':''}</p>
     <div class="row" style="width:100%"><button class="btn ghost" style="flex:1" id="g-menu">Menú</button><button class="btn" style="flex:1" id="g-surv">Otra vez</button></div></div></div>`;return}
@@ -1505,16 +1525,16 @@ function renderSurv(){const box=$('#game');
   if(answered){const n=$('#sv-next');n&&n.focus({preventScroll:true})}}
 function answerSurv(i){const q=SV.q;if(q.picked!==null)return;q.picked=q.opts[i];const ok=q.picked===q.correct;record(q.id,ok);topicRecord(q.t,ok);
   if(ok){SV.score++;addXP(3);if(SV.score%10===0&&SV.lives<3){SV.lives++;flash('+❤️','var(--bad)')}}else{SV.lives--;vibrar(80)}
-  renderSurv()}
+  renderSurv();keepQuestion()}
 function nextSurv(){if(SV.lives<=0){SV.over=true;SV.newRec=setRec('surv',SV.score);if(SV.newRec&&SV.score)confetti(50)}else SV.q=makeQuestion(Object.keys(QTYPES),[SV.q.id+SV.q.correct]);renderSurv();SC.scrollTop=0}
 // --- Parejas
-function startPairs(k){const pairs=PAIR_SETS[k][1]();
+function startPairs(k){subPush();const pairs=PAIR_SETS[k][1]();
   const cards=shuffle(pairs.flatMap((p,i)=>[{k:i,txt:p[0],la:k!=='dios'},{k:i,txt:p[1],la:false}]));
   PJ={set:k,cards,open:[],done:new Set(),moves:0,busy:false};renderPairs()}
 function renderPairs(){const box=$('#game'),P=PJ,fin=P.done.size===P.cards.length/2;
   box.innerHTML=`<div class="quiz"><div class="hud"><button class="exitbtn" id="g-quit">✕ Salir</button><b>${PAIR_SETS[P.set][0]}</b><div class="stat"><b>${P.moves}</b><small>intentos</small></div></div>
     ${fin?`<div class="feedback ok" role="status"><strong>¡Todas las parejas! ${P.newRec?'🏆 ¡Nuevo récord!':''}</strong>Lo has conseguido en ${P.moves} intentos (el mínimo posible es 6).</div>`:''}
-    <div class="memo">${P.cards.map((c,i)=>{const op=P.open.includes(i)||P.done.has(c.k);return `<button class="mcard${op?(P.done.has(c.k)?' done':' open'):''}${c.la&&op?' la':''}${c.txt.length>16?' small':''}" data-mc="${i}" ${op?'disabled':''} aria-label="${op?c.txt:'Carta boca abajo'}">${op?c.txt:'SPQR'}</button>`}).join('')}</div>
+    <div class="memo">${P.cards.map((c,i)=>{const op=P.open.includes(i)||P.done.has(c.k);return `<button class="mcard${op?(P.done.has(c.k)?' done':' open'):''}${c.la&&op?' la':''}${c.txt.length>16?' small':''}" data-mc="${i}" ${op?'disabled':''} ${op?'':''}>${op?c.txt:'<span aria-hidden="true">SPQR</span><span class="sr">Carta boca abajo</span>'}</button>`}).join('')}</div>
     ${fin?`<div class="row"><button class="btn ghost" style="flex:1" id="g-menu">Menú</button><button class="btn" style="flex:1" data-pset="${P.set}">Otra vez</button></div>`:`<p class="muted" style="text-align:center;margin:0">Une cada palabra con su pareja.</p>`}</div>`}
 function tapPair(i){const P=PJ;if(P.busy||P.open.includes(i))return;P.open.push(i);
   if(P.open.length===2){P.moves++;const [a,b]=P.open.map(x=>P.cards[x]);
@@ -1526,7 +1546,7 @@ $('#game').addEventListener('click',e=>{const t=e.target;let b;
   if(t.closest('#g-crono')){SV=PJ=null;startCrono();return}
   if(t.closest('#g-surv')){CR=PJ=null;startSurv();return}
   if(b=t.closest('[data-pset]')){CR=SV=null;startPairs(b.dataset.pset);return}
-  if(t.closest('#g-menu')||t.closest('#g-quit')){if(CR)CR.over=true;clearInterval(crTimer);CR=SV=PJ=null;renderGame();return}
+  if(t.closest('#g-menu')||t.closest('#g-quit')){exitSub();return}
   if(b=t.closest('[data-opt]')){if(CR)answerCrono(+b.dataset.opt);else if(SV)answerSurv(+b.dataset.opt);return}
   if(t.closest('#sv-next')){nextSurv();return}
   if(b=t.closest('[data-mc]')){tapPair(+b.dataset.mc);return}
@@ -1536,8 +1556,14 @@ addEventListener('keydown',e=>{if(!$('#sheet').hidden||e.target.matches('input,s
   const k=e.key.toLowerCase(),idx='abcd'.indexOf(k)>=0?'abcd'.indexOf(k):'1234'.indexOf(k);
   const v=location.hash.slice(1);
   if(idx>=0){const b=$(`#v-${v} .opt[data-opt="${idx}"]:not(:disabled)`);if(b){b.click();e.preventDefault()}}
+  else if((k===' '||k==='enter')&&pmode==='cards'&&v==='practicar'&&FL&&document.activeElement&&document.activeElement.id==='card'){FL.flipped=!FL.flipped;renderCards();$('#card')&&$('#card').focus();e.preventDefault()}
   else if(k==='enter'){const n=$('#qz-next')||$('#sv-next');if(n&&v!=='inicio'&&document.activeElement!==n){n.click();e.preventDefault()}}
   else if(k===' '&&pmode==='cards'&&v==='practicar'&&FL&&!FL.flipped){FL.flipped=true;renderCards();e.preventDefault()}});
+
+/* ===================== BOTÓN ATRÁS EN TEST Y JUEGOS ===================== */
+function subPush(){if(!(history.state&&history.state.sub))history.pushState({sub:1},'',location.hash||'#inicio')}
+function leaveSub(){QZ=null;if(CR)CR.over=true;clearInterval(crTimer);CR=SV=PJ=null;const v=location.hash.slice(1);if(v==='practicar')renderPrac();if(v==='jugar')renderGame();SC.scrollTop=0}
+function exitSub(){if(history.state&&history.state.sub){skipPop=true;history.back();leaveSub()}else leaveSub()}
 
 /* ===================== INICIO ===================== */
 function renderInicio(){
@@ -1559,7 +1585,7 @@ $('#v-inicio').addEventListener('click',e=>{if(e.target.closest('#b-prog2'))open
 /* ===================== NAVEGACIÓN ===================== */
 function route(){
   const v=(location.hash||'#inicio').slice(1);const ok=['inicio','aprender','practicar','jugar'].includes(v)?v:'inicio';
-  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+ok));$$('nav.main a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
+  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+ok));$$('nav.main a').forEach(a=>{a.classList.toggle('on',a.dataset.v===ok);if(a.dataset.v===ok)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   if(ok!=='jugar'&&CR&&!CR.over){CR.over=true;clearInterval(crTimer);CR=null}
   if(ok==='inicio')renderInicio();if(ok==='practicar')renderPrac();if(ok==='jugar')renderGame();
   SC.scrollTop=0;
@@ -1570,6 +1596,7 @@ showLesson(Math.min(store.get('latinum-lesson',0),LESSONS.length-1));updStats();
 /* ===================== VERSIÓN, AVISO Y AUTORÍA ===================== */
 const VERSION=(document.querySelector('meta[name="app-version"]')||{}).content||"dev";
 const NOVEDADES=[
+  ["1.1",["🍏 Revisada con las guías de diseño de Apple (HIG): todos los botones de al menos 44 puntos, más contraste en modo claro y oscuro, y foco visible","♿ Mejoras de accesibilidad (WCAG 2.2): lectores de pantalla, teclado (la tarjeta se gira con Espacio o Intro) y títulos de cada pantalla","↩️ El botón «atrás» del móvil sale del test o del juego y vuelve al menú","❓ Al responder, la pregunta se encoge y sigue a la vista junto a la solución","🧩 Las preguntas de preposiciones tienen ya siempre cuatro opciones","📱 En el iPhone no se amplía la pantalla al elegir en los desplegables y la franja de arriba queda fija","🏷️ En las tarjetas, «Sin ver» pasa a ser «Aún no la has practicado»"]],
   ["1.0",["🏛️ Primera versión de Latinum","📜 13 lecciones con tablas interactivas: casos, las 5 declinaciones, adjetivos, pronombres, verbos (conjugador completo), preposiciones, etimología, latinismos, mitología e historia","✏️ Test con 13 tipos de pregunta y explicación de cada respuesta","🃏 Tarjetas de vocabulario, latinismos, dioses y ciudades: lo que fallas vuelve a salir más a menudo","🎮 Juegos: Contrarreloj, Supervivencia y Parejas, con récords","🪖 Rangos romanos: de Tiro a Caesar según tus aciertos"]]
 ];
 const AUTORES="Adela Moreno Vega y Carlos Moreno Otto";
@@ -1587,7 +1614,7 @@ function openSheet(html,label){const s=$('#sheet');
 function closeSheet(fromPop){const s=$('#sheet');if(s.hidden)return;s.hidden=true;s.innerHTML='';
   if(sheetOpener&&document.body.contains(sheetOpener))sheetOpener.focus({preventScroll:true});sheetOpener=null;
   if(!fromPop&&history.state&&history.state.sheet){skipPop=true;history.back()}}
-addEventListener('popstate',()=>{if(skipPop){skipPop=false;return}closeSheet(true)});
+addEventListener('popstate',()=>{if(skipPop){skipPop=false;return}if(!$('#sheet').hidden){closeSheet(true);return}if(QZ||CR||SV||PJ)leaveSub()});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 $('#sheet').addEventListener('click',e=>{if(e.target.dataset.close||e.target.closest('[data-close="btn"]'))closeSheet()});
 (function(){let y0=null,dy=0,el=null;
