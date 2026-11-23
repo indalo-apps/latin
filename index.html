@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="app-version" content="1.3">
+<meta name="app-version" content="1.3.1">
 <meta name="theme-color" content="#6e1f1b">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
@@ -1660,6 +1660,7 @@ curLesson=Math.min(store.get('latinum-lesson',0),LESSONS.length-1);updStats();ro
 /* ===================== VERSIÓN, AVISO Y AUTORÍA ===================== */
 const VERSION=(document.querySelector('meta[name="app-version"]')||{}).content||"dev";
 const NOVEDADES=[
+  ["1.3.1",["📲 Ayuda para instalar al día con iOS 27: el botón de tres rayas dentro de la barra de la dirección"]],
   ["1.3",["📚 Aprender empieza con un índice: las 13 lecciones a la vista, con ✓ en las que ya has visto y «Sigue por aquí» en la siguiente","☰ Dentro de cada lección, el botón «Lecciones» (o el botón «atrás» del móvil) vuelve al índice"]],
   ["1.2",["🎯 «Ponte a prueba» es más fácil: elige uno de los 6 temas (Un poco de todo, Sustantivos, Verbos, Vocabulario, Traducir o Cultura) y el test empieza al momento","⚙️ Quien quiera elegir los tipos uno a uno los tiene en «Personalizar», cada uno con un ejemplo","✏️ «Practicar este tema», al final de cada lección, empieza el test directamente"]],
   ["1.1",["🍏 Revisada con las guías de diseño de Apple (HIG): todos los botones de al menos 44 puntos, más contraste en modo claro y oscuro, y foco visible","♿ Mejoras de accesibilidad (WCAG 2.2): lectores de pantalla, teclado (la tarjeta se gira con Espacio o Intro) y títulos de cada pantalla","↩️ El botón «atrás» del móvil sale del test o del juego y vuelve al menú","❓ Al responder, la pregunta se encoge y sigue a la vista junto a la solución","🧩 Las preguntas de preposiciones tienen ya siempre cuatro opciones","📱 En el iPhone no se amplía la pantalla al elegir en los desplegables y la franja de arriba queda fija","🏷️ En las tarjetas, «Sin ver» pasa a ser «Aún no la has practicado»"]],
@@ -1775,6 +1776,7 @@ addEventListener('appinstalled',()=>{deferredPrompt=null;store.set('latinum-inst
 async function installNow(){if(!deferredPrompt)return;deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;renderInstallBanner()}
 const SHARE_SVG='<svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
 const DOTS_SVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>';
+const MENU3_SVG='<svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h10"/></svg>';
 const HDOTS_SVG='<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>';
 const PLUS_SVG='<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>';
 function openInstall(){
@@ -1801,7 +1803,7 @@ function openInstall(){
         <li><span>Elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}. Si no está, toca <b>«Más»</b> o baja en la lista.</span></li>${end}</ol>`;
     }else if(maj>=26){
       body=ver+`<ol class="steps">
-        <li><span>Toca el botón <b>···</b> ${HDOTS_SVG} que está a la derecha de la barra de la dirección${IS_IPAD?' (arriba)':' (abajo)'}.</span></li>
+        <li><span>${maj>=27&&!IS_IPAD?`Toca el botón ${MENU3_SVG} de tres rayas que está a la izquierda, dentro de la barra de la dirección (abajo).`:`Toca el botón ${HDOTS_SVG} que está a la derecha de la barra de la dirección${IS_IPAD?' (arriba)':' (abajo)'}.`}</span></li>
         <li><span>Toca <b>«Compartir»</b> ${SHARE_SVG}.</span></li>
         <li><span>Toca <b>«Ver más»</b> si hace falta, baja en la lista y elige <b>«Añadir a pantalla de inicio»</b> ${PLUS_SVG}.</span></li>${end}</ol>`;
     }else{
